@@ -21,6 +21,15 @@ class About extends StatelessWidget {
           bottom: 0,
           child: Container(width: 1, color: Colors.black),
         ),
+        // Flèche noire en haut pointant vers le coin gauche haut
+        Positioned(
+          left: 44,
+
+          child: Transform.rotate(
+            angle: -0.75, // Légère rotation pour pointer vers le coin
+            child: Icon(Icons.arrow_upward, color: Colors.black, size: 66),
+          ),
+        ),
         // Contenu principal
         Row(
           children: [
@@ -52,7 +61,7 @@ class About extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      "Ingénieur UX/UI designer",
+                      "UX/UI designer engineer",
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: Colors.black87,
                         fontWeight: FontWeight.w500,
