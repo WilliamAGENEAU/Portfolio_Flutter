@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/widgets/spaces.dart';
 
@@ -14,7 +16,7 @@ class SocialData {
     required this.name,
     required this.iconData,
     required this.url,
-    this.color = AppColors.white,
+    this.color,
   });
 }
 
@@ -23,16 +25,16 @@ class Socials extends StatelessWidget {
     Key? key,
     required this.socialData,
     this.size = Sizes.ICON_SIZE_18,
-    this.color = AppColors.white,
+    this.color,
     this.spacing = Sizes.SIZE_40,
     this.runSpacing = Sizes.SIZE_16,
     this.isHorizontal = true,
-  }) : assert(socialData.length > 0),
+  }) : assert(socialData.isNotEmpty),
        super(key: key);
 
   final List<SocialData> socialData;
   final double size;
-  final Color color;
+  final Color? color;
   final double spacing;
   final double runSpacing;
   final bool isHorizontal;
@@ -59,7 +61,7 @@ class Socials extends StatelessWidget {
           onTap: () => Functions.launchUrl(socialData[index].url),
           child: Icon(
             socialData[index].iconData,
-            color: socialData[index].color ?? color,
+            color: color ?? socialData[index].color ?? AppColors.accentColor,
             size: size,
           ),
         ),

@@ -4,7 +4,6 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import '../core/adaptive.dart';
 import '../sections/pages/home_page.dart';
 import '../values/values.dart';
-import 'app_logo.dart';
 import 'nav_item.dart';
 import 'page_wrapper.dart';
 import 'social.dart';
@@ -102,10 +101,6 @@ class _AppDrawerState extends State<AppDrawer>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        AppLogo(
-                          fontSize: Sizes.TEXT_SIZE_40,
-                          titleColor: AppColors.accentColor,
-                        ),
                         Spacer(),
                         InkWell(
                           onTap:

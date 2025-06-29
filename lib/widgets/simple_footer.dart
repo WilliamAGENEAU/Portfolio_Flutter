@@ -5,17 +5,16 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../core/adaptive.dart';
 import '../core/functions.dart';
 import '../values/values.dart';
-import 'animated_line_through_text.dart';
 import 'social.dart';
 import 'spaces.dart';
 
 class SimpleFooter extends StatelessWidget {
   const SimpleFooter({
-    Key? key,
+    super.key,
     this.height,
     this.width,
     this.backgroundColor = AppColors.black,
-  }) : super(key: key);
+  });
 
   final double? width;
   final double? height;
@@ -45,7 +44,7 @@ class SimpleFooter extends StatelessWidget {
 }
 
 class SimpleFooterSm extends StatelessWidget {
-  const SimpleFooterSm({Key? key}) : super(key: key);
+  const SimpleFooterSm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,16 +69,7 @@ class SimpleFooterSm extends StatelessWidget {
               onTap: () {
                 Functions.launchUrl(StringConst.DESIGN_LINK);
               },
-              child: AnimatedLineThroughText(
-                text: StringConst.DESIGNED_BY,
-                isUnderlinedByDefault: true,
-                isUnderlinedOnHover: false,
-                hoverColor: AppColors.white,
-                coverColor: AppColors.black,
-                textStyle: style?.copyWith(
-                  decoration: TextDecoration.underline,
-                ),
-              ),
+              child: Text(StringConst.DESIGNED_BY),
             ),
           ],
         ),
@@ -91,7 +81,7 @@ class SimpleFooterSm extends StatelessWidget {
 }
 
 class SimpleFooterLg extends StatelessWidget {
-  const SimpleFooterLg({Key? key}) : super(key: key);
+  const SimpleFooterLg({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -116,16 +106,7 @@ class SimpleFooterLg extends StatelessWidget {
               onTap: () {
                 Functions.launchUrl(StringConst.DESIGN_LINK);
               },
-              child: AnimatedLineThroughText(
-                text: StringConst.DESIGNED_BY,
-                isUnderlinedByDefault: true,
-                isUnderlinedOnHover: false,
-                hoverColor: AppColors.white,
-                coverColor: AppColors.black,
-                textStyle: style?.copyWith(
-                  decoration: TextDecoration.underline,
-                ),
-              ),
+              child: Text(StringConst.DESIGNED_BY),
             ),
           ],
         ),
@@ -137,7 +118,7 @@ class SimpleFooterLg extends StatelessWidget {
 }
 
 class BuiltWithFlutter extends StatelessWidget {
-  const BuiltWithFlutter({Key? key}) : super(key: key);
+  const BuiltWithFlutter({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,6 @@ import '../core/functions.dart';
 import '../values/values.dart';
 import 'aerium_button.dart';
 import 'animated_text_slide_box_transition.dart';
-import 'app_logo.dart';
 import 'empty.dart';
 import 'nav_item.dart';
 import 'spaces.dart';
@@ -64,7 +63,6 @@ class NavBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          AppLogo(fontSize: Sizes.TEXT_SIZE_40, titleColor: appLogoColor),
           Spacer(),
           InkWell(
             onTap: onMenuTap,
@@ -100,14 +98,13 @@ class NavBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              AppLogo(titleColor: appLogoColor),
               Spacer(),
               ..._buildNavItems(context, menuList: Data.menuItems),
               AeriumButton(
                 height: Sizes.HEIGHT_36,
                 hasIcon: false,
                 width: 80,
-                buttonColor: AppColors.white,
+                buttonColor: AppColors.surface,
                 borderColor: appLogoColor,
                 onHoverColor: appLogoColor,
                 title: StringConst.RESUME.toUpperCase(),

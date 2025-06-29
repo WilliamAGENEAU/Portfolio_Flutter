@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 import '../values/values.dart';
@@ -6,16 +8,16 @@ import 'empty.dart';
 
 class AnimatedLineThroughText extends StatefulWidget {
   const AnimatedLineThroughText({
-    Key? key,
+    super.key,
     required this.text,
     required this.textStyle,
     this.controller,
     this.onHoverTextStyle,
     this.lineThickness = 2,
     this.hoverColor = AppColors.black,
-    this.coverColor = AppColors.primaryColor,
+    this.coverColor = AppColors.grey100,
     this.slideBoxColor = AppColors.black,
-    this.slideBoxCoverColor = AppColors.primaryColor,
+    this.slideBoxCoverColor = AppColors.grey100,
     this.onTap,
     this.heightFactor = 1,
     this.widthFactor = 1,
@@ -30,8 +32,7 @@ class AnimatedLineThroughText extends StatefulWidget {
     this.hasSlideBoxAnimation = false,
   }) : assert(
          hasSlideBoxAnimation == true ? controller != null : controller == null,
-       ),
-       super(key: key);
+       );
 
   final String text;
   final Duration duration;

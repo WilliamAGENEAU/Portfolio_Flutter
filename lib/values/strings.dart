@@ -28,7 +28,7 @@ class StringConst {
   static const String DEV_TITLE = "UX/UI Engineer.";
   static const String DEV_DESC =
       "Designer / Mobile Engineer / Full Stack Developer ";
-  static const String SEE_MY_WORKS = "See my works";
+  static const String MY_PROJECTS = "My projects";
   static const String SCROLL_DOWN = "Scroll Down";
   static const String CRAFTED_WITH_LOVE = "Crafted with love.";
   static const String SELECTION = "Here is selection of my recent works.";
@@ -50,10 +50,9 @@ class StringConst {
   static const String MESSAGE_ERROR_MSG =
       "* Please enter something to send this form";
   static const String SEND_MESSAGE = "Send Message";
-  static const String COPYRIGHT = "©  2021  Built by  $WILLIAM_AGENEAU,";
-  static const String DESIGNED_BY = "Designed by Julius G.";
-  static const String DESIGN_LINK =
-      "https://www.behance.net/gallery/63574251/Personal-Portfolio-Website-Design";
+  static const String COPYRIGHT = "©  2025  Built by  $WILLIAM_AGENEAU,";
+  static const String DESIGNED_BY = "Designed by Me";
+  static const String DESIGN_LINK = "https://github.com/WilliamAGENEAU";
   static const String MESSAGE_ME = "Message me";
   static const String EMAIL_RESPONSE =
       "Thanks for reaching out to me! I will get back to you ASAP";
@@ -172,21 +171,17 @@ class StringConst {
 
   //Socials
 
-  static const String GITHUB_URL = "https://github.com/david-legend";
+  static const String GITHUB_URL = "https://github.com/WilliamAGENEAU";
   static const String LINKED_IN_URL =
-      "https://www.linkedin.com/in/david-cobbina-7b0226119";
-  static const String TWITTER_URL = "https://twitter.com/DavidLegend47";
+      "https://www.linkedin.com/in/william-ageneau/";
   static const String INSTAGRAM_URL =
-      "https://www.instagram.com/david_legend_47";
-  static const String TELEGRAM_URL = "https://t.me/DavidLegend";
+      "https://www.instagram.com/william.ageneau/";
 
   //Contacts
   static const String CONNECT = "Connect with me";
   static const String EMAIL = "Email";
   static const String LINKED_IN = "LinkedIn";
-  static const String TWITTER = "Twitter";
   static const String INSTAGRAM = "Instagram";
-  static const String TELEGRAM = "Telegram";
   static const String GITHUB = "Github";
 
   //Certificate Urls

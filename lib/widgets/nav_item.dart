@@ -108,7 +108,6 @@ class _NavItemState extends State<NavItem> {
                         ),
                     hoverColor: AppColors.accentColor,
                     coverColor: AppColors.black,
-                    lineThickness: 4,
                     onHoverTextStyle: textTheme.bodySmall?.copyWith(
                       fontSize: selectedTextSize,
                       color: AppColors.accentColor,
@@ -150,7 +149,6 @@ class _NavItemState extends State<NavItem> {
                           ),
                       hoverColor: AppColors.accentColor,
                       coverColor: AppColors.black,
-                      lineThickness: 4,
                       onHoverTextStyle: textTheme.bodyLarge?.copyWith(
                         fontSize: unselectedTextSize,
                         color: AppColors.accentColor,

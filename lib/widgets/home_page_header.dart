@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../core/adaptive.dart';
-import '../core/functions.dart';
 import '../sections/pages/works_page.dart';
 import '../values/values.dart';
 import 'animated_bubble_button.dart';
-import 'animated_line_through_text.dart';
 import 'animated_positioned_text.dart';
 import 'animated_positioned_widget.dart';
 import 'animated_slide_transtion.dart';
@@ -163,34 +161,79 @@ class _HomePageHeaderState extends State<HomePageHeader>
                   ],
                 );
               } else {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                return Stack(
                   children: [
-                    Container(
-                      margin: textMargin,
-                      child: SizedBox(
-                        width: screenWidth * 0.40,
-                        child: AboutDev(
-                          controller: widget.controller,
-                          width: screenWidth * 0.40,
+                    // Trait horizontal en haut (desktop uniquement)
+                    Positioned(
+                      left: 0,
+                      top: kToolbarHeight + 20,
+                      child: Container(
+                        width: screenWidth,
+                        height: 1.5,
+                        color: Colors.black,
+                      ),
+                    ),
+                    // Trait vertical à gauche, aligné à la marge, qui coupe le trait horizontal
+                    Positioned(
+                      left:
+                          textMargin.left / 2 -
+                          0.75, // centre le trait vertical dans la marge
+                      top: 0,
+                      bottom: 0,
+                      child: Container(width: 1.5, color: Colors.black),
+                    ),
+                    // Flèche noire dans le coin bas droite de la perpendiculaire des traits
+                    Positioned(
+                      left:
+                          textMargin.left / 2 -
+                          0.75, // décale un peu à gauche de la ligne
+                      top:
+                          kToolbarHeight +
+                          20 +
+                          1.5, // juste sous l'intersection, ajuste -12 pour centrer l'icône
+                      child: Transform.rotate(
+                        angle: -0.75, // pointe vers le haut gauche
+                        child: Icon(
+                          Icons.arrow_upward,
+                          color: Colors.black,
+                          size: 50,
                         ),
                       ),
                     ),
-                    SizedBox(width: screenWidth * 0.05),
-                    Container(
-                      margin: imageMargin,
-                      child: AnimatedSlideTranstion(
-                        controller: controller,
-                        position: animation,
-                        child: Stack(
-                          children: [
-                            Image.asset(
-                              ImagePath.William_home,
-                              width: screenWidth * 0.35,
+                    // Le contenu principal
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Espace de la marge gauche (pour garder la structure)
+                        SizedBox(width: textMargin.left),
+                        // Bloc AboutDev sans la marge gauche (déjà prise par SizedBox)
+                        Container(
+                          margin: textMargin.copyWith(left: 0),
+                          child: SizedBox(
+                            width: screenWidth * 0.40,
+                            child: AboutDev(
+                              controller: widget.controller,
+                              width: screenWidth * 0.40,
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                        SizedBox(width: screenWidth * 0.05),
+                        Container(
+                          margin: imageMargin,
+                          child: AnimatedSlideTranstion(
+                            controller: controller,
+                            position: animation,
+                            child: Stack(
+                              children: [
+                                Image.asset(
+                                  ImagePath.William_home,
+                                  width: screenWidth * 0.35,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 );
@@ -233,27 +276,6 @@ class _HomePageHeaderState extends State<HomePageHeader>
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class WhiteCircle extends StatelessWidget {
-  const WhiteCircle({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final widthOfCircle = responsiveSize(
-      context,
-      widthOfScreen(context) / 2.5,
-      widthOfScreen(context) / 3.5,
-    );
-    return Container(
-      width: widthOfCircle,
-      height: widthOfCircle,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.all(Radius.circular(widthOfCircle / 2)),
       ),
     );
   }
@@ -361,7 +383,7 @@ class _AboutDevState extends State<AboutDev> {
             targetOffset: Offset(0.1, 0),
             targetWidth: 200,
             startBorderRadius: const BorderRadius.all(Radius.circular(100.0)),
-            title: StringConst.SEE_MY_WORKS.toUpperCase(),
+            title: StringConst.MY_PROJECTS.toUpperCase(),
             titleStyle: textTheme.bodyMedium?.copyWith(
               color: AppColors.black,
               fontSize: responsiveSize(
@@ -377,53 +399,12 @@ class _AboutDevState extends State<AboutDev> {
             },
           ),
         ),
-        SpaceH40(),
+        SpaceH24(),
         Container(
           margin: margin,
-          child: Wrap(
-            spacing: 20,
-            runSpacing: 20,
-            children: _buildSocials(context: context, data: Data.socialData1),
-          ),
+          child: Socials(socialData: Data.socialData, color: AppColors.black),
         ),
       ],
     );
-  }
-
-  List<Widget> _buildSocials({
-    required BuildContext context,
-    required List<SocialData> data,
-  }) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? style = textTheme.bodyMedium?.copyWith(color: AppColors.grey750);
-    TextStyle? slashStyle = textTheme.bodySmall?.copyWith(
-      color: AppColors.grey750,
-      fontWeight: FontWeight.w400,
-      fontSize: 18,
-    );
-    List<Widget> items = [];
-
-    for (int index = 0; index < data.length; index++) {
-      items.add(
-        AnimatedLineThroughText(
-          text: data[index].name,
-          isUnderlinedByDefault: true,
-          controller: widget.controller,
-          hasSlideBoxAnimation: true,
-          hasOffsetAnimation: true,
-          isUnderlinedOnHover: false,
-          onTap: () {
-            Functions.launchUrl(data[index].url);
-          },
-          textStyle: style,
-        ),
-      );
-
-      if (index < data.length - 1) {
-        items.add(Text('/', style: slashStyle));
-      }
-    }
-
-    return items;
   }
 }
