@@ -1,8 +1,10 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class AnimatedPositionedText extends StatefulWidget {
   const AnimatedPositionedText({
-    Key? key,
+    super.key,
     required this.controller,
     required this.text,
     required this.textStyle,
@@ -12,7 +14,7 @@ class AnimatedPositionedText extends StatefulWidget {
     this.textAlign,
     this.relativeRect,
     this.slideAnimationcurve = Curves.fastOutSlowIn,
-  }) : super(key: key);
+  });
 
   final CurvedAnimation controller;
   final String text;
@@ -64,7 +66,7 @@ class _AnimatedPositionedTextState extends State<AnimatedPositionedText> {
   Widget build(BuildContext context) {
     setTextWidthAndHeight();
 
-    return Container(
+    return SizedBox(
       height: textHeight,
       child: Stack(
         children: [

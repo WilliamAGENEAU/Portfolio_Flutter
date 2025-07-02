@@ -35,6 +35,7 @@ class ImagePath {
   static const String ABOUT_PORTRAIT = "$imageDir/about_portrait.png";
   static const String DEV_ABOUT = "$imageDir/dev-about.jpg";
   static const String William_home = "$imageDir/william_bkg.png";
+  static const String jelly = "$imageDir/jelly.png";
 
   static const String DEV_SKILLS = "$imageDir/skills.png";
   static const String DEV_SKILLS_1 = "$imageDir/skills1.png";

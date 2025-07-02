@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -13,11 +15,11 @@ import 'spaces.dart';
 
 class AnimatedFooter extends StatefulWidget {
   const AnimatedFooter({
-    Key? key,
+    super.key,
     this.height,
     this.width,
     this.backgroundColor = AppColors.black,
-  }) : super(key: key);
+  });
 
   final double? width;
   final double? height;
@@ -85,7 +87,7 @@ class _AnimatedFooterState extends State<AnimatedFooter>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Spacer(flex: 2),
-            Container(
+            SizedBox(
               height: circleImageSize,
               child: Stack(
                 children: [
@@ -135,14 +137,14 @@ class _AnimatedFooterState extends State<AnimatedFooter>
                 curve: Curves.fastOutSlowIn,
               ),
             ),
-            SpaceH40(),
+            SpaceH20(),
             AnimatedBubbleButton(
               title: StringConst.SAY_HELLO.toUpperCase(),
               onTap: () {
                 Navigator.pushNamed(context, ContactPage.contactPageRoute);
               },
             ),
-            Spacer(flex: 3),
+            SpaceH20(),
             ResponsiveBuilder(
               builder: (context, sizingInformation) {
                 double screenWidth = sizingInformation.screenSize.width;

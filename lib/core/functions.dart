@@ -6,6 +6,7 @@ import '../widgets/project_item.dart';
 
 class Functions {
   static void launchUrl(String url) async {
+    // ignore: deprecated_member_use
     await launch(url);
   }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../core/adaptive.dart';
@@ -87,7 +86,7 @@ class SimpleFooterLg extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     TextStyle? style = textTheme.bodyMedium?.copyWith(
-      color: AppColors.accentColor,
+      color: Colors.white,
       fontSize: Sizes.TEXT_SIZE_14,
     );
     return Column(
@@ -106,7 +105,10 @@ class SimpleFooterLg extends StatelessWidget {
               onTap: () {
                 Functions.launchUrl(StringConst.DESIGN_LINK);
               },
-              child: Text(StringConst.DESIGNED_BY),
+              child: Text(
+                StringConst.DESIGNED_BY,
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -134,8 +136,6 @@ class BuiltWithFlutter extends StatelessWidget {
       children: [
         Text(StringConst.BUILT_WITH_FLUTTER, style: style),
         FlutterLogo(size: 14),
-        Text(" with ", style: style),
-        Icon(FontAwesomeIcons.solidHeart, size: 14, color: AppColors.errorRed),
       ],
     );
   }

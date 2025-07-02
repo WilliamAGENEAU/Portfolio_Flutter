@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,8 +8,8 @@ import 'package:portfolio_flutter/widgets/spaces.dart';
 import '../values/values.dart';
 
 class AeriumButton extends StatefulWidget {
-  AeriumButton({
-    Key? key,
+  const AeriumButton({
+    super.key,
     required this.title,
     this.titleStyle,
     this.width = Sizes.WIDTH_120,
@@ -25,7 +27,7 @@ class AeriumButton extends StatefulWidget {
     this.curve = Curves.fastOutSlowIn,
     this.buttonStyle,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   final String title;
   final TextStyle? titleStyle;
@@ -105,7 +107,7 @@ class _AeriumButtonState extends State<AeriumButton>
     return MouseRegion(
       onEnter: (e) => _mouseEnter(true),
       onExit: (e) => _mouseEnter(false),
-      child: Container(
+      child: SizedBox(
         width: widget.width,
         height: widget.height,
         child: ElevatedButton(

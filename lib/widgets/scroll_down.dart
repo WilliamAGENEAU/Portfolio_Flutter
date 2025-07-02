@@ -4,7 +4,7 @@ import '../values/values.dart';
 import 'spaces.dart';
 
 class ScrollDownButton extends StatelessWidget {
-  const ScrollDownButton({Key? key}) : super(key: key);
+  const ScrollDownButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +14,11 @@ class ScrollDownButton extends StatelessWidget {
           quarterTurns: 1,
           child: Text(
             StringConst.SCROLL_DOWN.toUpperCase(),
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(fontSize: 12, letterSpacing: 1.7),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 12,
+              letterSpacing: 1.7,
+              color: AppColors.grey750,
+            ),
           ),
         ),
         SpaceH16(),

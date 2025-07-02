@@ -1,7 +1,7 @@
-part of values;
+part of 'values.dart';
 
 class Borders {
-   static const UnderlineInputBorder primaryInputBorder = UnderlineInputBorder(
+  static const UnderlineInputBorder primaryInputBorder = UnderlineInputBorder(
     borderSide: BorderSide(
       color: AppColors.grey,
       width: Sizes.WIDTH_1,

@@ -135,17 +135,9 @@ class _HomePageHeaderState extends State<HomePageHeader>
                   children: [
                     Container(
                       padding: padding,
-                      child: AnimatedSlideTranstion(
-                        controller: controller,
-                        position: animation,
-                        child: Stack(
-                          children: [
-                            Image.asset(
-                              ImagePath.William_home,
-                              width: screenWidth,
-                            ),
-                          ],
-                        ),
+                      child: Image.asset(
+                        ImagePath.William_home,
+                        width: screenWidth,
                       ),
                     ),
                     Container(
@@ -218,19 +210,12 @@ class _HomePageHeaderState extends State<HomePageHeader>
                           ),
                         ),
                         SizedBox(width: screenWidth * 0.05),
+                        // Remplace AnimatedSlideTranstion par Image.asset ici aussi :
                         Container(
                           margin: imageMargin,
-                          child: AnimatedSlideTranstion(
-                            controller: controller,
-                            position: animation,
-                            child: Stack(
-                              children: [
-                                Image.asset(
-                                  ImagePath.William_home,
-                                  width: screenWidth * 0.35,
-                                ),
-                              ],
-                            ),
+                          child: Image.asset(
+                            ImagePath.William_home,
+                            width: screenWidth * 0.35,
                           ),
                         ),
                       ],
@@ -377,7 +362,7 @@ class _AboutDevState extends State<AboutDev> {
           width: 200,
           height: 60,
           child: AnimatedBubbleButton(
-            color: AppColors.grey100,
+            color: AppColors.surface,
             imageColor: AppColors.black,
             startOffset: Offset(0, 0),
             targetOffset: Offset(0.1, 0),

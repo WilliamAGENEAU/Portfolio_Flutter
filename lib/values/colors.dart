@@ -9,8 +9,9 @@ class AppColors {
   static const Color primaryContainer = Color(0xFFffdf9e);
   static const Color onPrimaryContainer = Color(0xFF5b4300);
   static const Color secondaryColor = Color(0xFF6b5d3f);
+  static const Color tertiaryContainer = Color(0xFFcdebc3);
   static const Color background = Color(0xFFfff8f2);
-  static const Color surface = Color(0xFFf6ecdf);
+  static const Color surface = Color(0xFFf1e7d9);
   static const Color accentColor = Color(0xFFfff8f2);
   static const Color accentColor2 = Color(0xFFEEEEEE);
 

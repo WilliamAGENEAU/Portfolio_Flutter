@@ -90,7 +90,7 @@ class StringConst {
   static const String FAMOUS_QUOTE_AUTHOR = "Albert Einstein";
   static const String WORK_TOGETHER = "Let's work together.";
   static const String AVAILABLE_FOR_FREELANCE =
-      "I'm available for Consultancy & Freelancing.";
+      "I am available from October 2025.";
   static const String SAY_HELLO = "Say Hello";
 
   // Works Page
@@ -114,7 +114,7 @@ class StringConst {
   static const String VIEW = "View";
   static const String COMING_SOON = "COMING SOON !!";
   static const String BUILT_WITH_FLUTTER = "Built using ";
-  static const String DEV_EMAIL = "davidcobbina47@gmail.com";
+  static const String DEV_EMAIL = "ageneauwilliam@gmail.com";
   static const String EMAIL_URL = "mailto:<$DEV_EMAIL>?subject=&body=";
 
   static const String KEY_SKILLS = "KEY SKILLS";

@@ -1,15 +1,17 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class AnimatedPositionedWidget extends StatefulWidget {
   const AnimatedPositionedWidget({
-    Key? key,
+    super.key,
     required this.controller,
     required this.width,
     required this.height,
     required this.child,
     this.relativeRect,
     this.slideAnimationcurve = Curves.fastOutSlowIn,
-  }) : super(key: key);
+  });
 
   final CurvedAnimation controller;
   final double width;
@@ -28,7 +30,8 @@ class _AnimatedPositionedWidgetState extends State<AnimatedPositionedWidget> {
 
   @override
   void initState() {
-    textPositionAnimation = widget.relativeRect ??
+    textPositionAnimation =
+        widget.relativeRect ??
         RelativeRectTween(
           begin: RelativeRect.fromSize(
             Rect.fromLTWH(0, widget.height, widget.width, widget.height),
@@ -43,11 +46,9 @@ class _AnimatedPositionedWidgetState extends State<AnimatedPositionedWidget> {
     super.initState();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: widget.height,
       width: widget.width,
       child: Stack(
