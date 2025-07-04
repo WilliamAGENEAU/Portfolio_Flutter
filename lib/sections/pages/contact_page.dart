@@ -205,6 +205,7 @@ class _ContactPageState extends State<ContactPage>
                         controller: _controller,
                         text: StringConst.GET_IN_TOUCH,
                         textStyle: headingStyle,
+                        color: AppColors.background,
                       ),
                       CustomSpacer(heightFactor: 0.05),
                       AnimatedPositionedText(

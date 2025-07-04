@@ -62,23 +62,26 @@ class StringConst {
   // About Page
   static const String ABOUT_DEV_CATCH_LINE =
       "I am a passionate front-end developer and ui/ux designer with a keen eye for details.";
-  static const String ABOUT_DEV_CATCH_LINE_1 = "I specialize in building high ";
+  static const String ABOUT_DEV_CATCH_LINE_1 =
+      "Passionate about interface creation and motion design,";
   static const String ABOUT_DEV_CATCH_LINE_2 =
-      "quality mobile & web applications.";
+      "I draw inspiration from my encounters and discoveries abroad.";
   // static const String ABOUT_DEV_CATCH_LINE_3 = "& web applications";
-  static const String ABOUT_DEV_CATCH_LINE_4 = "I also have a strong";
-  static const String ABOUT_DEV_CATCH_LINE_5 = "passion for opensource work.";
-  static const String ABOUT_DEV_STORY = "Story";
+  static const String ABOUT_DEV_CATCH_LINE_4 =
+      "I'm also a DJ and a fan of electronic music. ";
+  static const String ABOUT_DEV_CATCH_LINE_5 =
+      "I want that young, dynamic and responsive vibe to show through in my interfaces.";
+  static const String ABOUT_DEV_STORY = "Story ";
   static const String ABOUT_DEV_STORY_TITLE = "A little bit about myself.";
   static const String ABOUT_DEV_STORY_CONTENT_1 =
-      "I am full stack software engineer with great passion for building high quality applications. I have an extensive experience building frontend (mobile & web) and backend applications. I occasionally work as a tech consultant and I am enthusiastic about Devops & Cloud computing technologies.";
+      "I am front-end software engineer with great passion for building high quality applications.";
   static const String ABOUT_DEV_STORY_CONTENT_2 =
-      "I have a Masters in IT from Carnegie Mellon University where I majored in Software Engineering. I have strong technical skills as well as excellent interpersonal skills, which has enabled me to work & interact with clients all over the world.";
+      "I have a degree in computer engineering from the ESAIP engineering school in Angers, specialising in IoT (connected objects). I have strong technical skills as well as excellent interpersonal skills, which have enabled me to work and interact with customers all over the world.";
   static const String ABOUT_DEV_STORY_CONTENT_3 =
-      "I am very great at finding solutions to problems and I have a very keen eye for details. I enjoy building fun/useful projects in my free time and open sourcing them. I am an avid reader, lover of all forms art & music, a big fan of poetry & I love travelling.";
-  static const String ABOUT_DEV_TECHNOLOGY = "Technology";
-  static const String MOBILE_TECH = "Mobile Technologies";
-  static const String OTHER_TECH = "Web / Cloud / Design Technologies";
+      "I am very good at thinking and solving problems with intelligent, intuitive, and modern computer interfaces. I am moving more and more towards user experience and design (UX/UI).";
+  static const String ABOUT_DEV_TECHNOLOGY = "Technology ";
+  static const String UI = "UX / UI";
+  static const String OTHER_TECH = "Web / Mobile / Desktop";
   static const String ABOUT_DEV_TECHNOLOGY_TITLE = "What I use.";
   static const String ABOUT_DEV_TECHNOLOGY_CONTENT =
       "I use a number of tools to aid my creative process when bringing things to life. Listed below are the tools and technologies that I have used over the years.";

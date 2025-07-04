@@ -168,6 +168,7 @@ class _AnimatedLineThroughTextState extends State<AnimatedLineThroughText>
                                   ? TextDecoration.underline
                                   : TextDecoration.none,
                             ),
+                      color: AppColors.background,
                     )
                   : Empty(),
               Positioned(

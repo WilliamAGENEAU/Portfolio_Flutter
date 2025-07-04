@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 import '../core/adaptive.dart';
@@ -19,8 +21,8 @@ class NavigationArguments {
 }
 
 class PageWrapper extends StatefulWidget {
-  PageWrapper({
-    Key? key,
+  const PageWrapper({
+    super.key,
     required this.selectedRoute,
     required this.selectedPageName,
     required this.navBarAnimationController,
@@ -34,7 +36,7 @@ class PageWrapper extends StatefulWidget {
     this.navBarTitleColor = AppColors.grey600,
     this.navBarSelectedTitleColor = AppColors.black,
     this.appLogoColor = AppColors.black,
-  }) : super(key: key);
+  });
 
   final String selectedRoute;
   final String selectedPageName;
@@ -58,7 +60,7 @@ class _PageWrapperState extends State<PageWrapper>
     with TickerProviderStateMixin {
   late AnimationController forwardSlideController;
   late AnimationController unveilPageSlideController;
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   Duration duration = Duration(milliseconds: 1250);
 
   @override

@@ -98,6 +98,7 @@ class _AboutprojectState extends State<Aboutproject> {
             textStyle: textTheme.bodyLarge?.copyWith(
               fontSize: Sizes.TEXT_SIZE_48,
             ),
+            color: AppColors.background,
           ),
           SpaceH40(),
           AnimatedPositionedText(
@@ -270,7 +271,7 @@ class ProjectData extends StatelessWidget {
       fontSize: 15,
     );
 
-    return Container(
+    return SizedBox(
       width: width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,6 +284,7 @@ class ProjectData extends StatelessWidget {
             controller: controller,
             text: title,
             textStyle: titleStyle ?? defaultTitleStyle,
+            color: AppColors.background,
           ),
           SpaceH12(),
           AnimatedPositionedText(

@@ -1,4 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../core/adaptive.dart';
@@ -19,7 +23,7 @@ import '../../widgets/technology_section.dart';
 
 class AboutPage extends StatefulWidget {
   static const String aboutPageRoute = StringConst.ABOUT_PAGE;
-  const AboutPage({Key? key}) : super(key: key);
+  const AboutPage({super.key});
 
   @override
   _AboutPageState createState() => _AboutPageState();
@@ -78,7 +82,7 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     double contentAreaWidth = responsiveSize(
       context,
-      assignWidth(context, 0.8),
+      assignWidth(context, 0.75),
       assignWidth(context, 0.75),
       sm: assignWidth(context, 0.8),
     );
@@ -117,22 +121,22 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
       color: AppColors.black,
       fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_20),
     );
-    CurvedAnimation _storySectionAnimation = CurvedAnimation(
+    CurvedAnimation storySectionAnimation = CurvedAnimation(
       parent: _storyController,
       curve: Interval(0.6, 1.0, curve: Curves.ease),
     );
-    CurvedAnimation _technologySectionAnimation = CurvedAnimation(
+    CurvedAnimation technologySectionAnimation = CurvedAnimation(
       parent: _technologyController,
       curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn),
     );
     double widthOfBody = responsiveSize(
       context,
-      assignWidth(context, 0.75),
-      assignWidth(context, 0.5),
+      assignWidth(context, 0.55),
+      assignWidth(context, 0.3),
     );
     return PageWrapper(
       selectedRoute: AboutPage.aboutPageRoute,
-      selectedPageName: StringConst.ABOUT,
+      selectedPageName: "",
       navBarAnimationController: _controller,
       onLoadingAnimationDone: () {
         _controller.forward();
@@ -167,31 +171,121 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
                       width: contentAreaWidth,
                       section: StringConst.ABOUT_DEV_STORY.toUpperCase(),
                       title: StringConst.ABOUT_DEV_STORY_TITLE,
-                      body: Column(
-                        children: [
-                          AnimatedPositionedText(
-                            controller: _storySectionAnimation,
-                            width: widthOfBody,
-                            maxLines: 30,
-                            // factor: 1.25,
-                            text: StringConst.ABOUT_DEV_STORY_CONTENT_1,
-                            textStyle: bodyText1Style,
-                          ),
-                          AnimatedPositionedText(
-                            controller: _storySectionAnimation,
-                            width: widthOfBody,
-                            maxLines: 30,
-                            text: StringConst.ABOUT_DEV_STORY_CONTENT_2,
-                            textStyle: bodyText1Style,
-                          ),
-                          AnimatedPositionedText(
-                            controller: _storySectionAnimation,
-                            width: widthOfBody,
-                            maxLines: 30,
-                            text: StringConst.ABOUT_DEV_STORY_CONTENT_3,
-                            textStyle: bodyText1Style,
-                          ),
-                        ],
+                      body: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final isMobile =
+                              constraints.maxWidth <
+                              RefinedBreakpoints().tabletSmall;
+                          final carouselHeight = isMobile
+                              ? assignHeight(context, 0.35)
+                              : assignHeight(context, 0.55);
+                          final carouselWidth = isMobile
+                              ? constraints.maxWidth
+                              : constraints.maxWidth * 0.43;
+
+                          return Flex(
+                            direction: isMobile
+                                ? Axis.vertical
+                                : Axis.horizontal,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Paragraphes à gauche sur desktop, au-dessus sur mobile
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    AnimatedPositionedText(
+                                      controller: storySectionAnimation,
+                                      width: widthOfBody,
+                                      maxLines: 30,
+                                      text:
+                                          StringConst.ABOUT_DEV_STORY_CONTENT_1,
+                                      textStyle: bodyText1Style?.copyWith(
+                                        height: 2,
+                                      ),
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                    AnimatedPositionedText(
+                                      controller: storySectionAnimation,
+                                      width: widthOfBody,
+                                      maxLines: 30,
+                                      text:
+                                          StringConst.ABOUT_DEV_STORY_CONTENT_2,
+                                      textStyle: bodyText1Style?.copyWith(
+                                        height: 2,
+                                      ),
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                    AnimatedPositionedText(
+                                      controller: storySectionAnimation,
+                                      width: widthOfBody,
+                                      maxLines: 30,
+                                      text:
+                                          StringConst.ABOUT_DEV_STORY_CONTENT_3,
+                                      textStyle: bodyText1Style?.copyWith(
+                                        height: 2,
+                                      ),
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: isMobile ? 0 : 32,
+                                height: isMobile ? 24 : 0,
+                              ),
+                              // Carousel à droite sur desktop, en dessous sur mobile
+                              AnimatedBuilder(
+                                animation: storySectionAnimation,
+                                builder: (context, child) {
+                                  return Opacity(
+                                    opacity: storySectionAnimation.value,
+                                    child: child,
+                                  );
+                                },
+                                child: SizedBox(
+                                  width: carouselWidth,
+                                  height: carouselHeight,
+                                  child: CarouselSlider(
+                                    options: CarouselOptions(
+                                      height: carouselHeight,
+                                      viewportFraction: 1,
+                                      autoPlay: true,
+                                      autoPlayInterval: const Duration(
+                                        seconds: 3,
+                                      ),
+                                      enlargeCenterPage: true,
+                                      enableInfiniteScroll: true,
+                                      scrollDirection: Axis.horizontal,
+                                      aspectRatio: isMobile ? 1.5 : 0.8,
+                                    ),
+                                    items:
+                                        [
+                                          ImagePath.carousel1,
+                                          ImagePath.carousel2,
+                                          ImagePath.carousel3,
+                                          ImagePath.carousel4,
+                                          ImagePath.carousel5,
+                                          ImagePath.carousel6,
+                                        ].map((imgPath) {
+                                          return ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              24,
+                                            ),
+                                            child: Image.asset(
+                                              imgPath,
+                                              fit: BoxFit.cover,
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                            ),
+                                          );
+                                        }).toList(),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -214,7 +308,7 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
                       body: Column(
                         children: [
                           AnimatedPositionedText(
-                            controller: _technologySectionAnimation,
+                            controller: technologySectionAnimation,
                             width: widthOfBody,
                             maxLines: 12,
                             text: StringConst.ABOUT_DEV_TECHNOLOGY_CONTENT,
@@ -233,7 +327,7 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
                         },
                         child: Column(
                           children: [
-                            SpaceH40(),
+                            SpaceH12(),
                             TechnologySection(
                               width: contentAreaWidth,
                               controller: _technologyListController,
@@ -278,6 +372,7 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
                             controller: _contactController,
                             text: StringConst.ABOUT_DEV_CONTACT_EMAIL,
                             textStyle: titleStyle,
+                            color: AppColors.background,
                           ),
                           SpaceH40(),
                           AnimatedLineThroughText(
@@ -293,56 +388,7 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  CustomSpacer(heightFactor: 0.1),
-                  VisibilityDetector(
-                    key: Key('quote-section'),
-                    onVisibilityChanged: (visibilityInfo) {
-                      double visiblePercentage =
-                          visibilityInfo.visibleFraction * 100;
-                      if (visiblePercentage > 50) {
-                        _quoteController.forward();
-                      }
-                    },
-                    child: Column(
-                      children: [
-                        AnimatedTextSlideBoxTransition(
-                          controller: _quoteController,
-                          text: StringConst.FAMOUS_QUOTE,
-                          maxLines: 5,
-                          width: contentAreaWidth,
-                          textAlign: TextAlign.center,
-                          textStyle: titleStyle?.copyWith(
-                            fontSize: responsiveSize(
-                              context,
-                              Sizes.TEXT_SIZE_24,
-                              Sizes.TEXT_SIZE_36,
-                              md: Sizes.TEXT_SIZE_28,
-                            ),
-                            height: 2.0,
-                          ),
-                        ),
-                        SpaceH20(),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: AnimatedTextSlideBoxTransition(
-                            controller: _quoteController,
-                            text: "— ${StringConst.FAMOUS_QUOTE_AUTHOR}",
-                            textStyle: textTheme.bodyMedium?.copyWith(
-                              fontSize: responsiveSize(
-                                context,
-                                Sizes.TEXT_SIZE_16,
-                                Sizes.TEXT_SIZE_18,
-                                md: Sizes.TEXT_SIZE_16,
-                              ),
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.grey600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  CustomSpacer(heightFactor: 0.2),
+                  SpaceH36(),
                 ],
               ),
             ),

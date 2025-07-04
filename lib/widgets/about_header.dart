@@ -8,8 +8,7 @@ import 'content_area.dart';
 import 'spaces.dart';
 
 class AboutHeader extends StatelessWidget {
-  const AboutHeader({Key? key, required this.width, required this.controller})
-    : super(key: key);
+  const AboutHeader({super.key, required this.width, required this.controller});
 
   final double width;
   final AnimationController controller;
@@ -18,15 +17,9 @@ class AboutHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     double spacing = responsiveSize(
       context,
-      width * 0.15,
-      width * 0.15,
+      width * 0.10,
+      width * 0.10,
       md: width * 0.05,
-    );
-    double imageWidthLg = responsiveSize(
-      context,
-      width * 0.3,
-      width * 0.3,
-      md: width * 0.4,
     );
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
@@ -56,22 +49,28 @@ class AboutHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ContentArea(
-                width: width * 0.55,
+                width: width * 0.49,
                 child: AboutDescription(
                   controller: controller,
                   width: width * 0.55,
                 ),
               ),
               SizedBox(width: spacing),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(80.0),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: imageWidthLg,
-                    minWidth: imageWidthLg,
-                    maxHeight: assignHeight(context, 0.55),
+              // Image encore plus grande
+              Flexible(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(80.0),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: width * 0.5, // Passe à 50% de la largeur totale
+                      minWidth: width * 0.40, // Largeur minimale plus grande
+                      maxHeight: assignHeight(
+                        context,
+                        0.90,
+                      ), // Hauteur max augmentée
+                    ),
+                    child: Image.asset(ImagePath.DEV, fit: BoxFit.cover),
                   ),
-                  child: Image.asset(ImagePath.DEV, fit: BoxFit.cover),
                 ),
               ),
             ],
@@ -84,10 +83,10 @@ class AboutHeader extends StatelessWidget {
 
 class AboutDescription extends StatelessWidget {
   const AboutDescription({
-    Key? key,
+    super.key,
     required this.controller,
     required this.width,
-  }) : super(key: key);
+  });
 
   final AnimationController controller;
   final double width;
@@ -96,7 +95,7 @@ class AboutDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     TextStyle? style = textTheme.bodyMedium?.copyWith(
-      fontSize: responsiveSize(context, 30, 44, md: 34),
+      fontSize: responsiveSize(context, 20, 34, md: 24),
       height: 1.2,
       fontWeight: FontWeight.w200,
     );
@@ -107,26 +106,10 @@ class AboutDescription extends StatelessWidget {
           controller: controller,
           text: StringConst.ABOUT_DEV_CATCH_LINE_1,
           width: width,
-          maxLines: 2,
+          maxLines: 3,
           textStyle: style,
-        ),
-        SpaceH8(),
-        AnimatedTextSlideBoxTransition(
-          controller: controller,
-          text: StringConst.ABOUT_DEV_CATCH_LINE_2,
-          width: width,
-          maxLines: 10,
-          heightFactor: 2,
-          textStyle: style,
-        ),
-
-        SpaceH8(),
-        AnimatedTextSlideBoxTransition(
-          controller: controller,
-          text: StringConst.ABOUT_DEV_CATCH_LINE_4,
-          width: width,
-          maxLines: 10,
-          textStyle: style,
+          color: AppColors.background,
+          textAlign: TextAlign.justify,
         ),
         SpaceH8(),
         AnimatedTextSlideBoxTransition(
@@ -135,6 +118,18 @@ class AboutDescription extends StatelessWidget {
           width: width,
           maxLines: 10,
           textStyle: style,
+          color: AppColors.background,
+          textAlign: TextAlign.justify,
+        ),
+        SpaceH8(),
+        AnimatedTextSlideBoxTransition(
+          controller: controller,
+          text: StringConst.ABOUT_DEV_CATCH_LINE_4,
+          width: width,
+          maxLines: 10,
+          textStyle: style,
+          color: AppColors.background,
+          textAlign: TextAlign.justify,
         ),
       ],
     );

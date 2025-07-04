@@ -9,7 +9,7 @@ import 'spaces.dart';
 
 class ContentBuilder extends StatelessWidget {
   const ContentBuilder({
-    Key? key,
+    super.key,
     required this.width,
     required this.number,
     required this.section,
@@ -21,7 +21,7 @@ class ContentBuilder extends StatelessWidget {
     this.titleStyle,
     this.heading,
     this.footer,
-  }) : super(key: key);
+  });
 
   final double width;
   final AnimationController controller;
@@ -46,51 +46,52 @@ class ContentBuilder extends StatelessWidget {
       letterSpacing: 2,
     );
     TextStyle? defaultSectionStyle = defaultNumberStyle?.copyWith(
-      color: AppColors.grey600,
+      color: AppColors.primaryColor,
     );
     TextStyle? defaultTitleStyle = textTheme.bodySmall?.copyWith(
       color: AppColors.black,
       fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_20),
     );
-    return Container(
+    return SizedBox(
       width: width,
       child: ResponsiveBuilder(
         builder: (context, sizingInformation) {
           double screenWidth = sizingInformation.screenSize.width;
 
           if (screenWidth <= RefinedBreakpoints().tabletNormal) {
-            return Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AnimatedTextSlideBoxTransition(
-                        controller: controller,
-                        text: number,
-                        textStyle: numberStyle ?? defaultNumberStyle,
-                      ),
-                      SpaceW8(),
-                      AnimatedTextSlideBoxTransition(
-                        controller: controller,
-                        text: section,
-                        textStyle: sectionStyle ?? defaultSectionStyle,
-                      ),
-                    ],
-                  ),
-                  SpaceH16(),
-                  heading ??
-                      AnimatedTextSlideBoxTransition(
-                        controller: controller,
-                        text: title!,
-                        textStyle: titleStyle ?? defaultTitleStyle,
-                      ),
-                  SpaceH30(),
-                  body,
-                  footer ?? Empty(),
-                ],
-              ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AnimatedTextSlideBoxTransition(
+                      controller: controller,
+                      text: number,
+                      textStyle: numberStyle ?? defaultNumberStyle,
+                      color: AppColors.background,
+                    ),
+                    SpaceW8(),
+                    AnimatedTextSlideBoxTransition(
+                      controller: controller,
+                      text: section,
+                      textStyle: sectionStyle ?? defaultSectionStyle,
+                      color: AppColors.background,
+                    ),
+                  ],
+                ),
+                SpaceH16(),
+                heading ??
+                    AnimatedTextSlideBoxTransition(
+                      controller: controller,
+                      text: title!,
+                      textStyle: titleStyle ?? defaultTitleStyle,
+                      color: AppColors.background,
+                    ),
+                SpaceH30(),
+                body,
+                footer ?? Empty(),
+              ],
             );
           } else {
             return Row(
@@ -105,6 +106,7 @@ class ContentBuilder extends StatelessWidget {
                         controller: controller,
                         text: number,
                         textStyle: numberStyle ?? defaultNumberStyle,
+                        color: AppColors.background,
                       ),
                       SpaceW16(),
                       Expanded(
@@ -112,13 +114,14 @@ class ContentBuilder extends StatelessWidget {
                           controller: controller,
                           text: section,
                           textStyle: sectionStyle ?? defaultSectionStyle,
+                          color: AppColors.background,
                         ),
                       ),
                     ],
                   ),
                 ),
                 SpaceW40(),
-                Container(
+                SizedBox(
                   width: width * 0.75,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,6 +131,7 @@ class ContentBuilder extends StatelessWidget {
                             controller: controller,
                             text: title!,
                             textStyle: titleStyle ?? defaultTitleStyle,
+                            color: AppColors.background,
                           ),
                       SpaceH20(),
                       body,

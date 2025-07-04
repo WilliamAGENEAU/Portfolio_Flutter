@@ -112,41 +112,37 @@ class Data {
     ),
   ];
 
-  static List<String> mobileTechnologies = [
-    "Android",
-    "Kotlin",
-    "Jetpack Compose",
-    "Flutter",
-    "Dart"
-        "Java Android",
+  static List<String> ui = [
+    "Figma",
+    "UX Research",
+    "Chakra UI",
+    "Wireframing",
+    "Blender",
+    "Resolume",
   ];
 
   static List<String> otherTechnologies = [
+    "Flutter",
     "HTML 5",
     "CSS 3",
+    "Python",
     "JavaScript",
-    "Typescript",
     "React JS",
-    "Next JS",
     "Node JS",
     "Git",
-    "AWS",
-    "Docker",
-    "Kubernetes",
     "Google Cloud",
     "Azure",
-    "Travis CI",
-    "Circle CI",
-    "Express",
-    "Chakra UI",
-    "Laravel",
     "PHP",
     "SQL",
-    "C++",
+    "Embedded C/C++",
     "Firebase",
-    "Figma",
-    "Adobe XD",
     "Wordpress",
+    "Machine Learning",
+    "Development .NET",
+    "Edge computing",
+    "Bluetooth",
+    "Zigbee",
+    "LoRa",
   ];
   static List<SocialData> socialData1 = [
     SocialData(

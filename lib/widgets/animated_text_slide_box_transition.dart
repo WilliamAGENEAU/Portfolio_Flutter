@@ -12,6 +12,7 @@ class AnimatedTextSlideBoxTransition extends StatefulWidget {
     required this.controller,
     required this.text,
     required this.textStyle,
+    required this.color,
     this.width = double.infinity,
     this.maxLines = 1,
     this.widthFactor = 1,
@@ -21,11 +22,11 @@ class AnimatedTextSlideBoxTransition extends StatefulWidget {
     this.position,
     this.textAlign,
     this.boxColor = AppColors.black,
-    this.coverColor = AppColors.surface,
+    Color? coverColor,
     this.visibleAnimationcurve = Curves.fastOutSlowIn,
     this.invisibleAnimationcurve = Curves.fastOutSlowIn,
     this.slideAnimationcurve = Curves.fastOutSlowIn,
-  });
+  }) : coverColor = coverColor ?? color;
 
   final AnimationController controller;
   final double heightFactor;
@@ -40,6 +41,7 @@ class AnimatedTextSlideBoxTransition extends StatefulWidget {
   final Curve slideAnimationcurve;
   final String text;
   final TextStyle? textStyle;
+  final Color color;
   final TextAlign? textAlign;
   final double width;
   final int maxLines;

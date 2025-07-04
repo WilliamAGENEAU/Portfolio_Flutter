@@ -144,6 +144,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       fontSize: responsiveSize(context, 30, 48, md: 40, sm: 36),
                       height: 2.0,
                     ),
+                    color: AppColors.surface,
                   ),
                   SpaceH16(),
                   AnimatedPositionedText(

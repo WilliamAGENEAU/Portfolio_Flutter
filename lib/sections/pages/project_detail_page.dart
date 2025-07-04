@@ -163,6 +163,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
                           coverColor: projectDetails.data.primaryColor,
                           textStyle: coverTitleStyle,
                           textAlign: TextAlign.center,
+                          color: AppColors.background,
                         ),
                         SpaceH20(),
                         AnimatedTextSlideBoxTransition(
@@ -172,6 +173,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
                           coverColor: projectDetails.data.primaryColor,
                           textStyle: coverSubtitleStyle,
                           textAlign: TextAlign.center,
+                          color: AppColors.background,
                         ),
                       ],
                     ),

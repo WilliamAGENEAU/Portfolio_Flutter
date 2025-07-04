@@ -122,6 +122,7 @@ class NavBar extends StatelessWidget {
                     controller: controller,
                     text: selectedRouteTitle.toUpperCase(),
                     textStyle: style,
+                    color: AppColors.surface,
                   ),
                 )
               : Empty(),

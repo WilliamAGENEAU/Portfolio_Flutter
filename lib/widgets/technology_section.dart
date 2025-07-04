@@ -10,10 +10,10 @@ const double spacing = 20;
 
 class TechnologySection extends StatelessWidget {
   const TechnologySection({
-    Key? key,
+    super.key,
     required this.controller,
     required this.width,
-  }) : super(key: key);
+  });
 
   final AnimationController controller;
 
@@ -26,7 +26,7 @@ class TechnologySection extends StatelessWidget {
       fontSize: Sizes.TEXT_SIZE_16,
       color: AppColors.black,
     );
-    return Container(
+    return SizedBox(
       width: width,
       child: ResponsiveBuilder(
         builder: (context, sizingInformation) {
@@ -39,8 +39,9 @@ class TechnologySection extends StatelessWidget {
                 AnimatedTextSlideBoxTransition(
                   controller: controller,
                   width: screenWidth,
-                  text: StringConst.MOBILE_TECH,
+                  text: StringConst.UI,
                   textStyle: titleStyle,
+                  color: AppColors.background,
                 ),
                 SpaceH20(),
                 Wrap(
@@ -48,7 +49,7 @@ class TechnologySection extends StatelessWidget {
                   spacing: 20,
                   children: _buildTechnologies(
                     context,
-                    data: Data.mobileTechnologies,
+                    data: Data.ui,
                     controller: controller,
                     width: screenWidth,
                   ),
@@ -59,6 +60,7 @@ class TechnologySection extends StatelessWidget {
                   width: screenWidth,
                   text: StringConst.OTHER_TECH,
                   textStyle: titleStyle,
+                  color: AppColors.background,
                 ),
                 SpaceH20(),
                 Wrap(
@@ -78,7 +80,7 @@ class TechnologySection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
+                SizedBox(
                   width: width * 0.25,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,8 +88,9 @@ class TechnologySection extends StatelessWidget {
                       AnimatedTextSlideBoxTransition(
                         controller: controller,
                         width: width * 0.25,
-                        text: StringConst.MOBILE_TECH,
+                        text: StringConst.UI,
                         textStyle: titleStyle,
+                        color: AppColors.background,
                       ),
                       SpaceH20(),
                       Wrap(
@@ -96,7 +99,7 @@ class TechnologySection extends StatelessWidget {
                         children: _buildTechnologies(
                           context,
                           controller: controller,
-                          data: Data.mobileTechnologies,
+                          data: Data.ui,
                           width: width * 0.25,
                         ),
                       ),
@@ -104,7 +107,7 @@ class TechnologySection extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: Container(
+                  child: SizedBox(
                     width: (width * 0.75),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,6 +117,7 @@ class TechnologySection extends StatelessWidget {
                           width: (width * 0.75),
                           text: StringConst.OTHER_TECH,
                           textStyle: titleStyle,
+                          color: AppColors.background,
                         ),
                         SpaceH20(),
                         Wrap(

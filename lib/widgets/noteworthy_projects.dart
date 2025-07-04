@@ -67,6 +67,7 @@ class _NoteWorthyProjectsState extends State<NoteWorthyProjects>
               controller: _controller,
               text: StringConst.NOTE_WORTHY_PROJECTS,
               textStyle: titleStyle,
+              color: AppColors.background,
             ),
             SpaceH16(),
             AnimatedPositionedText(
@@ -175,6 +176,7 @@ class NoteWorthyProjectItem extends StatelessWidget {
             controller: controller,
             text: number,
             textStyle: numberStyle ?? defaultNumberStyle,
+            color: AppColors.background,
           ),
           SpaceW20(),
           InkWell(
@@ -184,6 +186,7 @@ class NoteWorthyProjectItem extends StatelessWidget {
               controller: controller,
               text: source,
               textStyle: sourceStyle ?? defaultSourceStyle,
+              color: AppColors.background,
             ),
           ),
           SpaceW20(),

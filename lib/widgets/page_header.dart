@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 import '../core/adaptive.dart';
@@ -7,10 +9,10 @@ import 'animated_text_slide_box_transition.dart';
 
 class PageHeader extends StatefulWidget {
   const PageHeader({
-    Key? key,
+    super.key,
     required this.headingText,
     required this.headingTextController,
-  }) : super(key: key);
+  });
 
   final String headingText;
   final AnimationController headingTextController;
@@ -59,7 +61,7 @@ class _PageHeaderState extends State<PageHeader>
       color: AppColors.black,
       fontSize: responsiveSize(context, Sizes.TEXT_SIZE_40, Sizes.TEXT_SIZE_60),
     );
-    return Container(
+    return SizedBox(
       width: widthOfScreen(context),
       height: heightOfScreen(context),
       child: Stack(
@@ -74,6 +76,7 @@ class _PageHeaderState extends State<PageHeader>
               controller: widget.headingTextController,
               text: widget.headingText,
               textStyle: headingStyle,
+              color: AppColors.background,
             ),
           ),
           Align(

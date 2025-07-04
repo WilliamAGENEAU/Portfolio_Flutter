@@ -127,6 +127,10 @@ class _HomePageHeaderState extends State<HomePageHeader>
       color: AppColors.accentColor2.withOpacity(0.35),
       child: Stack(
         children: [
+          Container(
+            margin: EdgeInsets.only(top: assignHeight(context, 0.1)),
+            child: Align(alignment: Alignment.topCenter, child: WhiteCircle()),
+          ),
           ResponsiveBuilder(
             builder: (context, sizingInformation) {
               double screenWidth = sizingInformation.screenSize.width;
@@ -266,6 +270,27 @@ class _HomePageHeaderState extends State<HomePageHeader>
   }
 }
 
+class WhiteCircle extends StatelessWidget {
+  const WhiteCircle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final widthOfCircle = responsiveSize(
+      context,
+      widthOfScreen(context) / 2.5,
+      widthOfScreen(context) / 3.5,
+    );
+    return Image.asset(
+      ImagePath.CIRCLE,
+      color: AppColors.surface,
+
+      width: widthOfCircle,
+      height: widthOfCircle,
+      fit: BoxFit.cover,
+    );
+  }
+}
+
 class AboutDev extends StatefulWidget {
   const AboutDev({super.key, required this.controller, required this.width});
 
@@ -300,6 +325,7 @@ class _AboutDevState extends State<AboutDev> {
               color: AppColors.black,
               fontSize: headerFontSize,
             ),
+            color: AppColors.surface,
           ),
         ),
         SpaceH12(),
@@ -314,6 +340,7 @@ class _AboutDevState extends State<AboutDev> {
               color: AppColors.black,
               fontSize: headerFontSize,
             ),
+            color: AppColors.surface,
           ),
         ),
         SpaceH12(),
@@ -334,6 +361,7 @@ class _AboutDevState extends State<AboutDev> {
               color: AppColors.black,
               fontSize: headerFontSize,
             ),
+            color: AppColors.surface,
           ),
         ),
         SpaceH30(),
