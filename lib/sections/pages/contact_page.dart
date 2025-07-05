@@ -1,14 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 import 'package:portfolio_flutter/core/extensions.dart';
 
-import '../../components/email_bloc.dart';
 import '../../core/adaptive.dart';
 import '../../values/values.dart';
 import '../../widgets/aerium_button.dart';
-import '../../widgets/aerium_text_form_field.dart';
 import '../../widgets/animated_positioned_text.dart';
 import '../../widgets/animated_text_slide_box_transition.dart';
 import '../../widgets/content_area.dart';
@@ -28,22 +26,23 @@ class ContactPage extends StatefulWidget {
 class _ContactPageState extends State<ContactPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<Offset> _slideAnimation;
-  late EmailBloc emailBloc;
   bool isSendingEmail = false;
   bool isBodyVisible = false;
   bool _nameFilled = false;
   bool _emailFilled = false;
   bool _subjectFilled = false;
   bool _messageFilled = false;
-  bool _nameHasError = false;
-  bool _emailHasError = false;
-  bool _subjectHasError = false;
-  bool _messageHasError = false;
+
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+  bool _isSending = false;
+  bool _sent = false;
+  String? _emailError;
+  String? _messageError;
 
   @override
   void initState() {
@@ -51,14 +50,7 @@ class _ContactPageState extends State<ContactPage>
       vsync: this,
       duration: Animations.slideAnimationDurationLong,
     );
-    _slideAnimation = Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0))
-        .animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: Interval(0.6, 1.0, curve: Curves.ease),
-          ),
-        );
-    // emailBloc = getIt<EmailBloc>();
+
     super.initState();
   }
 
@@ -77,14 +69,6 @@ class _ContactPageState extends State<ContactPage>
       setState(() {
         isSendingEmail = true;
       });
-      emailBloc.add(
-        SendEmail(
-          name: _nameController.text,
-          email: _emailController.text,
-          subject: _subjectController.text,
-          message: _messageController.text,
-        ),
-      );
     } else {
       isNameValid(_nameController.text);
       isEmailValid(_emailController.text);
@@ -93,30 +77,42 @@ class _ContactPageState extends State<ContactPage>
     }
   }
 
+  Future<void> sendFormspree(String email, String message) async {
+    setState(() {
+      _isSending = true;
+      _sent = false;
+      _emailError = null;
+      _messageError = null;
+    });
+    final uri = Uri.parse('https://formspree.io/f/mpwreqpy');
+    final response = await http.post(
+      uri,
+      headers: {'Accept': 'application/json'},
+      body: {'email': email, 'message': message},
+    );
+    setState(() {
+      _isSending = false;
+      if (response.statusCode == 200) {
+        _sent = true;
+      } else {
+        _sent = false;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController messageController = TextEditingController();
     TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? initialErrorStyle = textTheme.bodyLarge?.copyWith(
-      color: AppColors.white,
-      fontSize: Sizes.TEXT_SIZE_12,
-    );
-    TextStyle? errorStyle = textTheme.bodyLarge?.copyWith(
-      color: AppColors.errorRed,
-      fontWeight: FontWeight.w400,
-      fontSize: Sizes.TEXT_SIZE_12,
-      letterSpacing: 1,
-    );
+
     double contentAreaWidth = responsiveSize(
       context,
       assignWidth(context, 0.8),
       assignWidth(context, 0.6),
-    ); //takes 60% of screen
-
-    double buttonWidth = responsiveSize(
-      context,
-      contentAreaWidth * 0.6,
-      contentAreaWidth * 0.25,
     );
+
+    // Remonte le padding top pour placer le form plus haut
     EdgeInsetsGeometry padding = EdgeInsets.only(
       left: responsiveSize(
         context,
@@ -130,194 +126,161 @@ class _ContactPageState extends State<ContactPage>
       ),
       top: responsiveSize(
         context,
-        assignHeight(context, 0.25),
-        assignHeight(context, 0.3),
+        assignHeight(context, 0.08), // Était 0.25, maintenant plus haut
+        assignHeight(context, 0.12),
       ),
     );
     TextStyle? headingStyle = textTheme.bodyLarge?.copyWith(
       color: AppColors.black,
       fontSize: responsiveSize(context, 40, 60),
     );
-    return BlocConsumer<EmailBloc, EmailState>(
-      bloc: emailBloc,
-      listener: (context, state) {
-        if (state == EmailState.failure()) {
-          setState(() {
-            isSendingEmail = false;
-          });
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: AppColors.errorRed,
-              content: Text(
-                StringConst.EMAIL_FAILED_RESPONSE,
-                textAlign: TextAlign.center,
-                style: textTheme.bodyLarge?.copyWith(
-                  fontSize: Sizes.TEXT_SIZE_16,
-                  color: AppColors.black,
-                ),
-              ),
-              duration: Animations.emailSnackBarDuration,
-            ),
-          );
-        }
-        if (state == EmailState.emailSentSuccessFully()) {
-          setState(() {
-            isSendingEmail = false;
-          });
-          clearText();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: AppColors.white,
-              content: Text(
-                StringConst.EMAIL_RESPONSE,
-                textAlign: TextAlign.center,
-                style: textTheme.bodyLarge?.copyWith(
-                  fontSize: Sizes.TEXT_SIZE_16,
-                  color: AppColors.black,
-                ),
-              ),
-              duration: Animations.emailSnackBarDuration,
-            ),
-          );
-        }
+
+    return PageWrapper(
+      selectedRoute: ContactPage.contactPageRoute,
+      selectedPageName: "",
+      navBarAnimationController: _controller,
+      onLoadingAnimationDone: () {
+        _controller.forward();
       },
-      builder: (context, state) {
-        return PageWrapper(
-          selectedRoute: ContactPage.contactPageRoute,
-          selectedPageName: StringConst.CONTACT,
-          navBarAnimationController: _controller,
-          onLoadingAnimationDone: () {
-            _controller.forward();
-          },
-          child: ListView(
-            padding: EdgeInsets.zero,
-            physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-            children: [
-              Padding(
-                padding: padding,
-                child: ContentArea(
-                  width: contentAreaWidth,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AnimatedTextSlideBoxTransition(
-                        controller: _controller,
-                        text: StringConst.GET_IN_TOUCH,
-                        textStyle: headingStyle,
-                        color: AppColors.background,
-                      ),
-                      CustomSpacer(heightFactor: 0.05),
-                      AnimatedPositionedText(
-                        width: contentAreaWidth,
-                        controller: CurvedAnimation(
-                          parent: _controller,
-                          curve: Interval(
-                            0.6,
-                            1.0,
-                            curve: Curves.fastOutSlowIn,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        children: [
+          Padding(
+            padding: padding,
+            child: ContentArea(
+              width: contentAreaWidth,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // FORMULAIRE (2/3)
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AnimatedTextSlideBoxTransition(
+                          controller: _controller,
+                          text: StringConst.GET_IN_TOUCH,
+                          textStyle: headingStyle,
+                          color: AppColors.background,
+                        ),
+                        CustomSpacer(heightFactor: 0.03),
+                        AnimatedPositionedText(
+                          width: contentAreaWidth * 0.66,
+                          controller: CurvedAnimation(
+                            parent: _controller,
+                            curve: Interval(
+                              0.6,
+                              1.0,
+                              curve: Curves.fastOutSlowIn,
+                            ),
+                          ),
+                          text: StringConst.CONTACT_MSG,
+                          maxLines: 5,
+                          textStyle: textTheme.bodyLarge?.copyWith(
+                            color: AppColors.grey700,
+                            height: 2.0,
+                            fontSize: responsiveSize(
+                              context,
+                              Sizes.TEXT_SIZE_16,
+                              Sizes.TEXT_SIZE_18,
+                            ),
                           ),
                         ),
-                        text: StringConst.CONTACT_MSG,
-                        maxLines: 5,
-                        textStyle: textTheme.bodyLarge?.copyWith(
-                          color: AppColors.grey700,
-                          height: 2.0,
-                          fontSize: responsiveSize(
-                            context,
-                            Sizes.TEXT_SIZE_16,
-                            Sizes.TEXT_SIZE_18,
-                          ),
-                        ),
-                      ),
-                      CustomSpacer(heightFactor: 0.05),
-                      SlideTransition(
-                        position: _slideAnimation,
-                        child: Column(
-                          children: [
-                            AeriumTextFormField(
-                              hasTitle: _nameHasError,
-                              title: StringConst.NAME_ERROR_MSG,
-                              titleStyle: _nameHasError
-                                  ? errorStyle
-                                  : initialErrorStyle,
-                              hintText: StringConst.YOUR_NAME,
-                              controller: _nameController,
-                              filled: _nameFilled,
-                              onChanged: (value) {
-                                isNameValid(value);
-                              },
-                            ),
-                            SpaceH20(),
-                            AeriumTextFormField(
-                              hasTitle: _emailHasError,
-                              title: StringConst.EMAIL_ERROR_MSG,
-                              titleStyle: _emailHasError
-                                  ? errorStyle
-                                  : initialErrorStyle,
-                              hintText: StringConst.EMAIL,
-                              controller: _emailController,
-                              filled: _emailFilled,
-                              onChanged: (value) {
-                                isEmailValid(value);
-                              },
-                            ),
-                            SpaceH20(),
-                            AeriumTextFormField(
-                              hasTitle: _subjectHasError,
-                              title: StringConst.SUBJECT_ERROR_MSG,
-                              titleStyle: _subjectHasError
-                                  ? errorStyle
-                                  : initialErrorStyle,
-                              hintText: StringConst.SUBJECT,
-                              controller: _subjectController,
-                              filled: _subjectFilled,
-                              onChanged: (value) {
-                                isSubjectValid(value);
-                              },
-                            ),
-                            SpaceH20(),
-                            AeriumTextFormField(
-                              hasTitle: _messageHasError,
-                              title: StringConst.MESSAGE_ERROR_MSG,
-                              titleStyle: _messageHasError
-                                  ? errorStyle
-                                  : initialErrorStyle,
-                              hintText: StringConst.MESSAGE,
-                              controller: _messageController,
-                              filled: _messageFilled,
-                              textInputType: TextInputType.multiline,
-                              maxLines: 10,
-                              onChanged: (value) {
-                                isMessageValid(value);
-                              },
-                            ),
-                            SpaceH20(),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: AeriumButton(
-                                height: Sizes.HEIGHT_56,
-                                width: buttonWidth,
-                                isLoading: isSendingEmail,
-                                title: StringConst.SEND_MESSAGE.toUpperCase(),
-                                onPressed: sendEmail,
+                        CustomSpacer(heightFactor: 0.03),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width:
+                                    contentAreaWidth *
+                                    0.66, // Réduit la largeur du champ
+                                child: TextFormField(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: InputDecoration(
+                                    labelText: "Your email",
+                                    errorText: _emailError,
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Please enter your email";
+                                    }
+                                    if (!RegExp(
+                                      r'^[^@]+@[^@]+\.[^@]+',
+                                    ).hasMatch(value)) {
+                                      return "Please enter a valid email";
+                                    }
+                                    return null;
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
+                              SpaceH20(),
+                              SizedBox(
+                                width: contentAreaWidth * 0.66,
+                                child: TextFormField(
+                                  controller: messageController,
+                                  maxLines: 8,
+                                  decoration: InputDecoration(
+                                    labelText: "Your message",
+                                    errorText: _messageError,
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Please enter your message";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SpaceH20(),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: AeriumButton(
+                                  title: "Send",
+                                  isLoading: _isSending,
+                                  onPressed: _isSending
+                                      ? null
+                                      : () async {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            await sendFormspree(
+                                              emailController.text,
+                                              messageController.text,
+                                            );
+                                          }
+                                        },
+                                ),
+                              ),
+                              if (_sent)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 16.0),
+                                  child: Text(
+                                    "Message sent! Thank you.",
+                                    style: TextStyle(color: Colors.green),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                  // ESPACE DROITE (1/3)
+                  Expanded(flex: 1, child: Container()),
+                ],
               ),
-              CustomSpacer(heightFactor: 0.15),
-              SimpleFooter(),
-            ],
+            ),
           ),
-        );
-      },
+          CustomSpacer(heightFactor: 0.15),
+          SimpleFooter(),
+        ],
+      ),
     );
   }
 
@@ -332,7 +295,6 @@ class _ContactPageState extends State<ContactPage>
     bool isValid = isTextValid(name);
     setState(() {
       _nameFilled = isValid;
-      _nameHasError = !isValid;
     });
   }
 
@@ -340,7 +302,6 @@ class _ContactPageState extends State<ContactPage>
     bool isValid = email.isValidEmail();
     setState(() {
       _emailFilled = isValid;
-      _emailHasError = !isValid;
     });
   }
 
@@ -348,7 +309,6 @@ class _ContactPageState extends State<ContactPage>
     bool isValid = isTextValid(subject);
     setState(() {
       _subjectFilled = isValid;
-      _subjectHasError = !isValid;
     });
   }
 
@@ -356,7 +316,6 @@ class _ContactPageState extends State<ContactPage>
     bool isValid = isTextValid(message);
     setState(() {
       _messageFilled = isValid;
-      _messageHasError = !isValid;
     });
   }
 

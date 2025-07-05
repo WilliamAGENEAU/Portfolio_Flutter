@@ -38,7 +38,7 @@ class StringConst {
   // Contact Page
   static const String GET_IN_TOUCH = "Get in touch.";
   static const String CONTACT_MSG =
-      "Hey There, Got a project, job offer or consulting work for me? Feel free to contact me ASAP.";
+      "Got a project, job offer for me? Feel free to contact me ASAP.";
   static const String YOUR_NAME = "Your Name";
   static const String NAME_ERROR_MSG = "* Please enter your name";
   static const String YOUR_EMAIL = "Your Email";

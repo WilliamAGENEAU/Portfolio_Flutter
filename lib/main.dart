@@ -1,4 +1,3 @@
-// import 'package:portfolio_flutter/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/values/values.dart';
 import 'package:layout/layout.dart';
@@ -10,7 +9,6 @@ import 'sections/routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // configureDependencies();
   configureApp();
   runApp(MyPortfolio());
 }
