@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AnimatedSlideTranstion extends AnimatedWidget {
-  AnimatedSlideTranstion({
-    Key? key,
+  const AnimatedSlideTranstion({
+    super.key,
     required this.controller,
     required this.child,
     this.position,
@@ -10,7 +10,7 @@ class AnimatedSlideTranstion extends AnimatedWidget {
     this.targetOffset = const Offset(0, 0),
     this.curve = Curves.ease,
     this.hasHoverTransition = false,
-  }) : super(key: key, listenable: controller);
+  }) : super(listenable: controller);
 
   final AnimationController controller;
   final Animation<Offset>? position;

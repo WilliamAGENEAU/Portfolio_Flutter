@@ -10,7 +10,7 @@ import 'animated_text_slide_box_transition.dart';
 import 'spaces.dart';
 
 class NoteWorthyProjects extends StatefulWidget {
-  const NoteWorthyProjects({Key? key}) : super(key: key);
+  const NoteWorthyProjects({super.key});
 
   @override
   _NoteWorthyProjectsState createState() => _NoteWorthyProjectsState();
@@ -122,7 +122,7 @@ class _NoteWorthyProjectsState extends State<NoteWorthyProjects>
 
 class NoteWorthyProjectItem extends StatelessWidget {
   const NoteWorthyProjectItem({
-    Key? key,
+    super.key,
     required this.number,
     required this.projectName,
     required this.controller,
@@ -132,7 +132,7 @@ class NoteWorthyProjectItem extends StatelessWidget {
     this.sourceStyle,
     this.onSourceTap,
     this.onProjectNameTap,
-  }) : super(key: key);
+  });
 
   final String number;
   final String source;

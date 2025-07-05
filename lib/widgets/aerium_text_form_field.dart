@@ -6,7 +6,7 @@ import 'empty.dart';
 
 class AeriumTextFormField extends StatelessWidget {
   AeriumTextFormField({
-    Key? key,
+    super.key,
     this.title = '',
     this.titleStyle,
     this.hasTitle = true,
@@ -28,7 +28,7 @@ class AeriumTextFormField extends StatelessWidget {
     this.filled = false,
     this.maxLines = 1,
     this.controller,
-  }) : super(key: key);
+  });
 
   final TextStyle? textStyle;
   final TextStyle? hintTextStyle;

@@ -4,14 +4,14 @@ import '../values/values.dart';
 
 class AnimatedWaveLine extends AnimatedWidget {
   const AnimatedWaveLine({
-    Key? key,
+    super.key,
     required this.controller,
     required this.height,
     this.width = 1.5,
     this.animation,
     this.color = AppColors.errorRed,
     this.curve = Curves.fastOutSlowIn,
-  }) : super(key: key, listenable: controller);
+  }) : super(listenable: controller);
 
   final AnimationController controller;
   final double height;

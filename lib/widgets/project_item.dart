@@ -90,41 +90,39 @@ class ProjectData extends StatelessWidget {
   final Curve curve;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: leadingMargin,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AnimatedContainer(
-                  width: indicatorWidth,
-                  height: indicatorHeight,
-                  margin: indicatorMargin,
-                  color: indicatorColor,
-                  duration: duration,
-                  curve: curve,
-                ),
-                SpaceW4(),
-                Text(projectNumber, style: projectNumberStyle),
-              ],
-            ),
-          ),
-          SpaceW30(),
-          Column(
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: leadingMargin,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: titleStyle),
-              SpaceH16(),
-              Text(subtitle, style: subtitleStyle),
+              AnimatedContainer(
+                width: indicatorWidth,
+                height: indicatorHeight,
+                margin: indicatorMargin,
+                color: indicatorColor,
+                duration: duration,
+                curve: curve,
+              ),
+              SpaceW4(),
+              Text(projectNumber, style: projectNumberStyle),
             ],
           ),
-        ],
-      ),
+        ),
+        SpaceW30(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: titleStyle),
+            SpaceH16(),
+            Text(subtitle, style: subtitleStyle),
+          ],
+        ),
+      ],
     );
   }
 }

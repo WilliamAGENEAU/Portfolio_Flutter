@@ -4,7 +4,7 @@ const double hiddenFactor = 2.0;
 
 class AnimatedSlideBox extends AnimatedWidget {
   const AnimatedSlideBox({
-    Key? key,
+    super.key,
     required this.controller,
     required this.height,
     required this.width,
@@ -14,7 +14,7 @@ class AnimatedSlideBox extends AnimatedWidget {
     this.coverColor = Colors.grey,
     this.visibleBoxCurve = Curves.fastOutSlowIn,
     this.invisibleBoxCurve = Curves.fastOutSlowIn,
-  }) : super(key: key, listenable: controller);
+  }) : super(listenable: controller);
 
   final AnimationController controller;
   final double height;
@@ -50,7 +50,7 @@ class AnimatedSlideBox extends AnimatedWidget {
     // we can still see a small part of the black box after the animation
     // to remedy this, i use the variable hidden factor to offset the black box
     // so that it will be totally hidden by the white box
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
       child: Stack(

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/widgets/spaces.dart';
 
@@ -21,12 +23,12 @@ List<String> titles = [
 
 class Aboutproject extends StatefulWidget {
   const Aboutproject({
-    Key? key,
+    super.key,
     required this.controller,
     required this.projectDataController,
     required this.projectData,
     required this.width,
-  }) : super(key: key);
+  });
 
   final AnimationController controller;
   final AnimationController projectDataController;
@@ -87,170 +89,168 @@ class _AboutprojectState extends State<Aboutproject> {
       ),
       fontWeight: FontWeight.w500,
     );
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AnimatedTextSlideBoxTransition(
-            controller: widget.controller,
-            text: StringConst.ABOUT_PROJECT,
-            coverColor: AppColors.white,
-            textStyle: textTheme.bodyLarge?.copyWith(
-              fontSize: Sizes.TEXT_SIZE_48,
-            ),
-            color: AppColors.background,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AnimatedTextSlideBoxTransition(
+          controller: widget.controller,
+          text: StringConst.ABOUT_PROJECT,
+          coverColor: AppColors.white,
+          textStyle: textTheme.bodyLarge?.copyWith(
+            fontSize: Sizes.TEXT_SIZE_48,
           ),
-          SpaceH40(),
-          AnimatedPositionedText(
-            controller: CurvedAnimation(
-              parent: widget.controller,
-              curve: Animations.textSlideInCurve,
-            ),
-            width: widget.width * 0.7,
-            maxLines: 10,
-            text: widget.projectData.portfolioDescription,
-            textStyle: bodyTextStyle,
+          color: AppColors.background,
+        ),
+        SpaceH40(),
+        AnimatedPositionedText(
+          controller: CurvedAnimation(
+            parent: widget.controller,
+            curve: Animations.textSlideInCurve,
           ),
-          // SpaceH12(),
-          Container(
-            width: projectDataWidth,
-            child: Wrap(
-              spacing: projectDataSpacing,
-              runSpacing: responsiveSize(context, 30, 40),
-              children: [
-                ProjectData(
-                  controller: widget.projectDataController,
-                  width: widthOfProjectItem,
-                  title: StringConst.PLATFORM,
-                  subtitle: widget.projectData.platform,
-                ),
-                ProjectData(
-                  controller: widget.projectDataController,
-                  width: widthOfProjectItem,
-                  title: StringConst.CATEGORY,
-                  subtitle: widget.projectData.category,
-                ),
-                ProjectData(
-                  controller: widget.projectDataController,
-                  width: widthOfProjectItem,
-                  title: StringConst.AUTHOR,
-                  subtitle: StringConst.WILLIAM_AGENEAU,
-                ),
-              ],
-            ),
-          ),
-          widget.projectData.designer != null ? SpaceH30() : Empty(),
-          widget.projectData.designer != null
-              ? ProjectData(
-                  controller: widget.projectDataController,
-                  title: StringConst.DESIGNER,
-                  subtitle: widget.projectData.designer!,
-                )
-              : Empty(),
-          widget.projectData.technologyUsed != null ? SpaceH30() : Empty(),
-          widget.projectData.technologyUsed != null
-              ? ProjectData(
-                  controller: widget.projectDataController,
-                  title: StringConst.TECHNOLOGY_USED,
-                  subtitle: widget.projectData.technologyUsed!,
-                )
-              : Empty(),
-          SpaceH30(),
-          Row(
+          width: widget.width * 0.7,
+          maxLines: 10,
+          text: widget.projectData.portfolioDescription,
+          textStyle: bodyTextStyle,
+        ),
+        // SpaceH12(),
+        SizedBox(
+          width: projectDataWidth,
+          child: Wrap(
+            spacing: projectDataSpacing,
+            runSpacing: responsiveSize(context, 30, 40),
             children: [
-              widget.projectData.isLive
-                  ? AnimatedPositionedWidget(
-                      controller: CurvedAnimation(
-                        parent: widget.projectDataController,
-                        curve: Animations.textSlideInCurve,
-                      ),
-                      width: targetWidth,
-                      height: initialWidth,
-                      child: AnimatedBubbleButton(
-                        title: StringConst.LAUNCH_APP,
-                        color: AppColors.grey100,
-                        imageColor: AppColors.black,
-                        startBorderRadius: borderRadius,
-                        startWidth: initialWidth,
-                        height: initialWidth,
-                        targetWidth: targetWidth,
-                        titleStyle: buttonStyle,
-                        onTap: () {
-                          Functions.launchUrl(widget.projectData.webUrl);
-                        },
-                        startOffset: Offset(0, 0),
-                        targetOffset: Offset(0.1, 0),
-                      ),
-                    )
-                  : Empty(),
-              widget.projectData.isLive ? Spacer() : Empty(),
-              widget.projectData.isPublic
-                  ? AnimatedPositionedWidget(
-                      controller: CurvedAnimation(
-                        parent: widget.projectDataController,
-                        curve: Animations.textSlideInCurve,
-                      ),
-                      width: targetWidth,
-                      height: initialWidth,
-                      child: AnimatedBubbleButton(
-                        title: StringConst.SOURCE_CODE,
-                        color: AppColors.grey100,
-                        imageColor: AppColors.black,
-                        startBorderRadius: borderRadius,
-                        startWidth: initialWidth,
-                        height: initialWidth,
-                        targetWidth: targetWidth,
-                        titleStyle: buttonStyle,
-                        startOffset: Offset(0, 0),
-                        targetOffset: Offset(0.1, 0),
-                        onTap: () {
-                          Functions.launchUrl(widget.projectData.gitHubUrl);
-                        },
-                      ),
-                    )
-                  : Empty(),
-              widget.projectData.isPublic ? Spacer() : Empty(),
+              ProjectData(
+                controller: widget.projectDataController,
+                width: widthOfProjectItem,
+                title: StringConst.PLATFORM,
+                subtitle: widget.projectData.platform,
+              ),
+              ProjectData(
+                controller: widget.projectDataController,
+                width: widthOfProjectItem,
+                title: StringConst.CATEGORY,
+                subtitle: widget.projectData.category,
+              ),
+              ProjectData(
+                controller: widget.projectDataController,
+                width: widthOfProjectItem,
+                title: StringConst.AUTHOR,
+                subtitle: StringConst.WILLIAM_AGENEAU,
+              ),
             ],
           ),
-          widget.projectData.isPublic || widget.projectData.isLive
-              ? SpaceH30()
-              : Empty(),
-          widget.projectData.isOnPlayStore
-              ? InkWell(
-                  onTap: () {
-                    Functions.launchUrl(widget.projectData.playStoreUrl);
-                  },
-                  child: AnimatedPositionedWidget(
+        ),
+        widget.projectData.designer != null ? SpaceH30() : Empty(),
+        widget.projectData.designer != null
+            ? ProjectData(
+                controller: widget.projectDataController,
+                title: StringConst.DESIGNER,
+                subtitle: widget.projectData.designer!,
+              )
+            : Empty(),
+        widget.projectData.technologyUsed != null ? SpaceH30() : Empty(),
+        widget.projectData.technologyUsed != null
+            ? ProjectData(
+                controller: widget.projectDataController,
+                title: StringConst.TECHNOLOGY_USED,
+                subtitle: widget.projectData.technologyUsed!,
+              )
+            : Empty(),
+        SpaceH30(),
+        Row(
+          children: [
+            widget.projectData.isLive
+                ? AnimatedPositionedWidget(
                     controller: CurvedAnimation(
                       parent: widget.projectDataController,
                       curve: Animations.textSlideInCurve,
                     ),
-                    width: googlePlayButtonWidth,
-                    height: 50,
-                    child: Image.asset(
-                      ImagePath.GOOGLE_PLAY,
-                      width: googlePlayButtonWidth,
-                      // fit: BoxFit.fitHeight,
+                    width: targetWidth,
+                    height: initialWidth,
+                    child: AnimatedBubbleButton(
+                      title: StringConst.LAUNCH_APP,
+                      color: AppColors.grey100,
+                      imageColor: AppColors.black,
+                      startBorderRadius: borderRadius,
+                      startWidth: initialWidth,
+                      height: initialWidth,
+                      targetWidth: targetWidth,
+                      titleStyle: buttonStyle,
+                      onTap: () {
+                        Functions.launchUrl(widget.projectData.webUrl);
+                      },
+                      startOffset: Offset(0, 0),
+                      targetOffset: Offset(0.1, 0),
                     ),
+                  )
+                : Empty(),
+            widget.projectData.isLive ? Spacer() : Empty(),
+            widget.projectData.isPublic
+                ? AnimatedPositionedWidget(
+                    controller: CurvedAnimation(
+                      parent: widget.projectDataController,
+                      curve: Animations.textSlideInCurve,
+                    ),
+                    width: targetWidth,
+                    height: initialWidth,
+                    child: AnimatedBubbleButton(
+                      title: StringConst.SOURCE_CODE,
+                      color: AppColors.grey100,
+                      imageColor: AppColors.black,
+                      startBorderRadius: borderRadius,
+                      startWidth: initialWidth,
+                      height: initialWidth,
+                      targetWidth: targetWidth,
+                      titleStyle: buttonStyle,
+                      startOffset: Offset(0, 0),
+                      targetOffset: Offset(0.1, 0),
+                      onTap: () {
+                        Functions.launchUrl(widget.projectData.gitHubUrl);
+                      },
+                    ),
+                  )
+                : Empty(),
+            widget.projectData.isPublic ? Spacer() : Empty(),
+          ],
+        ),
+        widget.projectData.isPublic || widget.projectData.isLive
+            ? SpaceH30()
+            : Empty(),
+        widget.projectData.isOnPlayStore
+            ? InkWell(
+                onTap: () {
+                  Functions.launchUrl(widget.projectData.playStoreUrl);
+                },
+                child: AnimatedPositionedWidget(
+                  controller: CurvedAnimation(
+                    parent: widget.projectDataController,
+                    curve: Animations.textSlideInCurve,
                   ),
-                )
-              : Empty(),
-        ],
-      ),
+                  width: googlePlayButtonWidth,
+                  height: 50,
+                  child: Image.asset(
+                    ImagePath.GOOGLE_PLAY,
+                    width: googlePlayButtonWidth,
+                    // fit: BoxFit.fitHeight,
+                  ),
+                ),
+              )
+            : Empty(),
+      ],
     );
   }
 }
 
 class ProjectData extends StatelessWidget {
   const ProjectData({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.controller,
     this.width = double.infinity,
     this.titleStyle,
     this.subtitleStyle,
-  }) : super(key: key);
+  });
 
   final String title;
   final String subtitle;

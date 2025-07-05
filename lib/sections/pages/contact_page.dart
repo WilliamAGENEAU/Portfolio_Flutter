@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio_flutter/core/extensions.dart';
@@ -17,7 +19,7 @@ import '../../widgets/spaces.dart';
 
 class ContactPage extends StatefulWidget {
   static const String contactPageRoute = StringConst.CONTACT_PAGE;
-  const ContactPage({Key? key}) : super(key: key);
+  const ContactPage({super.key});
 
   @override
   _ContactPageState createState() => _ContactPageState();
@@ -38,10 +40,10 @@ class _ContactPageState extends State<ContactPage>
   bool _emailHasError = false;
   bool _subjectHasError = false;
   bool _messageHasError = false;
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _subjectController = TextEditingController();
-  TextEditingController _messageController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _subjectController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
 
   @override
   void initState() {
@@ -320,7 +322,7 @@ class _ContactPageState extends State<ContactPage>
   }
 
   bool isTextValid(String value) {
-    if (value.length > 0) {
+    if (value.isNotEmpty) {
       return true;
     }
     return false;

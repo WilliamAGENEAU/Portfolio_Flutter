@@ -13,7 +13,7 @@ import '../../widgets/project_item.dart';
 
 class WorksPage extends StatefulWidget {
   static const String worksPageRoute = StringConst.WORKS_PAGE;
-  const WorksPage({Key? key}) : super(key: key);
+  const WorksPage({super.key});
 
   @override
   _WorksPageState createState() => _WorksPageState();
@@ -93,7 +93,7 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
                   ),
                 );
               } else {
-                return Container(
+                return SizedBox(
                   height: (subHeight * (Data.projects.length)) + extra,
                   child: Stack(
                     children: _buildProjects(

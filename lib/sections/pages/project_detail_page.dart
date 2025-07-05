@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -34,7 +36,7 @@ class ProjectDetailArguments {
 
 class ProjectDetailPage extends StatefulWidget {
   static const String projectDetailPageRoute = StringConst.PROJECT_DETAIL_PAGE;
-  const ProjectDetailPage({Key? key}) : super(key: key);
+  const ProjectDetailPage({super.key});
 
   @override
   _ProjectDetailPageState createState() => _ProjectDetailPageState();
@@ -138,7 +140,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
           parent: AlwaysScrollableScrollPhysics(),
         ),
         children: [
-          Container(
+          SizedBox(
             width: widthOfScreen(context),
             height: heightOfScreen(context),
             child: Stack(

@@ -10,7 +10,8 @@ import 'social.dart';
 import 'spaces.dart';
 
 class AppDrawer extends StatefulWidget {
-  AppDrawer({
+  const AppDrawer({
+    super.key,
     required this.menuList,
     required this.selectedItemRouteName,
     required this.controller,
@@ -84,7 +85,7 @@ class _AppDrawerState extends State<AppDrawer>
       color: AppColors.grey500,
       fontSize: Sizes.TEXT_SIZE_10,
     );
-    return Container(
+    return SizedBox(
       width: widget.width ?? widthOfScreen(context),
       height: heightOfScreen(context),
       child: Drawer(

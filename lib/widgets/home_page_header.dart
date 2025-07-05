@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../core/adaptive.dart';
@@ -35,8 +36,11 @@ class _HomePageHeaderState extends State<HomePageHeader>
   late AnimationController controller;
   late AnimationController rotationController;
   late AnimationController scrollDownButtonController;
+  late AnimationController whiteCircleController;
   late Animation<Offset> animation;
   late Animation<Offset> scrollDownBtnAnimation;
+  late Animation<double> whiteCircleScaleAnimation;
+  late Animation<Offset> whiteCircleOffsetAnimation;
 
   @override
   void initState() {
@@ -56,6 +60,23 @@ class _HomePageHeaderState extends State<HomePageHeader>
       begin: Offset(0, 0.05),
       end: Offset(0, -0.05),
     ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+    whiteCircleController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+    whiteCircleScaleAnimation = Tween<double>(begin: 0.7, end: 1.25).animate(
+      CurvedAnimation(parent: whiteCircleController, curve: Curves.easeOutBack),
+    );
+    whiteCircleOffsetAnimation =
+        Tween<Offset>(
+          begin: const Offset(-0.1, 0),
+          end: const Offset(0.25, 0),
+        ).animate(
+          CurvedAnimation(
+            parent: whiteCircleController,
+            curve: Curves.easeOutCubic,
+          ),
+        );
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         controller.reverse();
@@ -72,6 +93,7 @@ class _HomePageHeaderState extends State<HomePageHeader>
     });
     controller.forward();
     rotationController.forward();
+    whiteCircleController.forward();
     super.initState();
   }
 
@@ -80,6 +102,7 @@ class _HomePageHeaderState extends State<HomePageHeader>
     controller.dispose();
     scrollDownButtonController.dispose();
     rotationController.dispose();
+    whiteCircleController.dispose();
     super.dispose();
   }
 
@@ -128,8 +151,22 @@ class _HomePageHeaderState extends State<HomePageHeader>
       child: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: assignHeight(context, 0.1)),
-            child: Align(alignment: Alignment.topCenter, child: WhiteCircle()),
+            margin: EdgeInsets.only(top: assignHeight(context, 0.2)),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: AnimatedBuilder(
+                animation: whiteCircleController,
+                builder: (context, child) {
+                  return FractionalTranslation(
+                    translation: whiteCircleOffsetAnimation.value,
+                    child: Transform.scale(
+                      scale: whiteCircleScaleAnimation.value,
+                      child: WhiteCircle(),
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
           ResponsiveBuilder(
             builder: (context, sizingInformation) {
@@ -271,22 +308,22 @@ class _HomePageHeaderState extends State<HomePageHeader>
 }
 
 class WhiteCircle extends StatelessWidget {
-  const WhiteCircle({Key? key}) : super(key: key);
+  const WhiteCircle({super.key});
 
   @override
   Widget build(BuildContext context) {
     final widthOfCircle = responsiveSize(
       context,
-      widthOfScreen(context) / 2.5,
-      widthOfScreen(context) / 3.5,
+      widthOfScreen(context) * 0.6, // Agrandi le cercle
+      widthOfScreen(context) * 0.4,
     );
-    return Image.asset(
-      ImagePath.CIRCLE,
-      color: AppColors.surface,
-
-      width: widthOfCircle,
-      height: widthOfCircle,
-      fit: BoxFit.cover,
+    return IgnorePointer(
+      child: Lottie.asset(
+        ImagePath.shape,
+        width: widthOfCircle,
+        height: widthOfCircle,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

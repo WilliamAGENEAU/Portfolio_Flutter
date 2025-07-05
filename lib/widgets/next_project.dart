@@ -9,11 +9,11 @@ import 'spaces.dart';
 
 class NextProject extends StatefulWidget {
   const NextProject({
-    Key? key,
+    super.key,
     required this.width,
     required this.nextProject,
     this.navigateToNextProject,
-  }) : super(key: key);
+  });
 
   final ProjectItemData nextProject;
   final double width;
@@ -115,7 +115,7 @@ class _NextProjectState extends State<NextProject>
                   style: projectTitleStyle,
                 ),
                 SpaceH20(),
-                Container(
+                SizedBox(
                   width: widthOfScreen(context),
                   height: assignHeight(context, 0.3),
                   child: Image.asset(
@@ -142,7 +142,7 @@ class _NextProjectState extends State<NextProject>
             ),
           );
         } else {
-          return Container(
+          return SizedBox(
             height: assignHeight(context, 0.3),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -233,7 +233,7 @@ class _NextProjectState extends State<NextProject>
                 ),
                 SizedBox(width: widget.width * 0.15),
                 Expanded(
-                  child: Container(
+                  child: SizedBox(
                     width: widget.width * 0.55,
                     height: assignHeight(context, 0.3),
                     child: ScaleTransition(
