@@ -5,6 +5,7 @@ part of 'values.dart';
 class ImagePath {
   // JSON ANIMATION
   static const String shape = "assets/json/shape.json";
+  static const String contact = "assets/json/contact.json";
 
   //images route
   static const String imageDir = "assets/images";

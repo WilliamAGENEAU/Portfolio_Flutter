@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'package:portfolio_flutter/core/extensions.dart';
+import 'package:portfolio_flutter/widgets/animated_positioned_widget.dart';
 
 import '../../core/adaptive.dart';
 import '../../values/values.dart';
@@ -192,87 +194,130 @@ class _ContactPageState extends State<ContactPage>
                           ),
                         ),
                         CustomSpacer(heightFactor: 0.03),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width:
-                                    contentAreaWidth *
-                                    0.66, // Réduit la largeur du champ
-                                child: TextFormField(
-                                  controller: emailController,
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: InputDecoration(
-                                    labelText: "Your email",
-                                    errorText: _emailError,
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Please enter your email";
-                                    }
-                                    if (!RegExp(
-                                      r'^[^@]+@[^@]+\.[^@]+',
-                                    ).hasMatch(value)) {
-                                      return "Please enter a valid email";
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              SpaceH20(),
-                              SizedBox(
-                                width: contentAreaWidth * 0.66,
-                                child: TextFormField(
-                                  controller: messageController,
-                                  maxLines: 8,
-                                  decoration: InputDecoration(
-                                    labelText: "Your message",
-                                    errorText: _messageError,
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Please enter your message";
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              SpaceH20(),
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: AeriumButton(
-                                  title: "Send",
-                                  isLoading: _isSending,
-                                  onPressed: _isSending
-                                      ? null
-                                      : () async {
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            await sendFormspree(
-                                              emailController.text,
-                                              messageController.text,
-                                            );
-                                          }
-                                        },
-                                ),
-                              ),
-                              if (_sent)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 16.0),
-                                  child: Text(
-                                    "Message sent! Thank you.",
-                                    style: TextStyle(color: Colors.green),
+                        AnimatedPositionedWidget(
+                          controller: CurvedAnimation(
+                            parent: _controller,
+                            curve: Curves.fastOutSlowIn,
+                          ),
+                          width: contentAreaWidth * 0.66,
+                          height: assignHeight(context, 0.6),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width:
+                                      contentAreaWidth *
+                                      0.66, // Réduit la largeur du champ
+                                  child: TextFormField(
+                                    controller: emailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    decoration: InputDecoration(
+                                      labelText: "Your email",
+                                      errorText: _emailError,
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please enter your email";
+                                      }
+                                      if (!RegExp(
+                                        r'^[^@]+@[^@]+\.[^@]+',
+                                      ).hasMatch(value)) {
+                                        return "Please enter a valid email";
+                                      }
+                                      return null;
+                                    },
                                   ),
                                 ),
-                            ],
+                                SpaceH20(),
+                                SizedBox(
+                                  width: contentAreaWidth * 0.66,
+                                  child: TextFormField(
+                                    controller: messageController,
+                                    maxLines: 8,
+                                    decoration: InputDecoration(
+                                      labelText: "Your message",
+                                      errorText: _messageError,
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please enter your message";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                SpaceH20(),
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: AeriumButton(
+                                    title: "Send",
+                                    isLoading: _isSending,
+                                    onPressed: _isSending
+                                        ? null
+                                        : () async {
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              await sendFormspree(
+                                                emailController.text,
+                                                messageController.text,
+                                              );
+                                            }
+                                          },
+                                  ),
+                                ),
+                                if (_sent)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 16.0),
+                                    child: Text(
+                                      "Message sent! Thank you.",
+                                      style: TextStyle(color: Colors.green),
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   // ESPACE DROITE (1/3)
-                  Expanded(flex: 1, child: Container()),
+                  SpaceW40(),
+                  Expanded(
+                    flex: 1,
+                    child: AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) {
+                        // Slide de droite vers la position finale, fade in en même temps
+                        final slide =
+                            Tween<Offset>(
+                              begin: const Offset(
+                                0.4,
+                                0,
+                              ), // Décalé à droite, hors écran
+                              end: Offset.zero,
+                            ).animate(
+                              CurvedAnimation(
+                                parent: _controller,
+                                curve: Curves.fastEaseInToSlowEaseOut,
+                              ),
+                            );
+                        final opacity = _controller.drive(
+                          CurveTween(curve: Curves.easeIn),
+                        );
+                        return Opacity(
+                          opacity: opacity.value,
+                          child: SlideTransition(
+                            position: slide,
+                            child: _LottieHover(
+                              width: contentAreaWidth * 0.33,
+                              height: assignHeight(context, 0.6),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -324,5 +369,49 @@ class _ContactPageState extends State<ContactPage>
     _emailController.text = "";
     _subjectController.text = "";
     _messageController.text = "";
+  }
+}
+
+class _LottieHover extends StatefulWidget {
+  final double width;
+  final double height;
+  const _LottieHover({required this.width, required this.height});
+
+  @override
+  State<_LottieHover> createState() => _LottieHoverState();
+}
+
+class _LottieHoverState extends State<_LottieHover>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _lottieController;
+
+  @override
+  void initState() {
+    super.initState();
+    _lottieController = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _lottieController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => _lottieController.repeat(),
+      onExit: (_) => _lottieController.stop(),
+      child: Lottie.asset(
+        ImagePath.contact,
+        controller: _lottieController,
+        width: widget.width,
+        height: widget.height,
+        fit: BoxFit.cover,
+        onLoaded: (composition) {
+          _lottieController.duration = composition.duration;
+        },
+      ),
+    );
   }
 }
