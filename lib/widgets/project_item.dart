@@ -153,7 +153,7 @@ class ProjectItemLg extends StatefulWidget {
     this.coloredContainerHeight,
     this.coloredContainerWidth,
     this.buttonTitle = StringConst.VIEW,
-    this.backgroundOnHoverColor = AppColors.primaryColor,
+    this.backgroundOnHoverColor = AppColors.surface,
     this.backgroundColor = AppColors.accentColor2,
     this.projectNumberStyle,
     this.subtitleStyle,

@@ -174,27 +174,19 @@ class Data {
   ];
 
   static List<ProjectItemData> recentWorks = [
-    Projects.DISNEY_PLUS,
-    Projects.FLUTTER_CATALOG,
-    Projects.DROP,
-    Projects.ROAM,
-    Projects.LOGIN_CATALOG,
-    Projects.FOODY_BITE,
-    Projects.NIMBUS,
+    Projects.MUSEUM_EDIBLE_EARTH,
+    Projects.CONNECTED_CHESSBOARD,
+    Projects.GARDEN,
+    Projects.CLUB,
+    Projects.MOTION_DESIGN,
   ];
 
   static List<ProjectItemData> projects = [
-    Projects.DISNEY_PLUS,
-    Projects.FLUTTER_CATALOG,
-    Projects.DROP,
-    Projects.ROAM,
-    Projects.LOGIN_CATALOG,
-    Projects.FOODY_BITE,
-    Projects.NIMBUS,
-    Projects.OTP_TEXT_FIELD,
-    Projects.AERIUM,
-    Projects.AERIUM_V2,
-    Projects.OUTFITR,
+    Projects.MUSEUM_EDIBLE_EARTH,
+    Projects.CONNECTED_CHESSBOARD,
+    Projects.GARDEN,
+    Projects.CLUB,
+    Projects.MOTION_DESIGN,
   ];
 
   static List<NoteWorthyProjectDetails> noteworthyProjects = [
@@ -362,12 +354,12 @@ class Data {
 }
 
 class Projects {
-  static ProjectItemData DISNEY_PLUS = ProjectItemData(
-    title: StringConst.DISNEY_PLUS,
-    subtitle: StringConst.DISNEY_PLUS,
+  static ProjectItemData MUSEUM_EDIBLE_EARTH = ProjectItemData(
+    title: StringConst.MUSEUM_OF_EDIBLE_EARTH,
+    subtitle: StringConst.MUSEUM_OF_EDIBLE_EARTH,
     platform: StringConst.DISNEY_PLUS_PLATFORM,
     primaryColor: AppColors.disneyPlus,
-    image: ImagePath.DISNEY_PLUS_COVER,
+    image: ImagePath.MUSEUM_COVER,
     coverUrl: ImagePath.DISNEY_PLUS_SCREENS,
     navSelectedTitleColor: AppColors.flutterCatalogSelectedNavTitle,
     appLogoColor: AppColors.flutterCatalogAppLogo,
@@ -386,7 +378,7 @@ class Projects {
       ImagePath.DISNEY_PLUS_12,
       ImagePath.DISNEY_PLUS_13,
     ],
-    category: StringConst.DISNEY_PLUS_CATEGORY,
+    category: StringConst.MUSEUM_PLUS_CATEGORY,
     portfolioDescription: StringConst.DISNEY_PLUS_DETAIL,
     isPublic: true,
     isOnPlayStore: false,
@@ -394,7 +386,7 @@ class Projects {
     gitHubUrl: StringConst.DISNEY_PLUS_GITHUB_URL,
     playStoreUrl: StringConst.DISNEY_PLUS_PLAYSTORE_URL,
   );
-  static ProjectItemData FLUTTER_CATALOG = ProjectItemData(
+  static ProjectItemData CONNECTED_CHESSBOARD = ProjectItemData(
     title: StringConst.FLUTTER_CATALOG,
     subtitle: StringConst.FLUTTER_CATALOG,
     platform: StringConst.FLUTTER_CATALOG_PLATFORM,
@@ -411,7 +403,7 @@ class Projects {
       ImagePath.FLUTTER_CATALOG_4,
       ImagePath.FLUTTER_CATALOG_5,
     ],
-    category: StringConst.FLUTTER_CATALOG_CATEGORY,
+    category: StringConst.CHESSBOARD_IOT_CATEGORY,
     portfolioDescription: StringConst.FLUTTER_CATALOG_DETAIL,
     isPublic: true,
     isOnPlayStore: true,
@@ -419,13 +411,13 @@ class Projects {
     gitHubUrl: StringConst.FLUTTER_CATALOG_GITHUB_URL,
     playStoreUrl: StringConst.FLUTTER_CATALOG_PLAYSTORE_URL,
   );
-  static ProjectItemData DROP = ProjectItemData(
-    title: StringConst.DROP,
-    subtitle: StringConst.DROP,
+  static ProjectItemData GARDEN = ProjectItemData(
+    title: StringConst.GARDEN,
+    subtitle: StringConst.GARDEN,
     platform: StringConst.DROP_PLATFORM,
     primaryColor: AppColors.drop,
     image: ImagePath.DROP_COVER,
-    category: StringConst.DROP_CATEGORY,
+    category: StringConst.GARDEN_CATEGORY,
     designer: StringConst.DROP_DESIGNER,
     coverUrl: ImagePath.DROP_COVER,
     navTitleColor: AppColors.dropNavTitle,
@@ -447,11 +439,11 @@ class Projects {
     gitHubUrl: StringConst.DROP_GITHUB_URL,
     playStoreUrl: StringConst.DROP_PLAYSTORE_URL,
   );
-  static ProjectItemData ROAM = ProjectItemData(
-    title: StringConst.ROAM,
-    subtitle: StringConst.ROAM,
+  static ProjectItemData CLUB = ProjectItemData(
+    title: StringConst.CLUB,
+    subtitle: StringConst.CLUB,
     primaryColor: AppColors.roam,
-    category: StringConst.ROAM_CATEGORY,
+    category: StringConst.CLUB_CATEGORY,
     designer: StringConst.ROAM_DESIGNER,
     platform: StringConst.ROAM_PLATFORM,
     image: ImagePath.ROAM_COVER,
@@ -477,7 +469,7 @@ class Projects {
     gitHubUrl: StringConst.ROAM_GITHUB_URL,
     playStoreUrl: StringConst.ROAM_PLAYSTORE_URL,
   );
-  static ProjectItemData LOGIN_CATALOG = ProjectItemData(
+  static ProjectItemData MOTION_DESIGN = ProjectItemData(
     title: StringConst.LOGIN_CATALOG,
     primaryColor: AppColors.login_catalog,
     subtitle: StringConst.LOGIN_CATALOG,

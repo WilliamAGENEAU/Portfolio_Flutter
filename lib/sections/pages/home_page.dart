@@ -6,9 +6,7 @@ import '../../core/adaptive.dart';
 import '../../core/functions.dart';
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
-import '../../widgets/animated_positioned_text.dart';
 import '../../widgets/animated_slide_transtion.dart';
-import '../../widgets/animated_text_slide_box_transition.dart';
 import '../../widgets/custom_spacer.dart';
 import '../../widgets/home_page_header.dart';
 import '../../widgets/loading_page.dart';
@@ -135,39 +133,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               margin: margin,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AnimatedTextSlideBoxTransition(
-                    controller: _recentWorksController,
-                    text: StringConst.CRAFTED_WITH_LOVE,
-                    textStyle: textTheme.bodyLarge?.copyWith(
-                      color: AppColors.black,
-                      fontSize: responsiveSize(context, 30, 48, md: 40, sm: 36),
-                      height: 2.0,
-                    ),
-                    color: AppColors.surface,
-                  ),
-                  SpaceH16(),
-                  AnimatedPositionedText(
-                    controller: CurvedAnimation(
-                      parent: _recentWorksController,
-                      curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn),
-                    ),
-                    text: StringConst.SELECTION,
-                    textStyle: textTheme.bodyMedium?.copyWith(
-                      fontSize: responsiveSize(
-                        context,
-                        Sizes.TEXT_SIZE_16,
-                        Sizes.TEXT_SIZE_18,
-                      ),
-                      height: 2,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
+                children: [SpaceH16()],
               ),
             ),
           ),
-          CustomSpacer(heightFactor: 0.1),
           ResponsiveBuilder(
             builder: (context, sizingInformation) {
               double screenWidth = sizingInformation.screenSize.width;
@@ -274,7 +243,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             backgroundColor: AppColors.accentColor2.withOpacity(0.35),
             title: data[index].title.toLowerCase(),
             subtitle: data[index].category,
-            containerColor: AppColors.surface,
+            containerColor: AppColors.primaryColor,
             onTap: () {
               Functions.navigateToProject(
                 context: context,

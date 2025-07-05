@@ -276,9 +276,9 @@ class StringConst {
       "https://github.com/david-legend/david-legend.github.io";
   static const String PORTFOLIO_SITE_V2_WEB_URL = "https://davidcobbina.com/";
 
-  static const String DROP = "Drop";
+  static const String GARDEN = "The Garden";
   static const String DROP_PLATFORM = "Android / IOS.";
-  static const String DROP_CATEGORY = "Ecommerce.";
+  static const String GARDEN_CATEGORY = "ECO WEB.";
   static const String DROP_DESIGNER = "Stepan Slobodiansky.";
   static const String DROP_SUBTITLE =
       "A beautiful ecommerce mobile application.";
@@ -300,9 +300,9 @@ class StringConst {
       "https://github.com/david-legend/nimbus";
   static const String NIMBUS_WEB_URL = "https://david-legend.github.io/nimbus/";
 
-  static const String ROAM = "Roam";
+  static const String CLUB = "Club AHCV (Angers Health Sports)";
   static const String ROAM_PLATFORM = "Android / IOS.";
-  static const String ROAM_CATEGORY = "Travel.";
+  static const String CLUB_CATEGORY = "WEB TRAINING.";
   static const String ROAM_DESIGNER = "Georgina Sekyi.";
   static const String ROAM_SUBTITLE =
       "UI / UX Case study for a travel advisory app.";
@@ -312,9 +312,9 @@ class StringConst {
   static const String ROAM_PLAYSTORE_URL =
       "https://play.google.com/store/apps/details?id=com.davidcobbina.roam";
 
-  static const String LOGIN_CATALOG = "Login Catalog";
+  static const String LOGIN_CATALOG = "Motion Design";
   static const String LOGIN_CATALOG_PLATFORM = "Android / IOS.";
-  static const String LOGIN_CATALOG_CATEGORY = "UI Kit.";
+  static const String LOGIN_CATALOG_CATEGORY = " VISUALS MOTION DESIGN.";
   static const String LOGIN_CATALOG_SUBTITLE =
       "A beautiful catalog of login designs";
   static const String LOGIN_CATALOG_DETAIL =
@@ -348,9 +348,9 @@ class StringConst {
   static const String OTP_TEXT_FIELD_WEB_URL =
       "https://pub.dev/packages/flutter_otp_text_field";
 
-  static const String DISNEY_PLUS = "Disney Plus";
+  static const String MUSEUM_OF_EDIBLE_EARTH = "Museum of edible earth";
   static const String DISNEY_PLUS_PLATFORM = "Android.";
-  static const String DISNEY_PLUS_CATEGORY = "UI Kit.";
+  static const String MUSEUM_PLUS_CATEGORY = "WEB.";
   static const String DISNEY_PLUS_SUBTITLE = "Disney+, But Better";
   static const String DISNEY_PLUS_DETAIL =
       "Disney Plus is an amazing UI Kit  designed by Andre Carioca. He describes the UI Kit as his attempt of making the current disney plus app better. For me, this project is my attempt at learning and playing with Jetpack Compose. It contains everything that I am learning about the current state of native android development with Kotlin & Jetpack Compose";
@@ -358,9 +358,9 @@ class StringConst {
   static const String DISNEY_PLUS_GITHUB_URL =
       "https://github.com/david-legend/disneyPlus";
 
-  static const String FLUTTER_CATALOG = "Flutter Catalog";
+  static const String FLUTTER_CATALOG = "Connected Chessboard";
   static const String FLUTTER_CATALOG_PLATFORM = "Android / IOS.";
-  static const String FLUTTER_CATALOG_CATEGORY = "UI Kit.";
+  static const String CHESSBOARD_IOT_CATEGORY = "ANDROID / WEB.";
   static const String FLUTTER_CATALOG_SUBTITLE =
       "A beautiful catalog of login designs";
   static const String FLUTTER_CATALOG_DETAIL =

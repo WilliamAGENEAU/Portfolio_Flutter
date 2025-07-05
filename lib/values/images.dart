@@ -120,8 +120,7 @@ class ImagePath {
       "$projectsDir/roam/wireframes_signup_login.jpeg";
 
   // Disney
-  static const String DISNEY_PLUS_COVER =
-      "$projectsDir/disneyplus/disneyplus_cover.png";
+  static const String MUSEUM_COVER = "$projectsDir/museum_cover.png";
   static const String DISNEY_PLUS_SCREENS =
       "$projectsDir/disneyplus/mockups.png";
 

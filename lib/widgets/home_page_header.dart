@@ -55,7 +55,7 @@ class _HomePageHeaderState extends State<HomePageHeader>
     controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 1500),
-    )..repeat();
+    );
     animation = Tween<Offset>(
       begin: Offset(0, 0.05),
       end: Offset(0, -0.05),
@@ -77,21 +77,14 @@ class _HomePageHeaderState extends State<HomePageHeader>
             curve: Curves.easeOutCubic,
           ),
         );
-    controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        controller.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        controller.forward();
-      }
-    });
+
     rotationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         rotationController.reset();
         rotationController.forward();
-        // rotationController.reverse();
       }
     });
-    controller.forward();
+    controller.forward(); // Lance l'animation une seule fois
     rotationController.forward();
     whiteCircleController.forward();
     super.initState();
@@ -215,23 +208,45 @@ class _HomePageHeaderState extends State<HomePageHeader>
                       bottom: 0,
                       child: Container(width: 1.5, color: Colors.black),
                     ),
-                    // Flèche noire dans le coin bas droite de la perpendiculaire des traits
-                    Positioned(
-                      left:
-                          textMargin.left / 2 -
-                          0.75, // décale un peu à gauche de la ligne
-                      top:
-                          kToolbarHeight +
-                          20 +
-                          1.5, // juste sous l'intersection, ajuste -12 pour centrer l'icône
-                      child: Transform.rotate(
-                        angle: -0.75, // pointe vers le haut gauche
-                        child: Icon(
-                          Icons.arrow_upward,
-                          color: Colors.black,
-                          size: 50,
-                        ),
-                      ),
+                    // Flèche noire animée qui arrive du bas droit puis reste fixe
+                    AnimatedBuilder(
+                      animation: controller,
+                      builder: (context, child) {
+                        // Animation de slide de bas droite vers la position finale
+                        final slide =
+                            Tween<Offset>(
+                              begin: const Offset(
+                                0.4,
+                                1.0,
+                              ), // arrive du bas droit
+                              end: Offset.zero,
+                            ).animate(
+                              CurvedAnimation(
+                                parent: controller,
+                                curve: Curves.fastOutSlowIn,
+                              ),
+                            );
+                        final opacity = controller.value.clamp(0.0, 1.0);
+
+                        return Positioned(
+                          left: textMargin.left / 2 - 0.75,
+                          top: kToolbarHeight + 20 + 1.5,
+                          child: Opacity(
+                            opacity: opacity,
+                            child: SlideTransition(
+                              position: slide,
+                              child: Transform.rotate(
+                                angle: -0.75,
+                                child: Icon(
+                                  Icons.arrow_upward,
+                                  color: Colors.black,
+                                  size: 50,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     // Le contenu principal
                     Row(
