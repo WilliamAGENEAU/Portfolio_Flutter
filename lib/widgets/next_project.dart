@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -87,7 +89,7 @@ class _NextProjectState extends State<NextProject>
       fontWeight: FontWeight.w500,
     );
     TextStyle? projectTitleStyle = textTheme.bodySmall?.copyWith(
-      color: AppColors.black,
+      color: AppColors.primaryColor,
       fontSize: projectTitleFontSize,
     );
     return ResponsiveBuilder(
@@ -95,51 +97,50 @@ class _NextProjectState extends State<NextProject>
         double screenWidth = sizingInformation.screenSize.width;
 
         if (screenWidth <= RefinedBreakpoints().tabletSmall) {
-          return Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  StringConst.NEXT_PROJECT,
-                  style: textTheme.bodyMedium?.copyWith(
-                    fontSize: responsiveSize(context, 11, Sizes.TEXT_SIZE_12),
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.w300,
-                  ),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                StringConst.NEXT_PROJECT,
+                style: textTheme.bodyMedium?.copyWith(
+                  fontSize: responsiveSize(context, 11, Sizes.TEXT_SIZE_12),
+                  letterSpacing: 2,
+                  fontWeight: FontWeight.w300,
                 ),
-                SpaceH20(),
-                Text(
-                  widget.nextProject.title,
-                  textAlign: TextAlign.center,
-                  style: projectTitleStyle,
+              ),
+              SpaceH20(),
+              Text(
+                widget.nextProject.title,
+                textAlign: TextAlign.center,
+                style: projectTitleStyle,
+              ),
+              SpaceH20(),
+              SizedBox(
+                width: widthOfScreen(context),
+                height: assignHeight(context, 0.3),
+                child: Image.asset(
+                  widget.nextProject.coverUrl,
+                  fit: BoxFit.cover,
                 ),
-                SpaceH20(),
-                SizedBox(
-                  width: widthOfScreen(context),
-                  height: assignHeight(context, 0.3),
-                  child: Image.asset(
-                    widget.nextProject.coverUrl,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SpaceH30(),
-                AnimatedBubbleButton(
-                  title: StringConst.VIEW_PROJECT,
-                  color: AppColors.grey100,
-                  imageColor: AppColors.black,
-                  startBorderRadius: borderRadius,
-                  titleStyle: buttonStyle,
-                  startOffset: Offset(0, 0),
-                  targetOffset: Offset(0.1, 0),
-                  onTap: () {
-                    if (widget.navigateToNextProject != null) {
-                      widget.navigateToNextProject!();
-                    }
-                  },
-                ),
-              ],
-            ),
+              ),
+              SpaceH30(),
+              AnimatedBubbleButton(
+                startWidth: widget.width * 0.1,
+                title: StringConst.VIEW_PROJECT,
+                color: AppColors.grey100,
+                imageColor: AppColors.black,
+                startBorderRadius: borderRadius,
+                titleStyle: buttonStyle,
+                startOffset: Offset(0, 0),
+                targetOffset: Offset(0.1, 0),
+                onTap: () {
+                  if (widget.navigateToNextProject != null) {
+                    widget.navigateToNextProject!();
+                  }
+                },
+              ),
+            ],
           );
         } else {
           return SizedBox(
@@ -201,7 +202,7 @@ class _NextProjectState extends State<NextProject>
                                                 textAlign: TextAlign.center,
                                                 style: projectTitleStyle
                                                     ?.copyWith(
-                                                      color: AppColors.white,
+                                                      color: AppColors.black,
                                                       fontSize:
                                                           projectTitleFontSize -
                                                           0.25,

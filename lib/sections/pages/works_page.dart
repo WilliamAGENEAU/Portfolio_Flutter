@@ -6,7 +6,6 @@ import '../../core/functions.dart';
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
 import '../../widgets/custom_spacer.dart';
-import '../../widgets/noteworthy_projects.dart';
 import '../../widgets/page_header.dart';
 import '../../widgets/page_wrapper.dart';
 import '../../widgets/project_item.dart';
@@ -16,6 +15,7 @@ class WorksPage extends StatefulWidget {
   const WorksPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _WorksPageState createState() => _WorksPageState();
 }
 
@@ -50,18 +50,6 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
     double subHeight = (3 / 4) * projectItemHeight;
     double extra = projectItemHeight - subHeight;
 
-    EdgeInsetsGeometry padding = EdgeInsets.only(
-      left: responsiveSize(
-        context,
-        assignWidth(context, 0.10),
-        assignWidth(context, 0.15),
-      ),
-      right: responsiveSize(
-        context,
-        assignWidth(context, 0.10),
-        assignWidth(context, 0.10),
-      ),
-    );
     return PageWrapper(
       selectedRoute: WorksPage.worksPageRoute,
       selectedPageName: StringConst.WORKS,
@@ -106,10 +94,7 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
               }
             },
           ),
-          CustomSpacer(heightFactor: 0.1),
-          Container(
-            child: Padding(padding: padding, child: NoteWorthyProjects()),
-          ),
+
           CustomSpacer(heightFactor: 0.15),
           AnimatedFooter(),
         ],
@@ -134,8 +119,9 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
             imageUrl: data[index].image,
             projectItemheight: projectHeight.toDouble(),
             subheight: subHeight.toDouble(),
+            // ignore: deprecated_member_use
             backgroundColor: AppColors.accentColor2.withOpacity(0.35),
-            title: data[index].title.toLowerCase(),
+            title: data[index].title,
             subtitle: data[index].category,
             containerColor: data[index].primaryColor,
             onTap: () {
@@ -163,22 +149,20 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
 
     for (int index = 0; index < data.length; index++) {
       items.add(
-        Container(
-          child: ProjectItemSm(
-            projectNumber: index + 1 > 9 ? "${index + 1}" : "0${index + 1}",
-            imageUrl: data[index].image,
-            title: data[index].title.toLowerCase(),
-            subtitle: data[index].category,
-            containerColor: data[index].primaryColor,
-            onTap: () {
-              Functions.navigateToProject(
-                context: context,
-                dataSource: data,
-                currentProject: data[index],
-                currentProjectIndex: index,
-              );
-            },
-          ),
+        ProjectItemSm(
+          projectNumber: index + 1 > 9 ? "${index + 1}" : "0${index + 1}",
+          imageUrl: data[index].image,
+          title: data[index].title.toLowerCase(),
+          subtitle: data[index].category,
+          containerColor: data[index].primaryColor,
+          onTap: () {
+            Functions.navigateToProject(
+              context: context,
+              dataSource: data,
+              currentProject: data[index],
+              currentProjectIndex: index,
+            );
+          },
         ),
       );
       items.add(CustomSpacer(heightFactor: 0.10));

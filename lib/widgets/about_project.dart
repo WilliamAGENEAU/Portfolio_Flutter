@@ -131,12 +131,6 @@ class _AboutprojectState extends State<Aboutproject> {
                 title: StringConst.CATEGORY,
                 subtitle: widget.projectData.category,
               ),
-              ProjectData(
-                controller: widget.projectDataController,
-                width: widthOfProjectItem,
-                title: StringConst.AUTHOR,
-                subtitle: StringConst.WILLIAM_AGENEAU,
-              ),
             ],
           ),
         ),
@@ -269,6 +263,7 @@ class ProjectData extends StatelessWidget {
     );
     TextStyle? defaultSubtitleStyle = textTheme.bodySmall?.copyWith(
       fontSize: 15,
+      color: AppColors.black,
     );
 
     return SizedBox(

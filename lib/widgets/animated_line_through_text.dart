@@ -171,22 +171,6 @@ class _AnimatedLineThroughTextState extends State<AnimatedLineThroughText>
                       color: AppColors.background,
                     )
                   : Empty(),
-              Positioned(
-                top: (textHeight / 2) - widget.lineThickness,
-                child: Container(
-                  height: widget.lineThickness,
-                  color: widget.hoverColor,
-                  width: forwardAnimation.value,
-                ),
-              ),
-              Positioned(
-                top: (textHeight / 2) - widget.lineThickness,
-                child: Container(
-                  height: widget.lineThickness,
-                  color: widget.coverColor,
-                  width: backwardsAnimation.value,
-                ),
-              ),
               widget.hasSlideBoxAnimation
                   ? Empty()
                   : Text(

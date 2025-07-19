@@ -27,7 +27,7 @@ class StringConst {
   static const String DEV_INTRO = "I'm William.";
   static const String DEV_TITLE = "UX/UI Engineer.";
   static const String DEV_DESC =
-      "Designer / Mobile Engineer / Full Stack Developer ";
+      "Designer / Mobile Engineer / Full Stack Developer / IoT Engineer";
   static const String MY_PROJECTS = "My projects";
   static const String SCROLL_DOWN = "Scroll Down";
   static const String CRAFTED_WITH_LOVE = "Crafted with love.";
@@ -144,16 +144,15 @@ class StringConst {
 
   //Skills
   static const String FLUTTER = "Flutter";
-  static const String JETPACK_COMPOSE = "Jetpack Compose";
   static const String JAVA = "Java";
   static const String ANDROID = "Android";
-  static const String PYTHON = "Python";
+  static const String PYTHON = "Python, Flutter, Dart";
   static const String KOTLIN = "Kotlin";
   static const String JAVASCRIPT = "Javascript";
   static const String PHP = "PHP";
-  static const String LARAVEL = "Laravel";
+  static const String BLENDER = "Blender, 3D Animation";
   static const String SQL = "SQL";
-  static const String WORDPRESS = "Wordpress";
+  static const String WORDPRESS = "Wordpress, Underscores";
   static const String BOOTSTRAP = "Bootstrap";
   static const String HTML_CSS = "HTML/CSS";
 
@@ -276,99 +275,43 @@ class StringConst {
       "https://github.com/david-legend/david-legend.github.io";
   static const String PORTFOLIO_SITE_V2_WEB_URL = "https://davidcobbina.com/";
 
-  static const String GARDEN = "The Garden";
-  static const String DROP_PLATFORM = "Android / IOS.";
-  static const String GARDEN_CATEGORY = "ECO WEB.";
-  static const String DROP_DESIGNER = "Stepan Slobodiansky.";
-  static const String DROP_SUBTITLE =
-      "A beautiful ecommerce mobile application.";
-  static const String DROP_DETAIL =
-      "Drop is an online store which provides users with a simple, smooth experience and enabling users to get their hands on the latest and newest drops.";
-  static const String DROP_GITHUB_URL = "https://github.com/david-legend/drop";
-  static const String DROP_PLAYSTORE_URL =
-      "https://play.google.com/store/apps/details?id=com.davidcobbina.drop";
-
-  static const String NIMBUS = "Nimbus";
-  static const String NIMBUS_PLATFORM = "Web.";
-  static const String NIMBUS_CATEGORY = "Portfolio / CV.";
-  static const String NIMBUS_DESIGNER = "Web Genius Labs.";
-  static const String NIMBUS_SUBTITLE =
-      "Nimbus (Portfolio & CV), a beautifully designed portfolio website.";
-  static const String NIMBUS_DETAIL =
-      "Nimbus is a beautifully designed Portfolio & CV website built with flutter";
-  static const String NIMBUS_GITHUB_URL =
-      "https://github.com/david-legend/nimbus";
-  static const String NIMBUS_WEB_URL = "https://david-legend.github.io/nimbus/";
-
   static const String CLUB = "Club AHCV (Angers Health Sports)";
-  static const String ROAM_PLATFORM = "Android / IOS.";
+  static const String CLUB_PLATFORM = "Android / IOS.";
   static const String CLUB_CATEGORY = "WEB TRAINING.";
-  static const String ROAM_DESIGNER = "Georgina Sekyi.";
-  static const String ROAM_SUBTITLE =
-      "UI / UX Case study for a travel advisory app.";
-  static const String ROAM_DETAIL =
-      "Roam is a UI / UX Case study for a travel advisory app done by Georgina Sekyi and built by me using flutter.";
-  static const String ROAM_GITHUB_URL = "https://github.com/david-legend/roam";
-  static const String ROAM_PLAYSTORE_URL =
-      "https://play.google.com/store/apps/details?id=com.davidcobbina.roam";
+  static const String CLUB_DESIGNER = "Clara Poupar.";
+  static const String CLUB_SUBTITLE = "";
+  static const String CLUB_DETAIL =
+      "Coaching and mentoring of a trainee, Clara Poupar, as part of a web training course on WordPress for the redesign of the website of a multi-sport health association based in Angers. I accompanied her throughout the project so that she understood the whole process of creating and hosting a website: installing and configuring WordPress, choosing and customising a suitable theme, organising the content and layout of the various sections, as well as the technical aspects of the domain name and hosting.";
+  static const String CLUB_GITHUB_URL = "";
+  static const String CLUB_PLAYSTORE_URL = "";
 
-  static const String LOGIN_CATALOG = "Motion Design";
-  static const String LOGIN_CATALOG_PLATFORM = "Android / IOS.";
-  static const String LOGIN_CATALOG_CATEGORY = " VISUALS MOTION DESIGN.";
-  static const String LOGIN_CATALOG_SUBTITLE =
-      "A beautiful catalog of login designs";
-  static const String LOGIN_CATALOG_DETAIL =
-      "Login Catalog is a beautiful catalog of login designs built with flutter. The goal is to catalog as many as a 1000 different login/Signup designs to help flutter devs get right to the most important part of their app.";
-  static const String LOGIN_CATALOG_PLAYSTORE_URL =
-      "https://play.google.com/store/apps/details?id=dev.davidcobbina.logincatalog";
-  static const String LOGIN_CATALOG_GITHUB_URL =
-      "https://github.com/david-legend/login_catalog";
-
-  static const String FOODY_BITE = "FoodyBite";
-  static const String FOODY_BITE_PLATFORM = "Android / IOS.";
-  static const String FOODY_BITE_CATEGORY = "Food / Restaurant.";
-  static const String FOODY_BITE_DESIGNER = "Yagnesh P.";
-  static const String FOODY_BITE_SUBTITLE =
-      "A useful free ui kit design for food related apps";
-  static const String FOODY_BITE_DETAIL =
-      "Foodybite is a free ui kit designed by Yagnesh Pipariya and built by David Cobbina. The goal of this project is to fast track development and inspire developers who want to build a food related app.";
-  static const String FOODY_BITE_PLAYSTORE_URL = "";
-  static const String FOODY_BITE_GITHUB_URL =
-      "https://github.com/david-legend/foodybite";
-
-  static const String OTP_TEXT_FIELD = "Otp Textfield";
-  static const String OTP_TEXT_FIELD_PLATFORM = "Flutter Package/Library.";
-  static const String OTP_TEXT_FIELD_CATEGORY = "Package.";
-  static const String OTP_TEXT_FIELD_SUBTITLE =
-      "A useful flutter package for helping with otp";
-  static const String OTP_TEXT_FIELD_DETAIL =
-      "Otp text field is a simple flutter package built to help flutter devs easily implement OTP in their app. It is highly customizable and very easy to use.";
-  static const String OTP_TEXT_FIELD_GITHUB_URL =
-      "https://github.com/david-legend/otp_textfield";
-  static const String OTP_TEXT_FIELD_WEB_URL =
-      "https://pub.dev/packages/flutter_otp_text_field";
+  static const String MOTION_DESIGN = "Motion Design";
+  static const String MOTION_PLATFORM = "3D.";
+  static const String MOTION_CATEGORY = " VISUALS MOTION DESIGN.";
+  static const String MOTION_SUBTITLE = "";
+  static const String MOTION_DETAIL =
+      "During my studies in Germany, I created animated 3D visuals on the theme of “Ocean Paradise” for projection on screens in electro/techno clubs in Ravensburg during themed evenings. Under the tutelage of a German teacher and using Blender software, I designed and animated various creations such as jellyfish, seahorses, whales and bubbles, with the aim of creating an immersive, dreamlike atmosphere inspired by the ocean depths to accompany the music and enrich the visual experience of the evening audience.";
+  static const String MOTION_PLAYSTORE_URL = "";
+  static const String MOTION_GITHUB_URL = "";
 
   static const String MUSEUM_OF_EDIBLE_EARTH = "Museum of edible earth";
-  static const String DISNEY_PLUS_PLATFORM = "Android.";
-  static const String MUSEUM_PLUS_CATEGORY = "WEB.";
-  static const String DISNEY_PLUS_SUBTITLE = "Disney+, But Better";
-  static const String DISNEY_PLUS_DETAIL =
-      "Disney Plus is an amazing UI Kit  designed by Andre Carioca. He describes the UI Kit as his attempt of making the current disney plus app better. For me, this project is my attempt at learning and playing with Jetpack Compose. It contains everything that I am learning about the current state of native android development with Kotlin & Jetpack Compose";
-  static const String DISNEY_PLUS_PLAYSTORE_URL = "";
-  static const String DISNEY_PLUS_GITHUB_URL =
-      "https://github.com/david-legend/disneyPlus";
+  static const String MUSEUM_PLATFORM = "Web.";
+  static const String MUSEUM_PLUS_CATEGORY = "Web.";
+  static const String MUSEUM_SUBTITLE = "";
+  static const String MUSEUM_DETAIL =
+      "As part of an international BTS Bac+2 placement at the Museum of Edible Earth, based in Amsterdam in the Netherlands, I completely redesigned the museum's showcase website and its exhibitions over a two-month period (covid period). The main objective was to create a complete catalogue of all the edible products on display, with a page dedicated to each product allowing descriptions and comments to be posted. The site also includes sorting functions and pages detailing the museum's philosophy and history.";
+  static const String MUSEUM_PLAYSTORE_URL = "";
+  static const String MUSEUM_GITHUB_URL = "";
 
-  static const String FLUTTER_CATALOG = "Connected Chessboard";
-  static const String FLUTTER_CATALOG_PLATFORM = "Android / IOS.";
-  static const String CHESSBOARD_IOT_CATEGORY = "ANDROID / WEB.";
-  static const String FLUTTER_CATALOG_SUBTITLE =
-      "A beautiful catalog of login designs";
-  static const String FLUTTER_CATALOG_DETAIL =
-      "Flutter Catalog is a beautiful catalog of designs built with flutter. The goal is to catalog different components and building blocks of a mobile app to help flutter devs get right to the most important part of their app.";
-  static const String FLUTTER_CATALOG_PLAYSTORE_URL =
-      "https://play.google.com/store/apps/details?id=dev.davidcobbina.fluttercatalog";
-  static const String FLUTTER_CATALOG_GITHUB_URL =
-      "https://github.com/david-legend/flutter_catalog";
+  static const String CONNECTED_CHESSBOARD = "Connected Chessboard";
+  static const String CHESS_PLATFORM = "Android / IOS / Web.";
+  static const String CHESSBOARD_IOT_CATEGORY = "IOT / ANDROID / WEB.";
+  static const String CHESS_SUBTITLE = "";
+  static const String CHESS_DETAIL =
+      "Final-year IoT engineering student project carried out with three other students: creation of a connected chessboard enabling a game of chess to be followed in real time on a Flutter mobile application. The chessboard, handmade from a painted wooden board and fitted with 64 magnetic sensors, detects the movements of 32 3D-printed pieces fitted with magnets. The sensors are connected to an Arduino Mega 2560 board that continuously scans the state of the squares and transmits the information via the serial port to an application coded in Python, which feeds the Flutter application displaying the moves played live. The project included complete hardware design (assembly, wiring, painting, inlaying of sensors and magnets) and software development (Arduino code to detect movements, Python interface, mobile application), with the aim of an intuitive interface enabling users to easily view the progress of a game on their smartphone.";
+  static const String CHESS_PLAYSTORE_URL = "";
+  static const String CHESS_GITHUB_URL =
+      "https://github.com/WilliamAGENEAU/echiquier-connecte";
 
   static const String AERIUM = "Aerium";
   static const String AERIUM_PLATFORM = "Web.";

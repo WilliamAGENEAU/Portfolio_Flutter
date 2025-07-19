@@ -6,14 +6,12 @@ import '../../core/adaptive.dart';
 import '../../core/functions.dart';
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
-import '../../widgets/animated_slide_transtion.dart';
 import '../../widgets/custom_spacer.dart';
 import '../../widgets/home_page_header.dart';
 import '../../widgets/loading_page.dart';
 import '../../widgets/page_wrapper.dart';
 import '../../widgets/project_item.dart';
 import '../../widgets/spaces.dart';
-import 'works_page.dart';
 
 class HomePage extends StatefulWidget {
   static const String homePageRoute = StringConst.HOME_PAGE;
@@ -79,11 +77,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     double subHeight = (3 / 4) * projectItemHeight;
     double extra = projectItemHeight - subHeight;
     TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? textButtonStyle = textTheme.bodyMedium?.copyWith(
-      color: AppColors.black,
-      fontSize: responsiveSize(context, 30, 40, md: 36, sm: 32),
-      height: 2.0,
-    );
+
     EdgeInsets margin = EdgeInsets.only(
       left: responsiveSize(
         context,
@@ -103,7 +97,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       },
       customLoadingAnimation: LoadingHomePageAnimation(
         text: StringConst.WILLIAM_AGENEAU,
-        style: textTheme.bodyMedium!.copyWith(color: AppColors.white),
+        style: textTheme.headlineLarge!.copyWith(color: AppColors.white),
         onLoadingDone: () {
           _slideTextController.forward();
         },
@@ -163,59 +157,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               }
             },
           ),
-          CustomSpacer(heightFactor: 0.05),
-          Container(
-            margin: margin,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  StringConst.THERES_MORE.toUpperCase(),
-                  style: textTheme.bodyMedium?.copyWith(
-                    fontSize: responsiveSize(context, 11, Sizes.TEXT_SIZE_12),
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                SpaceH16(),
-                MouseRegion(
-                  onEnter: (e) => _viewProjectsController.forward(),
-                  onExit: (e) => _viewProjectsController.reverse(),
-                  child: AnimatedSlideTranstion(
-                    controller: _viewProjectsController,
-                    beginOffset: Offset(0, 0),
-                    targetOffset: Offset(0.05, 0),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, WorksPage.worksPageRoute);
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            StringConst.VIEW_ALL_PROJECTS.toLowerCase(),
-                            style: textButtonStyle,
-                          ),
-                          SpaceW12(),
-                          Container(
-                            margin: EdgeInsets.only(
-                              top: textButtonStyle!.fontSize! / 2,
-                            ),
-                            child: Image.asset(
-                              ImagePath.ARROW_RIGHT,
-                              width: 25,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+
           CustomSpacer(heightFactor: 0.15),
           AnimatedFooter(),
         ],
@@ -241,9 +183,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             subheight: subHeight.toDouble(),
             // ignore: deprecated_member_use
             backgroundColor: AppColors.accentColor2.withOpacity(0.35),
-            title: data[index].title.toLowerCase(),
+            title: data[index].title,
             subtitle: data[index].category,
-            containerColor: AppColors.primaryColor,
+            containerColor: data[index].primaryColor,
             onTap: () {
               Functions.navigateToProject(
                 context: context,
@@ -272,7 +214,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ProjectItemSm(
           projectNumber: index + 1 > 9 ? "${index + 1}" : "0${index + 1}",
           imageUrl: data[index].image,
-          title: data[index].title.toLowerCase(),
+          title: data[index].title,
           subtitle: data[index].category,
           containerColor: AppColors.surface,
           onTap: () {

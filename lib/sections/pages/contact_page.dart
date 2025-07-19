@@ -399,18 +399,21 @@ class _LottieHoverState extends State<_LottieHover>
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => _lottieController.repeat(),
-      onExit: (_) => _lottieController.stop(),
-      child: Lottie.asset(
-        ImagePath.contact,
-        controller: _lottieController,
-        width: widget.width,
-        height: widget.height,
-        fit: BoxFit.cover,
-        onLoaded: (composition) {
-          _lottieController.duration = composition.duration;
-        },
+    return Padding(
+      padding: const EdgeInsets.only(right: 100),
+      child: MouseRegion(
+        onEnter: (_) => _lottieController.repeat(),
+        onExit: (_) => _lottieController.stop(),
+        child: Lottie.asset(
+          ImagePath.contact,
+          controller: _lottieController,
+          width: widget.width,
+          height: widget.height,
+          fit: BoxFit.cover,
+          onLoaded: (composition) {
+            _lottieController.duration = composition.duration;
+          },
+        ),
       ),
     );
   }

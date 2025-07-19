@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../core/adaptive.dart';
 import '../../core/functions.dart';
@@ -36,7 +37,8 @@ class ProjectDetailArguments {
 
 class ProjectDetailPage extends StatefulWidget {
   static const String projectDetailPageRoute = StringConst.PROJECT_DETAIL_PAGE;
-  const ProjectDetailPage({super.key});
+  // ignore: use_super_parameters
+  const ProjectDetailPage({Key? key}) : super(key: key);
 
   @override
   _ProjectDetailPageState createState() => _ProjectDetailPageState();
@@ -50,6 +52,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
   late AnimationController _projectDataController;
   late ProjectDetailArguments projectDetails;
   double waveLineHeight = 100;
+  bool _albumVisible = false;
 
   @override
   void initState() {
@@ -98,11 +101,11 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
   Widget build(BuildContext context) {
     getArguments();
     TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? coverTitleStyle = textTheme.bodyLarge?.copyWith(
+    TextStyle? coverTitleStyle = textTheme.displayMedium?.copyWith(
       color: AppColors.white,
       fontSize: 40,
     );
-    TextStyle? coverSubtitleStyle = textTheme.bodyMedium?.copyWith(
+    TextStyle? coverSubtitleStyle = textTheme.bodyLarge?.copyWith(
       color: AppColors.white,
     );
     EdgeInsetsGeometry padding = EdgeInsets.only(
@@ -145,11 +148,14 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
             height: heightOfScreen(context),
             child: Stack(
               children: [
-                Image.asset(
-                  projectDetails.data.coverUrl,
-                  fit: BoxFit.cover,
-                  width: widthOfScreen(context),
-                  height: heightOfScreen(context),
+                Opacity(
+                  opacity: 0.8,
+                  child: Image.asset(
+                    projectDetails.data.coverUrl,
+                    fit: BoxFit.cover,
+                    width: widthOfScreen(context),
+                    height: heightOfScreen(context),
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: waveLineHeight + 40),
@@ -217,7 +223,23 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
             ),
           ),
           CustomSpacer(heightFactor: 0.15),
-          ..._buildProjectAlbum(projectDetails.data.projectAssets),
+          VisibilityDetector(
+            key: Key('project-album'),
+            onVisibilityChanged: (visibilityInfo) {
+              double visiblePercentage = visibilityInfo.visibleFraction * 100;
+              if (visiblePercentage > 40 && !_albumVisible) {
+                setState(() {
+                  _albumVisible = true;
+                });
+              }
+            },
+            child: _albumVisible
+                ? _buildProjectAlbum(projectDetails.data.projectAssets)
+                : SizedBox(
+                    height:
+                        400, // hauteur placeholder pour garder la place dans le scroll
+                  ),
+          ),
           projectDetails.hasNextProject
               ? CustomSpacer(heightFactor: 0.15)
               : Empty(),
@@ -250,13 +272,37 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
     );
   }
 
-  List<Widget> _buildProjectAlbum(List<String> data) {
-    List<Widget> items = [];
-
-    for (int index = 0; index < data.length; index++) {
-      items.add(Image.asset(data[index], fit: BoxFit.cover));
-    }
-
-    return items;
+  Widget _buildProjectAlbum(List<String> data) {
+    return AnimationLimiter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: data.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // 2 images par ligne
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            childAspectRatio: 1.2, // Ajuste selon tes images
+          ),
+          itemBuilder: (context, index) {
+            return AnimationConfiguration.staggeredGrid(
+              position: index,
+              duration: const Duration(milliseconds: 500),
+              columnCount: 2,
+              child: ScaleAnimation(
+                child: FadeInAnimation(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(data[index], fit: BoxFit.cover),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
 }

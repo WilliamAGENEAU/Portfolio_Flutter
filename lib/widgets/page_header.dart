@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../core/adaptive.dart';
 import '../values/values.dart';
@@ -68,7 +69,19 @@ class _PageHeaderState extends State<PageHeader>
         children: [
           Align(
             alignment: Alignment.center,
-            child: Image.asset(ImagePath.WORKS, fit: BoxFit.cover),
+            child: Lottie.asset(
+              ImagePath.shape,
+              fit: BoxFit
+                  .contain, // Change BoxFit.cover -> BoxFit.contain pour éviter le débordement
+              width:
+                  widthOfScreen(context) *
+                  0.7, // Réduit la largeur à 50% de l'écran
+              height:
+                  heightOfScreen(context) *
+                  0.7, // Réduit la hauteur à 50% de l'écran
+              repeat: true,
+              animate: true,
+            ),
           ),
           Align(
             alignment: Alignment.center,
