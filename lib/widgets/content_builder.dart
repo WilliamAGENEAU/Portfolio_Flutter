@@ -38,19 +38,23 @@ class ContentBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? defaultNumberStyle = textTheme.bodyMedium?.copyWith(
-      fontSize: Sizes.TEXT_SIZE_10,
+    // Augmente la taille pour number et title, et les rend identiques
+    TextStyle? defaultNumberStyle = textTheme.bodyLarge?.copyWith(
+      fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_24),
       color: AppColors.black,
-      fontWeight: FontWeight.w400,
-      height: 2.0,
+      fontWeight: FontWeight.w600,
+      height: 1.2,
       letterSpacing: 2,
     );
     TextStyle? defaultSectionStyle = defaultNumberStyle?.copyWith(
       color: AppColors.primaryColor,
     );
-    TextStyle? defaultTitleStyle = textTheme.bodySmall?.copyWith(
+    TextStyle? defaultTitleStyle = textTheme.bodyLarge?.copyWith(
+      fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_24),
       color: AppColors.black,
-      fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_20),
+      fontWeight: FontWeight.w600,
+      height: 1.2,
+      letterSpacing: 2,
     );
     return SizedBox(
       width: width,

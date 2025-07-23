@@ -275,7 +275,7 @@ class StringConst {
       "https://github.com/david-legend/david-legend.github.io";
   static const String PORTFOLIO_SITE_V2_WEB_URL = "https://davidcobbina.com/";
 
-  static const String CLUB = "Club AHCV (Angers Health Sports)";
+  static const String CLUB = "Club AHCV(Angers Health Sports)";
   static const String CLUB_PLATFORM = "Android / IOS.";
   static const String CLUB_CATEGORY = "WEB TRAINING.";
   static const String CLUB_DESIGNER = "Clara Poupar.";

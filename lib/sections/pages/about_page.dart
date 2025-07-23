@@ -8,7 +8,6 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../../core/adaptive.dart';
 import '../../core/functions.dart';
 import '../../values/values.dart';
-import '../../widgets/about_header.dart';
 import '../../widgets/animated_footer.dart';
 import '../../widgets/animated_line_through_text.dart';
 import '../../widgets/animated_positioned_text.dart';
@@ -153,8 +152,6 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
               width: contentAreaWidth,
               child: Column(
                 children: [
-                  AboutHeader(width: contentAreaWidth, controller: _controller),
-                  CustomSpacer(heightFactor: 0.1),
                   VisibilityDetector(
                     key: Key('story-section'),
                     onVisibilityChanged: (visibilityInfo) {
@@ -357,10 +354,9 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SpaceH20(),
-                          Wrap(
-                            spacing: 20,
-                            runSpacing: 20,
-                            children: _buildSocials(Data.socialData2),
+                          Socials(
+                            socialData: Data.socialData,
+                            color: AppColors.black,
                           ),
                         ],
                       ),
@@ -398,38 +394,5 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
         ],
       ),
     );
-  }
-
-  List<Widget> _buildSocials(List<SocialData> data) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? style = textTheme.bodyMedium?.copyWith(color: AppColors.grey750);
-    TextStyle? slashStyle = textTheme.bodyMedium?.copyWith(
-      color: AppColors.grey750,
-      fontWeight: FontWeight.w400,
-      fontSize: 18,
-    );
-    List<Widget> items = [];
-
-    for (int index = 0; index < data.length; index++) {
-      items.add(
-        AnimatedLineThroughText(
-          text: data[index].name,
-          isUnderlinedByDefault: true,
-          controller: _contactController,
-          hasSlideBoxAnimation: true,
-          isUnderlinedOnHover: false,
-          onTap: () {
-            Functions.launchUrl(data[index].url);
-          },
-          textStyle: style,
-        ),
-      );
-
-      if (index < data.length - 1) {
-        items.add(Text('/', style: slashStyle));
-      }
-    }
-
-    return items;
   }
 }

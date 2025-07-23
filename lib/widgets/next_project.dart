@@ -92,6 +92,11 @@ class _NextProjectState extends State<NextProject>
       color: AppColors.primaryColor,
       fontSize: projectTitleFontSize,
     );
+
+    final String nextProjectTitle = widget.nextProject.title.length > 17
+        ? "${widget.nextProject.title.substring(0, 17)}..."
+        : widget.nextProject.title;
+
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         double screenWidth = sizingInformation.screenSize.width;
@@ -111,7 +116,7 @@ class _NextProjectState extends State<NextProject>
               ),
               SpaceH20(),
               Text(
-                widget.nextProject.title,
+                nextProjectTitle,
                 textAlign: TextAlign.center,
                 style: projectTitleStyle,
               ),
@@ -178,7 +183,7 @@ class _NextProjectState extends State<NextProject>
                             SpaceH20(),
                             isDisplayMobileOrTablet(context)
                                 ? Text(
-                                    widget.nextProject.title,
+                                    nextProjectTitle,
                                     textAlign: TextAlign.center,
                                     style: projectTitleStyle,
                                   )
@@ -186,19 +191,19 @@ class _NextProjectState extends State<NextProject>
                                     duration: Animations.switcherDuration,
                                     child: _isHovering
                                         ? Text(
-                                            widget.nextProject.title,
+                                            nextProjectTitle,
                                             textAlign: TextAlign.center,
                                             style: projectTitleStyle,
                                           )
                                         : Stack(
                                             children: [
                                               Text(
-                                                widget.nextProject.title,
+                                                nextProjectTitle,
                                                 textAlign: TextAlign.center,
                                                 style: projectTitleStyle,
                                               ),
                                               Text(
-                                                widget.nextProject.title,
+                                                nextProjectTitle,
                                                 textAlign: TextAlign.center,
                                                 style: projectTitleStyle
                                                     ?.copyWith(
