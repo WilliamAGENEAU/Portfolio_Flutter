@@ -127,24 +127,6 @@ class ImagePath {
   static const String MOTION_6 = "$projectsDir/motion_6.png";
   static const String MOTION_7 = "$projectsDir/motion_7.png";
 
-  // Aerium
-  static const String AERIUM_COVER =
-      "$projectsDir/aerium-v1/portfolio_cover.png";
-
-  static const String AERIUM_DESIGN_2 =
-      "$projectsDir/aerium-v1/portfolio_design_2.png";
-  static const String AERIUM_DESIGN_3 =
-      "$projectsDir/aerium-v1/portfolio_design_3.png";
-
-  // Amor
-  static const String AMOR_COVER =
-      "$projectsDir/login_catalog/foodybite_cover.png";
-
-  // Outfitr
-  static const String OUTFITR_COVER = "$projectsDir/outfitr/outfitr_cover.jpg";
-  static const String OUTFITR_1 = "$projectsDir/outfitr/outfitr_1.jpeg";
-  static const String OUTFITR_2 = "$projectsDir/outfitr/outfitr_2.jpeg";
-  static const String OUTFITR_4 = "$projectsDir/outfitr/outfitr_4.jpeg";
-  static const String OUTFITR_5 = "$projectsDir/outfitr/outfitr_5.jpeg";
-  static const String OUTFITR_6 = "$projectsDir/outfitr/outfitr_6.jpeg";
+  static const String about = "$imageDir/about.png";
+  static const String work = "$imageDir/work.png";
 }

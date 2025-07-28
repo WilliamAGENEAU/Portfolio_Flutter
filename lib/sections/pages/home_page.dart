@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:portfolio_flutter/widgets/gallery_guirlande.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../core/adaptive.dart';
-import '../../core/functions.dart';
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
 import '../../widgets/custom_spacer.dart';
 import '../../widgets/home_page_header.dart';
 import '../../widgets/loading_page.dart';
 import '../../widgets/page_wrapper.dart';
-import '../../widgets/project_item.dart';
-import '../../widgets/spaces.dart';
 
 class HomePage extends StatefulWidget {
   static const String homePageRoute = StringConst.HOME_PAGE;
@@ -25,11 +21,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   GlobalKey key = GlobalKey();
+  final GlobalKey _galleryKey = GlobalKey();
   final ScrollController _scrollController = ScrollController();
   late AnimationController _viewProjectsController;
-  late AnimationController _recentWorksController;
   late AnimationController _slideTextController;
   late NavigationArguments _arguments;
+
+  bool _galleryVisible = false;
+
+  // Déclare ta liste d'images (par exemple en haut de _HomePageState) :
+  final List<String> recentProjectImages = [
+    ImagePath.MUSEUM_COVER,
+    ImagePath.CHESS_3,
+    ImagePath.MOTION_COVER,
+    ImagePath.CLUB_2,
+    ImagePath.MOTION_3,
+    ImagePath.CHESS_5,
+    ImagePath.MUSEUM_4,
+  ];
+
+  // Ajoute ce champ dans _HomePageState pour gérer le hover groupé :
 
   @override
   void initState() {
@@ -39,10 +50,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       duration: Duration(milliseconds: 300),
     );
     _slideTextController = AnimationController(
-      vsync: this,
-      duration: Animations.slideAnimationDurationLong,
-    );
-    _recentWorksController = AnimationController(
       vsync: this,
       duration: Animations.slideAnimationDurationLong,
     );
@@ -73,19 +80,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     getArguments();
-    double projectItemHeight = assignHeight(context, 0.4);
-    double subHeight = (3 / 4) * projectItemHeight;
-    double extra = projectItemHeight - subHeight;
     TextTheme textTheme = Theme.of(context).textTheme;
-
-    EdgeInsets margin = EdgeInsets.only(
-      left: responsiveSize(
-        context,
-        assignWidth(context, 0.10),
-        assignWidth(context, 0.15),
-        sm: assignWidth(context, 0.15),
-      ),
-    );
     return PageWrapper(
       selectedRoute: HomePage.homePageRoute,
       selectedPageName: StringConst.HOME,
@@ -111,124 +106,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         children: [
           HomePageHeader(
             controller: _slideTextController,
-            scrollToWorksKey: key,
+            scrollToWorksKey: _galleryKey, // Passe le key ici
           ),
           CustomSpacer(heightFactor: 0.1),
-          VisibilityDetector(
-            key: Key('recent-projects'),
-            onVisibilityChanged: (visibilityInfo) {
-              double visiblePercentage = visibilityInfo.visibleFraction * 100;
-              if (visiblePercentage > 45) {
-                _recentWorksController.forward();
-              }
-            },
-            child: Container(
-              key: key,
-              margin: margin,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [SpaceH16()],
-              ),
+          Container(
+            key: _galleryKey,
+            height: 800,
+            color: Colors.black,
+            child: Stack(
+              children: [
+                VisibilityDetector(
+                  key: const Key('gallery-visibility'),
+                  onVisibilityChanged: (info) {
+                    if (info.visibleFraction > 0.3 && !_galleryVisible) {
+                      setState(() {
+                        _galleryVisible = true;
+                      });
+                    }
+                  },
+                  child: GalleryGuirlande(images: recentProjectImages),
+                ),
+              ],
             ),
           ),
-          ResponsiveBuilder(
-            builder: (context, sizingInformation) {
-              double screenWidth = sizingInformation.screenSize.width;
-
-              if (screenWidth <= RefinedBreakpoints().tabletSmall) {
-                return Column(
-                  children: _buildProjectsForMobile(
-                    data: Data.recentWorks,
-                    projectHeight: projectItemHeight.toInt(),
-                    subHeight: subHeight.toInt(),
-                  ),
-                );
-              } else {
-                return SizedBox(
-                  height: (subHeight * (Data.recentWorks.length)) + extra,
-                  child: Stack(
-                    children: _buildRecentProjects(
-                      data: Data.recentWorks,
-                      projectHeight: projectItemHeight.toInt(),
-                      subHeight: subHeight.toInt(),
-                    ),
-                  ),
-                );
-              }
-            },
-          ),
-
-          CustomSpacer(heightFactor: 0.15),
+          CustomSpacer(heightFactor: 0.1),
           AnimatedFooter(),
         ],
       ),
     );
-  }
-
-  List<Widget> _buildRecentProjects({
-    required List<ProjectItemData> data,
-    required int projectHeight,
-    required int subHeight,
-  }) {
-    List<Widget> items = [];
-    int margin = subHeight * (data.length - 1);
-    for (int index = data.length - 1; index >= 0; index--) {
-      items.add(
-        Container(
-          margin: EdgeInsets.only(top: margin.toDouble()),
-          child: ProjectItemLg(
-            projectNumber: index + 1 > 9 ? "${index + 1}" : "0${index + 1}",
-            imageUrl: data[index].image,
-            projectItemheight: projectHeight.toDouble(),
-            subheight: subHeight.toDouble(),
-            // ignore: deprecated_member_use
-            backgroundColor: AppColors.accentColor2.withOpacity(0.35),
-            title: data[index].title,
-            subtitle: data[index].category,
-            containerColor: data[index].primaryColor,
-            onTap: () {
-              Functions.navigateToProject(
-                context: context,
-                dataSource: data,
-                currentProject: data[index],
-                currentProjectIndex: index,
-              );
-            },
-          ),
-        ),
-      );
-      margin -= subHeight;
-    }
-    return items;
-  }
-
-  List<Widget> _buildProjectsForMobile({
-    required List<ProjectItemData> data,
-    required int projectHeight,
-    required int subHeight,
-  }) {
-    List<Widget> items = [];
-
-    for (int index = 0; index < data.length; index++) {
-      items.add(
-        ProjectItemSm(
-          projectNumber: index + 1 > 9 ? "${index + 1}" : "0${index + 1}",
-          imageUrl: data[index].image,
-          title: data[index].title,
-          subtitle: data[index].category,
-          containerColor: AppColors.surface,
-          onTap: () {
-            Functions.navigateToProject(
-              context: context,
-              dataSource: data,
-              currentProject: data[index],
-              currentProjectIndex: index,
-            );
-          },
-        ),
-      );
-      items.add(CustomSpacer(heightFactor: 0.10));
-    }
-    return items;
   }
 }

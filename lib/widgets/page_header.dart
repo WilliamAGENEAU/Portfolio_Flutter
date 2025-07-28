@@ -89,7 +89,7 @@ class _PageHeaderState extends State<PageHeader>
               controller: widget.headingTextController,
               text: widget.headingText,
               textStyle: headingStyle,
-              color: AppColors.background,
+              color: AppColors.surface,
             ),
           ),
           Align(
