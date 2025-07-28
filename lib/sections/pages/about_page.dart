@@ -6,17 +6,13 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../core/adaptive.dart';
-import '../../core/functions.dart';
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
-import '../../widgets/animated_line_through_text.dart';
 import '../../widgets/animated_positioned_text.dart';
-import '../../widgets/animated_text_slide_box_transition.dart';
 import '../../widgets/content_area.dart';
 import '../../widgets/content_builder.dart';
 import '../../widgets/custom_spacer.dart';
 import '../../widgets/page_wrapper.dart';
-import '../../widgets/social.dart';
 import '../../widgets/spaces.dart';
 import '../../widgets/technology_section.dart';
 
@@ -111,14 +107,6 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
       color: AppColors.grey750,
       fontWeight: FontWeight.w400,
       height: 2.0,
-      // letterSpacing: 2,
-    );
-    TextStyle? bodyText2Style = textTheme.bodyMedium?.copyWith(
-      color: AppColors.grey750,
-    );
-    TextStyle? titleStyle = textTheme.bodySmall?.copyWith(
-      color: AppColors.black,
-      fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_20),
     );
     CurvedAnimation storySectionAnimation = CurvedAnimation(
       parent: _storyController,
@@ -258,11 +246,8 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
                                     ),
                                     items:
                                         [
-                                          ImagePath.carousel1,
                                           ImagePath.carousel2,
-                                          ImagePath.carousel3,
-                                          ImagePath.carousel4,
-                                          ImagePath.carousel5,
+                                          ImagePath.carousel1,
                                           ImagePath.carousel6,
                                         ].map((imgPath) {
                                           return ClipRRect(
@@ -311,79 +296,29 @@ class _AboutPageState extends State<AboutPage> with TickerProviderStateMixin {
                             text: StringConst.ABOUT_DEV_TECHNOLOGY_CONTENT,
                             textStyle: bodyText1Style,
                           ),
-                        ],
-                      ),
-                      footer: VisibilityDetector(
-                        key: Key('technology-list'),
-                        onVisibilityChanged: (visibilityInfo) {
-                          double visiblePercentage =
-                              visibilityInfo.visibleFraction * 100;
-                          if (visiblePercentage > 60) {
-                            _technologyListController.forward();
-                          }
-                        },
-                        child: Column(
-                          children: [
-                            SpaceH12(),
-                            TechnologySection(
-                              width: contentAreaWidth,
-                              controller: _technologyListController,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  CustomSpacer(heightFactor: 0.1),
-                  VisibilityDetector(
-                    key: Key('contact-section'),
-                    onVisibilityChanged: (visibilityInfo) {
-                      double visiblePercentage =
-                          visibilityInfo.visibleFraction * 100;
-                      if (visiblePercentage > 50) {
-                        _contactController.forward();
-                      }
-                    },
-                    child: ContentBuilder(
-                      controller: _contactController,
-                      number: "/03 ",
-                      width: contentAreaWidth,
-                      section: StringConst.ABOUT_DEV_CONTACT.toUpperCase(),
-                      title: StringConst.ABOUT_DEV_CONTACT_SOCIAL,
-                      body: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SpaceH20(),
-                          Socials(
-                            socialData: Data.socialData,
-                            color: AppColors.black,
-                          ),
-                        ],
-                      ),
-                      footer: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SpaceH40(),
-                          AnimatedTextSlideBoxTransition(
-                            controller: _contactController,
-                            text: StringConst.ABOUT_DEV_CONTACT_EMAIL,
-                            textStyle: titleStyle,
-                            color: AppColors.background,
-                          ),
-                          SpaceH40(),
-                          AnimatedLineThroughText(
-                            text: StringConst.DEV_EMAIL,
-                            hasSlideBoxAnimation: true,
-                            controller: _contactController,
-                            onTap: () {
-                              Functions.launchUrl(StringConst.EMAIL_URL);
+                          VisibilityDetector(
+                            key: Key('technology-list'),
+                            onVisibilityChanged: (visibilityInfo) {
+                              double visiblePercentage =
+                                  visibilityInfo.visibleFraction * 100;
+                              if (visiblePercentage > 60) {
+                                _technologyListController.forward();
+                              }
                             },
-                            textStyle: bodyText2Style,
-                          ),
+                            child: Column(
+                              children: [
+                                TechnologySection(
+                                  width: contentAreaWidth,
+                                  controller: _technologyListController,
+                                ),
+                              ],
+                            ),
+                          ), // Ajoute un petit espace seulement (ou ajuste la valeur)
                         ],
                       ),
                     ),
                   ),
+
                   SpaceH36(),
                 ],
               ),

@@ -42,7 +42,7 @@ class ImagePath {
   static const String jelly = "$imageDir/jelly.png";
 
   static const String carousel1 = "$imageDir/story1.jpg";
-  static const String carousel2 = "$imageDir/story2.jpg";
+  static const String carousel2 = "$imageDir/willboss.jpg";
   static const String carousel3 = "$imageDir/story3.jpg";
   static const String carousel4 = "$imageDir/story4.jpg";
   static const String carousel5 = "$imageDir/story5.jpg";

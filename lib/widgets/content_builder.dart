@@ -40,7 +40,7 @@ class ContentBuilder extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     // Augmente la taille pour number et title, et les rend identiques
     TextStyle? defaultNumberStyle = textTheme.bodyLarge?.copyWith(
-      fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_24),
+      fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_20),
       color: AppColors.black,
       fontWeight: FontWeight.w600,
       height: 1.2,
@@ -50,7 +50,7 @@ class ContentBuilder extends StatelessWidget {
       color: AppColors.primaryColor,
     );
     TextStyle? defaultTitleStyle = textTheme.bodyLarge?.copyWith(
-      fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_24),
+      fontSize: responsiveSize(context, Sizes.TEXT_SIZE_16, Sizes.TEXT_SIZE_20),
       color: AppColors.black,
       fontWeight: FontWeight.w600,
       height: 1.2,

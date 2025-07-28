@@ -6,7 +6,7 @@ class StringConst {
   //strings
   static const String APP_NAME = "William Ageneau Portfolio";
   static const String APP_TITLE = "William Ageneau Portfolio";
-  static const String SITE_URL = "https://davidcobbina.com";
+  static const String SITE_URL = "";
 
   static const String HOME = "Home";
   static const String ABOUT = "About";
