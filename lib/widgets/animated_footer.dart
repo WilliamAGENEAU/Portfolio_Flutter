@@ -73,7 +73,7 @@ class _AnimatedFooterState extends State<AnimatedFooter>
 
     return Container(
       width: widget.width ?? widthOfScreen(context),
-      height: widget.height ?? assignHeight(context, 0.8),
+      height: widget.height ?? assignHeight(context, 0.70),
       color: widget.backgroundColor,
       child: VisibilityDetector(
         key: Key('animated-footer'),
@@ -126,7 +126,7 @@ class _AnimatedFooterState extends State<AnimatedFooter>
                 ],
               ),
             ),
-            Spacer(),
+            SpaceH16(),
             AnimatedPositionedText(
               text: StringConst.AVAILABLE_FOR_FREELANCE,
               textAlign: TextAlign.center,
@@ -137,7 +137,7 @@ class _AnimatedFooterState extends State<AnimatedFooter>
                 curve: Curves.fastOutSlowIn,
               ),
             ),
-            SpaceH20(),
+            SpaceH16(),
             AnimatedBubbleButton(
               title: StringConst.SAY_HELLO.toUpperCase(),
               onTap: () {
@@ -155,7 +155,7 @@ class _AnimatedFooterState extends State<AnimatedFooter>
                 }
               },
             ),
-            Spacer(),
+            SpaceH16(),
           ],
         ),
       ),

@@ -5,7 +5,6 @@ import 'package:lottie/lottie.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../core/adaptive.dart';
-import '../sections/pages/works_page.dart';
 import '../values/values.dart';
 import 'animated_bubble_button.dart';
 import 'animated_positioned_text.dart';
@@ -448,7 +447,7 @@ class _AboutDevState extends State<AboutDev> {
             targetOffset: Offset(0.1, 0),
             targetWidth: 200,
             startBorderRadius: const BorderRadius.all(Radius.circular(100.0)),
-            title: StringConst.MY_PROJECTS.toUpperCase(),
+            title: StringConst.ABOUT_MYSELF,
             titleStyle: textTheme.bodyMedium?.copyWith(
               color: AppColors.black,
               fontSize: responsiveSize(
@@ -460,7 +459,10 @@ class _AboutDevState extends State<AboutDev> {
               fontWeight: FontWeight.w500,
             ),
             onTap: () {
-              Navigator.pushNamed(context, WorksPage.worksPageRoute);
+              Navigator.pushNamed(
+                context,
+                StringConst.ABOUT_PAGE,
+              ); // <-- Redirige vers la page About
             },
           ),
         ),

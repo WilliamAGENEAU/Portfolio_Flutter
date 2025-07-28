@@ -19,8 +19,7 @@ class StringConst {
   static const String CONTACT = "Contact";
   static const String PHONE_NUMBER = "Phone Number";
   static const String RESUME = "Resume";
-  static const String CERTIFICATIONS = "Certifications";
-  static const String EMAIL_VALUE = "davidcobbina47@gmail.com";
+  static const String ABOUT_MYSELF = "About Myself";
 
   // Home Page
   static const String HI = "Hi,";
