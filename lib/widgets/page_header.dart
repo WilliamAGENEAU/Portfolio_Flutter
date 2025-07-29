@@ -13,10 +13,12 @@ class PageHeader extends StatefulWidget {
     super.key,
     required this.headingText,
     required this.headingTextController,
+    this.onArrowTap, // Ajoute ce paramètre
   });
 
   final String headingText;
   final AnimationController headingTextController;
+  final VoidCallback? onArrowTap; // Ajoute ce paramètre
 
   @override
   _PageHeaderState createState() => _PageHeaderState();
@@ -96,10 +98,16 @@ class _PageHeaderState extends State<PageHeader>
             alignment: Alignment.bottomCenter,
             child: Container(
               margin: EdgeInsets.only(bottom: Sizes.MARGIN_40),
-              child: AnimatedSlideTranstion(
-                controller: controller,
-                position: animation,
-                child: Image.asset(ImagePath.ARROW_DOWN_IOS),
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: widget.onArrowTap, // Ajoute ceci
+                  child: AnimatedSlideTranstion(
+                    controller: controller,
+                    position: animation,
+                    child: Image.asset(ImagePath.ARROW_DOWN_IOS),
+                  ),
+                ),
               ),
             ),
           ),

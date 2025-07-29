@@ -75,7 +75,7 @@ class StringConst {
   static const String ABOUT_DEV_STORY_CONTENT_1 =
       "I am front-end software engineer with great passion for building high quality applications.";
   static const String ABOUT_DEV_STORY_CONTENT_2 =
-      "I have a degree in computer engineering from the ESAIP engineering school in Angers, specialising in IoT (connected objects). I have strong technical skills as well as excellent interpersonal skills, which have enabled me to work and interact with customers all over the world.";
+      "I have a degree in computer engineering from the ESAIP engineering school in Angers, specialising in IoT (connected objects). I have strong technical skills as well as excellent interpersonal skills, which have enabled me to work and interact with customers all over the world. I am also a DJ with a passion for electronic music, which allows me to combine creativity and technology in unique ways.";
   static const String ABOUT_DEV_STORY_CONTENT_3 =
       "I am very good at thinking and solving problems with intelligent, intuitive, and modern computer interfaces. I am moving more and more towards user experience and design (UX/UI).";
   static const String ABOUT_DEV_TECHNOLOGY = "Technology ";

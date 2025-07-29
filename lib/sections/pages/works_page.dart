@@ -22,6 +22,7 @@ class WorksPage extends StatefulWidget {
 class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _headingTextController;
+  final GlobalKey _projectsStackKey = GlobalKey();
 
   @override
   void initState() {
@@ -67,6 +68,16 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
           PageHeader(
             headingText: StringConst.WORKS,
             headingTextController: _headingTextController,
+            onArrowTap: () {
+              final ctx = _projectsStackKey.currentContext;
+              if (ctx != null) {
+                Scrollable.ensureVisible(
+                  ctx,
+                  duration: const Duration(milliseconds: 600),
+                  curve: Curves.easeInOut,
+                );
+              }
+            },
           ),
           ResponsiveBuilder(
             builder: (context, sizingInformation) {
@@ -82,6 +93,7 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
                 );
               } else {
                 return SizedBox(
+                  key: _projectsStackKey, // Ajoute cette ligne
                   height: (subHeight * (Data.projects.length)) + extra,
                   child: Stack(
                     children: _buildProjects(
@@ -115,12 +127,12 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
         Container(
           margin: EdgeInsets.only(top: margin.toDouble()),
           child: ProjectItemLg(
-            projectNumber: index + 1 > 9 ? "${index + 1}" : "0${index + 1}",
+            projectNumber: index + 1 > 5 ? "${index + 1}" : "0${index + 1}",
             imageUrl: data[index].image,
             projectItemheight: projectHeight.toDouble(),
             subheight: subHeight.toDouble(),
-            // ignore: deprecated_member_use
-            backgroundColor: AppColors.accentColor2.withOpacity(0.35),
+            backgroundColor: Colors.black, // fond noir
+            backgroundOnHoverColor: const Color(0xFF232323), // gris/noir foncé
             title: data[index].title,
             subtitle: data[index].category,
             containerColor: data[index].primaryColor,

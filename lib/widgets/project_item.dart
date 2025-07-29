@@ -153,8 +153,8 @@ class ProjectItemLg extends StatefulWidget {
     this.coloredContainerHeight,
     this.coloredContainerWidth,
     this.buttonTitle = StringConst.VIEW,
-    this.backgroundOnHoverColor = AppColors.surface,
-    this.backgroundColor = AppColors.accentColor2,
+    this.backgroundOnHoverColor = const Color(0xFF232323), // gris/noir foncé
+    this.backgroundColor = Colors.black, // fond noir par défaut
     this.projectNumberStyle,
     this.subtitleStyle,
     this.titleStyle,
@@ -223,12 +223,10 @@ class _ProjectItemLgState extends State<ProjectItemLg>
     with SingleTickerProviderStateMixin {
   bool _isHovering = false;
   late AnimationController _controller;
-  // late Animation<double> _animation;
 
   @override
   void initState() {
     _controller = AnimationController(vsync: this, duration: widget.duration);
-
     super.initState();
   }
 
@@ -248,70 +246,15 @@ class _ProjectItemLgState extends State<ProjectItemLg>
 
   @override
   Widget build(BuildContext context) {
-    // width of the project item - it takes the entire width of the device
+    // Largeur et hauteur fixes pour alignement parfait
     double projectItemWidth = widthOfScreen(context);
-    // height of the overall project item - it defaults to 40% of the height of the device
     double projectItemHeight =
-        widget.projectItemheight ?? assignHeight(context, 0.4);
-    // it defaults to 75% of the height of the full [projectItemHeight]
-    double subheight = widget.subheight ?? (3 / 4 * projectItemHeight);
-    // defaults to 80% of the height of the [subheight]
-    double containerHeight = widget.coloredContainerHeight ?? (subheight * 0.8);
-    // defaults to 25% of the width of the screen on large screens
-    double containerWidth =
-        widget.coloredContainerWidth ??
-        responsiveSize(
-          context,
-          assignWidth(context, 0.25),
-          assignWidth(context, 0.25), // 25%
-          md: assignWidth(context, 0.33), // 33%
-          sm: assignWidth(context, 0.35), // 30%
-        );
-    // computes the position of the button, positions the button in the middle
-    // of the container using subheight as it's height
-    double positionOfButton = (subheight / 2) - startWidthOfButton;
-    // computes the position of the colored container, positions the container in the middle
-    // of the button
-    double positionOfColoredContainer = positionOfButton + (heightOfButton / 2);
-    // width of project cover - takes 1/3 of the width of the screen
-    double imageWidth = responsiveSize(
-      context,
-      projectItemWidth / 2.5,
-      projectItemWidth / 4,
-      md: projectItemWidth / 3,
-      sm: projectItemWidth / 2.8,
-    );
-    Animation<double> _animation =
-        Tween<double>(
-            begin: responsiveSize(
-              context,
-              -imageWidth * 2.2,
-              -imageWidth * 1.8,
-              md: -imageWidth * 2.2,
-            ),
-            end: 0.0,
-          ).animate(
-            CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn),
-          )
-          ..addListener(() {
-            setState(() {});
-          });
-    double buttonWidth = responsiveSize(
-      context,
-      startWidthOfButtonMd,
-      startWidthOfButton,
-      md: startWidthOfButtonMd,
-    );
-    double buttonTargetWidth = responsiveSize(
-      context,
-      targetWidthOfButtonMd,
-      targetWidthOfButton,
-      md: targetWidthOfButtonMd,
-    );
+        widget.projectItemheight ?? 320; // Hauteur fixe pour tous
+
     TextTheme textTheme = Theme.of(context).textTheme;
-    // textStyle for button for viewing project
+
     TextStyle? buttonStyle = textTheme.bodyMedium?.copyWith(
-      color: AppColors.black,
+      color: Colors.white, // Texte du bouton en blanc
       fontSize: responsiveSize(
         context,
         Sizes.TEXT_SIZE_14,
@@ -320,128 +263,119 @@ class _ProjectItemLgState extends State<ProjectItemLg>
       ),
       fontWeight: FontWeight.w500,
     );
-    // textStyle for the current number or position of project in the list
+
     TextStyle? defaultNumberStyle =
         widget.projectNumberStyle ??
         textTheme.bodySmall?.copyWith(
           fontSize: _isHovering ? Sizes.TEXT_SIZE_20 : Sizes.TEXT_SIZE_16,
-          color: AppColors.grey550,
+          color: Colors.white,
           fontWeight: _isHovering ? FontWeight.w400 : FontWeight.w300,
         );
-    // textStyle for the title or name of the project
+
     TextStyle? defaultTitleStyle =
         widget.titleStyle ??
         textTheme.bodySmall?.copyWith(
-          color: AppColors.black,
+          color: Colors.white,
           fontSize: responsiveSize(context, 24, 40, md: 36, sm: 30),
         );
-    // textStyle for the subtitle (describing project platform) of the project
+
     TextStyle? defaultSubtitleStyle =
         widget.subtitleStyle ??
         textTheme.bodyMedium?.copyWith(
-          color: AppColors.grey700,
+          color: Colors.white70,
           fontSize: 13,
           fontWeight: FontWeight.w400,
           letterSpacing: 2.5,
-          // fontWeight: FontWeight.w500,
         );
+
     return MouseRegion(
       onEnter: (e) => _mouseEnter(true),
       onExit: (e) => _mouseEnter(false),
       child: SizedBox(
         height: projectItemHeight,
         width: projectItemWidth,
-        child: Stack(
-          children: [
-            Container(
-              width: projectItemWidth,
-              height: subheight,
-              padding: widget.padding ?? EdgeInsets.only(top: subheight / 4),
-              color: _isHovering
-                  ? widget.backgroundOnHoverColor
-                  : widget.backgroundColor,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  AnimatedOpacity(
-                    opacity: _isHovering ? 1.0 : 0.5,
-                    duration: widget.duration,
-                    child: ProjectData(
-                      duration: Duration(milliseconds: 400),
-                      projectNumber: widget.projectNumber,
-                      indicatorWidth: _isHovering
-                          ? assignWidth(context, 0.18)
-                          : assignWidth(context, 0.12),
-                      leadingMargin: EdgeInsets.only(
-                        top:
-                            (defaultTitleStyle!.fontSize! -
-                                defaultNumberStyle!.fontSize!) /
-                            2.5, // computes margin dynamically based on the title and defaultNumber Size
-                        right: Sizes.MARGIN_8,
+        child: AnimatedContainer(
+          duration: widget.duration,
+          color: _isHovering
+              ? widget.backgroundOnHoverColor
+              : widget.backgroundColor,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Image à gauche
+
+              // Infos à droite
+              Expanded(
+                child: Padding(
+                  padding:
+                      widget.padding ??
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 40),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Bloc numéro, trait, titre, catégorie
+                      Expanded(
+                        child: AnimatedSlide(
+                          offset: _isHovering
+                              ? const Offset(0.03, 0)
+                              : Offset.zero,
+                          duration: widget.duration,
+                          curve: Curves.easeOut,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ProjectData(
+                                duration: const Duration(milliseconds: 400),
+                                projectNumber: widget.projectNumber,
+                                indicatorWidth: _isHovering
+                                    ? assignWidth(context, 0.18)
+                                    : assignWidth(context, 0.12),
+                                leadingMargin: EdgeInsets.only(
+                                  right: Sizes.MARGIN_8,
+                                ),
+                                indicatorMargin: EdgeInsets.only(
+                                  right: Sizes.MARGIN_8,
+                                ),
+                                title: widget.title,
+                                subtitle: widget.subtitle,
+                                subtitleStyle: defaultSubtitleStyle,
+                                titleStyle: defaultTitleStyle,
+                                projectNumberStyle: defaultNumberStyle,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      indicatorMargin: EdgeInsets.only(
-                        top: defaultNumberStyle.fontSize! / 2.5,
-                        right: Sizes.MARGIN_8,
+                      // Bouton à droite, centré verticalement
+                      Align(
+                        alignment: Alignment.center,
+                        child: AnimatedBubbleButton(
+                          startWidth: startWidthOfButton,
+                          hovering: _isHovering,
+                          controller: _controller,
+                          duration: widget.duration,
+                          controlsOwnAnimation: false,
+                          height: heightOfButton,
+                          targetWidth: targetWidthOfButton,
+                          startBorderRadius: const BorderRadius.all(
+                            Radius.circular(100.0),
+                          ),
+                          title: StringConst.VIEW_PROJECT.toUpperCase(),
+                          color: _isHovering
+                              ? Colors.black
+                              : const Color(0xFF232323),
+                          titleStyle: buttonStyle,
+                          imageColor: Colors.white,
+                          onTap: widget.onTap,
+                        ),
                       ),
-                      title: widget.title,
-                      subtitle: widget.subtitle,
-                      subtitleStyle: defaultSubtitleStyle,
-                      titleStyle: defaultTitleStyle,
-                      projectNumberStyle: defaultNumberStyle,
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Positioned(
-              top: positionOfColoredContainer,
-              right: assignWidth(context, 0.1),
-              child: AnimatedContainer(
-                width: _isHovering ? containerWidth : 0,
-                color: widget.containerColor,
-                duration: Duration(milliseconds: 450),
-                height: containerHeight,
-                curve: Curves.fastOutSlowIn,
-              ),
-            ),
-            Positioned(
-              right: 0,
-              child: Transform(
-                origin: Offset(_animation.value, 0),
-                transform: Matrix4.identity()
-                  ..setEntry(3, 2, 0.0095)
-                  ..rotateY(0.075),
-                child: Image.asset(
-                  widget.imageUrl,
-                  width: imageWidth,
-                  height: containerHeight,
-                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-            Positioned(
-              top: positionOfButton, //places button
-              right: assignWidth(context, 0.1),
-              child: AnimatedBubbleButton(
-                startWidth: buttonWidth,
-                hovering: _isHovering,
-                controller: _controller,
-                duration: widget.duration,
-                controlsOwnAnimation: false,
-                height: buttonWidth,
-                targetWidth: buttonTargetWidth,
-                startBorderRadius: const BorderRadius.all(
-                  Radius.circular(100.0),
-                ),
-                title: StringConst.VIEW_PROJECT.toUpperCase(),
-                color: AppColors.grey100,
-                titleStyle: buttonStyle,
-                imageColor: AppColors.black,
-                onTap: widget.onTap,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
