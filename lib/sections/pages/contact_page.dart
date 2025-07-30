@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:portfolio_flutter/core/extensions.dart';
 import 'package:portfolio_flutter/widgets/animated_positioned_widget.dart';
+import 'package:portfolio_flutter/widgets/social.dart';
 
 import '../../core/adaptive.dart';
 import '../../values/values.dart';
@@ -52,6 +53,11 @@ class _ContactPageState extends State<ContactPage>
       vsync: this,
       duration: Animations.slideAnimationDurationLong,
     );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 3), () {
+        _controller.forward();
+      });
+    });
 
     super.initState();
   }
@@ -309,9 +315,25 @@ class _ContactPageState extends State<ContactPage>
                           opacity: opacity.value,
                           child: SlideTransition(
                             position: slide,
-                            child: _LottieHover(
-                              width: contentAreaWidth * 0.33,
-                              height: assignHeight(context, 0.6),
+                            child: Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.center, // Centrage vertical
+                              crossAxisAlignment: CrossAxisAlignment
+                                  .center, // Centrage horizontal
+                              children: [
+                                _LottieHover(
+                                  width: contentAreaWidth * 0.33,
+                                  height: assignHeight(
+                                    context,
+                                    0.6,
+                                  ), // Réduit pour équilibrer
+                                ),
+                                Socials(
+                                  size: 30,
+                                  socialData: Data.socialData,
+                                  color: AppColors.black,
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -400,19 +422,14 @@ class _LottieHoverState extends State<_LottieHover>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 100),
-      child: MouseRegion(
-        onEnter: (_) => _lottieController.repeat(),
-        onExit: (_) => _lottieController.stop(),
+      padding: const EdgeInsets.only(top: 60), // Décalage droite + bas
+      child: SizedBox(
+        width: widget.width, // Agrandit la largeur
+        height: widget.height, // Agrandit la hauteur
         child: Lottie.asset(
           ImagePath.contact,
-          controller: _lottieController,
-          width: widget.width,
-          height: widget.height,
+          repeat: false,
           fit: BoxFit.cover,
-          onLoaded: (composition) {
-            _lottieController.duration = composition.duration;
-          },
         ),
       ),
     );
