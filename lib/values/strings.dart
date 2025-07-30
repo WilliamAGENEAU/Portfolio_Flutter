@@ -108,7 +108,7 @@ class StringConst {
   static const String CATEGORY = "Category";
   static const String AUTHOR = "Author";
   static const String DESIGNER = "Designer";
-  static const String TECHNOLOGY_USED = "Technology Used";
+  static const String TECHNOLOGY_USED = "Technology used";
   static const String LAUNCH_APP = "Launch App";
   static const String SOURCE_CODE = "Source Code";
   static const String NEXT_PROJECT = "Next Project";
@@ -149,7 +149,7 @@ class StringConst {
   static const String KOTLIN = "Kotlin";
   static const String JAVASCRIPT = "Javascript";
   static const String PHP = "PHP";
-  static const String BLENDER = "Blender, 3D Animation";
+  static const String BLENDER = "Blender, 3D Animation.";
   static const String SQL = "SQL";
   static const String WORDPRESS = "Wordpress, Underscores";
   static const String BOOTSTRAP = "Bootstrap";
@@ -217,9 +217,9 @@ class StringConst {
   static const String MOTION_PLAYSTORE_URL = "";
   static const String MOTION_GITHUB_URL = "";
 
-  static const String MUSEUM_OF_EDIBLE_EARTH = "Museum of edible earth";
-  static const String MUSEUM_PLATFORM = "Web.";
-  static const String MUSEUM_PLUS_CATEGORY = "Web.";
+  static const String MUSEUM_OF_EDIBLE_EARTH = "Museum of Edible Earth";
+  static const String MUSEUM_PLATFORM = "WEB.";
+  static const String MUSEUM_PLUS_CATEGORY = "WEB.";
   static const String MUSEUM_SUBTITLE = "";
   static const String MUSEUM_DETAIL =
       "As part of an international BTS Bac+2 placement at the Museum of Edible Earth, based in Amsterdam in the Netherlands, I completely redesigned the museum's showcase website and its exhibitions over a two-month period (covid period). The main objective was to create a complete catalogue of all the edible products on display, with a page dedicated to each product allowing descriptions and comments to be posted. The site also includes sorting functions and pages detailing the museum's philosophy and history.";

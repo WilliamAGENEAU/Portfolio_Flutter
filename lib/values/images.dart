@@ -64,24 +64,6 @@ class ImagePath {
 
   // Projects
 
-  // Nimbus
-  static const String NIMBUS_COVER = "$projectsDir/nimbus/nimbus_cover.jpg";
-  static const String NIMBUS = "$projectsDir/nimbus/nimbus.jpg";
-
-  // Foodybite
-  static const String FOODY_BITE_COVER =
-      "$projectsDir/foodybite/foodybite_cover.png";
-  static const String FOODY_BITE_HOME =
-      "$projectsDir/foodybite/foodybite_home.png";
-  static const String FOODY_BITE_STARTING_FLOW =
-      "$projectsDir/foodybite/foodybite_starting_flow.png";
-  static const String FOODY_BITE_HOME_FLOW =
-      "$projectsDir/foodybite/foodybite_home_flow.png";
-  static const String FOODY_BITE_REVIEW_FLOW =
-      "$projectsDir/foodybite/foodybite_review_favorite_notifications_flow.png";
-  static const String FOODY_BITE_TYPOGRAPHY =
-      "$projectsDir/foodybite/foodybite_typography.png";
-
   // Portfolio Site V2
   static const String AERIUM_V2_COVER =
       "$projectsDir/aerium-v2/aerium_v2_cover.png";

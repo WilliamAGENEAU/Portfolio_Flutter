@@ -348,27 +348,68 @@ class _ProjectItemLgState extends State<ProjectItemLg>
                         ),
                       ),
                       // Bouton à droite, centré verticalement
-                      Align(
-                        alignment: Alignment.center,
-                        child: AnimatedBubbleButton(
-                          startWidth: startWidthOfButton,
-                          hovering: _isHovering,
-                          controller: _controller,
-                          duration: widget.duration,
-                          controlsOwnAnimation: false,
-                          height: heightOfButton,
-                          targetWidth: targetWidthOfButton,
-                          startBorderRadius: const BorderRadius.all(
-                            Radius.circular(100.0),
+                      Stack(
+                        alignment: Alignment.centerRight,
+                        children: [
+                          // Image rectangle, animée, prend tout l'espace à droite, SANS coins arrondis
+                          AnimatedPositioned(
+                            duration: const Duration(milliseconds: 350),
+                            curve: Curves.easeOut,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            width: _isHovering ? 420 : 260, // Largeur augmentée
+                            child: AnimatedScale(
+                              scale: _isHovering ? 1.1 : 1.0,
+                              duration: const Duration(milliseconds: 350),
+                              curve: Curves.easeOut,
+                              child: ColorFiltered(
+                                colorFilter: _isHovering
+                                    ? const ColorFilter.mode(
+                                        Colors.transparent,
+                                        BlendMode.multiply,
+                                      )
+                                    : const ColorFilter.matrix([
+                                        // Matrice noir et blanc/beige
+                                        0.36, 0.54, 0.10, 0, 30, // R
+                                        0.36, 0.54, 0.10, 0, 24, // G
+                                        0.36, 0.54, 0.10, 0, 12, // B
+                                        0, 0, 0, 1, 0, // A
+                                      ]),
+                                child: Image.asset(
+                                  widget.imageUrl,
+                                  fit: BoxFit.cover,
+                                  height: double.infinity,
+                                  width: double.infinity,
+                                  alignment: Alignment.centerRight,
+                                ),
+                              ),
+                            ),
                           ),
-                          title: StringConst.VIEW_PROJECT.toUpperCase(),
-                          color: _isHovering
-                              ? Colors.black
-                              : const Color(0xFF232323),
-                          titleStyle: buttonStyle,
-                          imageColor: Colors.white,
-                          onTap: widget.onTap,
-                        ),
+                          // Bouton "View Project"
+                          Align(
+                            alignment: Alignment.center,
+                            child: AnimatedBubbleButton(
+                              startWidth: startWidthOfButton,
+                              hovering: _isHovering,
+                              controller: _controller,
+                              duration: widget.duration,
+                              controlsOwnAnimation: false,
+                              height: heightOfButton,
+                              targetWidth: targetWidthOfButton,
+                              startBorderRadius: const BorderRadius.all(
+                                Radius.circular(100.0),
+                              ),
+                              title: StringConst.VIEW_PROJECT.toUpperCase(),
+                              color: _isHovering
+                                  ? Colors.black
+                                  : const Color(0xFF232323),
+                              titleStyle: buttonStyle,
+                              imageColor: Colors.white,
+                              onTap: widget.onTap,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

@@ -281,7 +281,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
           physics: const NeverScrollableScrollPhysics(),
           itemCount: data.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // 2 images par ligne
+            crossAxisCount: 4, // 2 images par ligne
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
             childAspectRatio: 1.2, // Ajuste selon tes images

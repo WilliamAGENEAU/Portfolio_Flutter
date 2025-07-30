@@ -112,7 +112,7 @@ class _AboutprojectState extends State<Aboutproject> {
           text: widget.projectData.portfolioDescription,
           textStyle: bodyTextStyle,
         ),
-        // SpaceH12(),
+        SpaceH12(),
         SizedBox(
           width: projectDataWidth,
           child: Wrap(
