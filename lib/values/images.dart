@@ -73,13 +73,12 @@ class ImagePath {
       "$projectsDir/aerium-v2/typography.jpg";
   static const String AERIUM_V2_LAST = "$projectsDir/aerium-v2/last.jpg";
 
-  // Club AHCV
-  static const String CLUB_COVER = "$projectsDir/club_cover.png";
-  static const String CLUB_BKG = "$projectsDir/club_bkg.png";
-  static const String CLUB_1 = "$projectsDir/club_1.png";
-  static const String CLUB_2 = "$projectsDir/club_2.png";
-  static const String CLUB_3 = "$projectsDir/club_3.png";
-  static const String CLUB_4 = "$projectsDir/club_4.png";
+  // Marvel cinematic universe app
+  static const String MARVEL_COVER = "$projectsDir/marvel_cover.jpg";
+  static const String MARVEL_BKG = "$projectsDir/marvel_2.jpg";
+  static const String MARVEL_1 = "$projectsDir/marvel_1.jpg";
+  static const String MARVEL_2 = "$projectsDir/marvel_bkg.jpg";
+  static const String MARVEL_3 = "$projectsDir/marvel_3.jpg";
 
   // Museum
   static const String MUSEUM_COVER = "$projectsDir/museum_cover.png";

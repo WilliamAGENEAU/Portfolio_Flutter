@@ -184,13 +184,13 @@ class _GalleryGuirlandeState extends State<GalleryGuirlande> {
     // Détermine le projet cible selon l'index
     ProjectItemData project;
     if (index == 0 || index == 6) {
-      project = Projects.MUSEUM_EDIBLE_EARTH;
+      project = Projects.MARVEL;
     } else if (index == 1 || index == 5) {
       project = Projects.CONNECTED_CHESSBOARD;
     } else if (index == 2 || index == 4) {
       project = Projects.MOTION_DESIGN;
     } else {
-      project = Projects.CLUB;
+      project = Projects.MUSEUM_EDIBLE_EARTH;
     }
 
     // Liste de tous les projets utilisés dans la galerie
@@ -198,7 +198,7 @@ class _GalleryGuirlandeState extends State<GalleryGuirlande> {
       Projects.MUSEUM_EDIBLE_EARTH,
       Projects.CONNECTED_CHESSBOARD,
       Projects.MOTION_DESIGN,
-      Projects.CLUB,
+      Projects.MARVEL,
     ];
 
     // Trouve l'index du projet courant dans la dataSource

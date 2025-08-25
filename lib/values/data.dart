@@ -177,14 +177,14 @@ class Data {
     Projects.MUSEUM_EDIBLE_EARTH,
     Projects.CONNECTED_CHESSBOARD,
     Projects.MOTION_DESIGN,
-    Projects.CLUB,
+    Projects.MARVEL,
   ];
 
   static List<ProjectItemData> projects = [
     Projects.MUSEUM_EDIBLE_EARTH,
     Projects.CONNECTED_CHESSBOARD,
     Projects.MOTION_DESIGN,
-    Projects.CLUB,
+    Projects.MARVEL,
   ];
 }
 
@@ -239,31 +239,31 @@ class Projects {
     playStoreUrl: StringConst.CHESS_PLAYSTORE_URL,
   );
 
-  static ProjectItemData CLUB = ProjectItemData(
-    title: StringConst.CLUB,
-    subtitle: StringConst.CLUB,
-    primaryColor: AppColors.club,
-    category: StringConst.CLUB_CATEGORY,
-    designer: StringConst.CLUB_DESIGNER,
-    platform: StringConst.CLUB_PLATFORM,
-    image: ImagePath.CLUB_COVER,
-    coverUrl: ImagePath.CLUB_BKG,
+  static ProjectItemData MARVEL = ProjectItemData(
+    title: StringConst.MARVEL,
+    subtitle: StringConst.MARVEL,
+    primaryColor: AppColors.marvel,
+    category: StringConst.MARVEL_CATEGORY,
+    designer: StringConst.MARVEL_DESIGNER,
+    platform: StringConst.MARVEL_PLATFORM,
+    image: ImagePath.MARVEL_COVER,
+    coverUrl: ImagePath.MARVEL_BKG,
     navTitleColor: AppColors.primaryColor,
     navSelectedTitleColor: AppColors.primaryColor,
     appLogoColor: AppColors.primaryColor,
     projectAssets: [
-      ImagePath.CLUB_BKG,
-      ImagePath.CLUB_1,
-      ImagePath.CLUB_2,
-      ImagePath.CLUB_3,
-      ImagePath.CLUB_4,
+      ImagePath.MARVEL_BKG,
+      ImagePath.MARVEL_COVER,
+      ImagePath.MARVEL_1,
+      ImagePath.MARVEL_2,
+      ImagePath.MARVEL_3,
     ],
-    portfolioDescription: StringConst.CLUB_DETAIL,
-    isPublic: false,
+    portfolioDescription: StringConst.MARVEL_DETAIL,
+    isPublic: true,
     isOnPlayStore: false,
-    technologyUsed: StringConst.WORDPRESS,
-    gitHubUrl: StringConst.CLUB_GITHUB_URL,
-    playStoreUrl: StringConst.CLUB_PLAYSTORE_URL,
+    technologyUsed: StringConst.FLUTTER,
+    gitHubUrl: StringConst.MARVEL_GITHUB_URL,
+    playStoreUrl: StringConst.MARVEL_PLAYSTORE_URL,
   );
   static ProjectItemData MOTION_DESIGN = ProjectItemData(
     title: StringConst.MOTION_DESIGN,

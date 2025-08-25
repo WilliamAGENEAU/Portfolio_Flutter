@@ -37,7 +37,7 @@ class AppColors {
   static const Color errorRed = Color(0xFFba1a1a);
 
   // Project Primary Colors
-  static const Color chessboard = AppColors.errorRed;
+  static const Color chessboard = Color(0xFFE16359);
 
   static const Color flutter_catalog = Color(0xFF5A458D);
   static const Color flutterCatalogSelectedNavTitle = Color(0xFF7D54A9);
@@ -48,7 +48,7 @@ class AppColors {
   static const Color loginCatalogSelectedNavTitle = Color(0xFFC95089);
   static const Color loginCatalogAppLogo = Color(0xFFC95089);
 
-  static const Color club = Color(0xFFE16359);
+  static const Color marvel = AppColors.errorRed;
   static const Color roamNavTitle = Color(0xFF6F8D8C);
   static const Color roamSelectedNavTitle = Color(0xFF2E524B);
   static const Color roamAppLogo = Color(0xFF2762CB);

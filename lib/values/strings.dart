@@ -198,15 +198,16 @@ class StringConst {
       "https://github.com/david-legend/david-legend.github.io";
   static const String PORTFOLIO_SITE_V2_WEB_URL = "https://davidcobbina.com/";
 
-  static const String CLUB = "Club AHCV(Angers Health Sports)";
-  static const String CLUB_PLATFORM = "Android / IOS.";
-  static const String CLUB_CATEGORY = "WEB TRAINING.";
-  static const String CLUB_DESIGNER = "Clara Poupar.";
+  static const String MARVEL = "Marvel Cinematic Universe App";
+  static const String MARVEL_PLATFORM = "Android / IOS.";
+  static const String MARVEL_CATEGORY = "FLUTTER.";
+  static const String MARVEL_DESIGNER = "William Ageneau.";
   static const String CLUB_SUBTITLE = "";
-  static const String CLUB_DETAIL =
-      "Coaching and mentoring of a trainee, Clara Poupar, as part of a web training course on WordPress for the redesign of the website of a multi-sport health association based in Angers. I accompanied her throughout the project so that she understood the whole process of creating and hosting a website: installing and configuring WordPress, choosing and customising a suitable theme, organising the content and layout of the various sections, as well as the technical aspects of the domain name and hosting.";
-  static const String CLUB_GITHUB_URL = "";
-  static const String CLUB_PLAYSTORE_URL = "";
+  static const String MARVEL_DETAIL =
+      "Flutter Android app to track the viewing order of Marvel films (MCU).\nClassify films by Saga & Phase, mark those you've already seen, and build your Tier List.\n✨ Features\n📅 MCU order by Saga (Infinity / Multiverse) & Phases (1 → 6)\n🎞️ 9:16 timeline with smooth auto-scroll + dynamic indicators\n✅ Tick off films you've seen → black & white thumbnail\n🏆 Interactive Tier List (S/A/B/C/D) with drag & drop\n🎧 Integrated music & YouTube trailers\n💾 Local backup with SharedPreferences.";
+  static const String MARVEL_GITHUB_URL =
+      "https://github.com/WilliamAGENEAU/marvel_cinematic_universe";
+  static const String MARVEL_PLAYSTORE_URL = "";
 
   static const String MOTION_DESIGN = "Motion Design";
   static const String MOTION_PLATFORM = "3D.";
