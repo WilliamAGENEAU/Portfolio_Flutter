@@ -1,16 +1,28 @@
-# portfolio_flutter
+# William Ageneau – Portfolio Flutter
 
-A new Flutter project.
+Bienvenue dans mon portfolio développé avec **Flutter**, accessible à l’adresse suivante :  
+🌐 [williamageneauportfolio.go.yo.fr](http://williamageneauportfolio.go.yo.fr)
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🎯 À propos du projet
 
-A few resources to get you started if this is your first Flutter project:
+Une application web/mobile responsive, conçue avec Flutter, pour présenter mes projets, compétences et parcours professionnel de façon dynamique et esthétique.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<p align="center">
+  <img width="2856" height="1448" alt="miniature portfolio" src="https://github.com/user-attachments/assets/d190d944-e9b7-4394-88f4-396e5bd7fecf" />
+</p>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p align="center">
+  <img width="2806" height="1274" alt="Banniere" src="https://github.com/user-attachments/assets/9098bda7-b37e-4e4c-8201-b5ad8c4ebdda" />
+</p>
+
+---
+
+## ✨ Fonctionnalités principales
+
+✅ Navigation fluide entre sections : Accueil, À propos, Projets, Contact  
+✅ Design responsive : s’adapte à tous formats — mobile, tablette et desktop  
+✅ Animations et transitions pour une interface moderne et engageante  
+✅ Liens sociaux intégrés : GitHub, LinkedIn, etc.
+
