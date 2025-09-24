@@ -24,7 +24,7 @@ class NavItem extends StatefulWidget {
     required this.controller,
 
     this.titleColor = AppColors.grey600,
-    this.selectedColor = AppColors.black,
+    this.selectedColor = AppColors.white,
     this.isSelected = false,
     this.isMobile = false,
     this.titleStyle,
@@ -107,7 +107,7 @@ class _NavItemState extends State<NavItem> {
                           fontWeight: FontWeight.w400,
                         ),
                     hoverColor: AppColors.accentColor,
-                    coverColor: AppColors.black,
+                    coverColor: AppColors.accentColor,
                     onHoverTextStyle: textTheme.bodySmall?.copyWith(
                       fontSize: selectedTextSize,
                       color: AppColors.accentColor,
@@ -175,6 +175,7 @@ class _NavItemState extends State<NavItem> {
       fontSize: textSize,
       color: widget.selectedColor,
       fontWeight: FontWeight.w400,
+      backgroundColor: Colors.transparent,
     );
     TextStyle? defaultUnselectedItemStyle = textTheme.bodySmall?.copyWith(
       fontSize: textSize,
@@ -196,7 +197,7 @@ class _NavItemState extends State<NavItem> {
             hasOffsetAnimation: true,
             textStyle: widget.titleStyle ?? defaultUnselectedItemStyle,
             onHoverTextStyle: defaultUnselectedItemStyle?.copyWith(
-              color: widget.selectedColor,
+              color: Colors.white,
               fontWeight: FontWeight.w400,
             ),
           );

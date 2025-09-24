@@ -8,17 +8,16 @@ class StringConst {
   static const String APP_TITLE = "William Ageneau Portfolio";
   static const String SITE_URL = "";
 
-  static const String HOME = "Home";
-  static const String ABOUT = "About";
-  static const String WORKS = "Works";
-  static const String EXPERIENCE = "Experience";
+  static const String HOME = "ACCEUIL";
+  static const String ABOUT = "À PROPOS";
+  static const String PROJETS = "PROJETS";
   static const String PRIVACY_POLICY = "Privacy Policy";
   static const String PROJECT = "Project";
   static const String WORK = "Where I've Worked";
   static const String SERVICES = "Services";
-  static const String CONTACT = "Contact";
+  static const String CONTACT = "CONTACT";
   static const String PHONE_NUMBER = "Phone Number";
-  static const String RESUME = "Resume";
+  static const String CV = "CV";
   static const String ABOUT_MYSELF = "About Myself";
 
   // Home Page

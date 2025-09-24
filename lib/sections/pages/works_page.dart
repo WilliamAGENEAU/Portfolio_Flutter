@@ -53,7 +53,7 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
 
     return PageWrapper(
       selectedRoute: WorksPage.worksPageRoute,
-      selectedPageName: StringConst.WORKS,
+      selectedPageName: StringConst.PROJETS,
       navBarAnimationController: _headingTextController,
       hasSideTitle: false,
       onLoadingAnimationDone: () {
@@ -66,7 +66,7 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
         ),
         children: [
           PageHeader(
-            headingText: StringConst.WORKS,
+            headingText: StringConst.PROJETS,
             headingTextController: _headingTextController,
             onArrowTap: () {
               final ctx = _projectsStackKey.currentContext;

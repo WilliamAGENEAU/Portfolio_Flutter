@@ -122,7 +122,7 @@ class _PageWrapperState extends State<PageWrapper>
             selectedRouteName: widget.selectedRoute,
             hasSideTitle: widget.hasSideTitle,
             appLogoColor: widget.appLogoColor,
-            titleColor: widget.navBarTitleColor,
+            titleColor: AppColors.white,
             selectedTitleColor: widget.navBarSelectedTitleColor,
             onNavItemWebTap: (String route) {
               forwardSlideController.forward();

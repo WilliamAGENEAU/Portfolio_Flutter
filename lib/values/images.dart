@@ -79,6 +79,7 @@ class ImagePath {
   static const String MARVEL_1 = "$projectsDir/marvel_1.jpg";
   static const String MARVEL_2 = "$projectsDir/marvel_bkg.jpg";
   static const String MARVEL_3 = "$projectsDir/marvel_3.jpg";
+  static const String MARVEL_RECENT = "$projectsDir/marvel_recent.png";
 
   // Museum
   static const String MUSEUM_COVER = "$projectsDir/museum_cover.png";

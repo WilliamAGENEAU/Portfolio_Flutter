@@ -14,7 +14,7 @@ class AnimatedLineThroughText extends StatefulWidget {
     this.controller,
     this.onHoverTextStyle,
     this.lineThickness = 2,
-    this.hoverColor = AppColors.black,
+    this.hoverColor = const Color(0xFFCAFF00),
     this.coverColor = AppColors.grey100,
     this.slideBoxColor = AppColors.black,
     this.slideBoxCoverColor = AppColors.surface,

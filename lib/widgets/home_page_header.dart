@@ -1,21 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api, deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:video_player/video_player.dart';
 
 import '../core/adaptive.dart';
+import '../core/functions.dart';
 import '../values/values.dart';
-import 'animated_bubble_button.dart';
-import 'animated_positioned_text.dart';
-import 'animated_positioned_widget.dart';
-import 'animated_slide_transtion.dart';
-import 'animated_text_slide_box_transition.dart';
-import 'scroll_down.dart';
-import 'social.dart';
-import 'spaces.dart';
-
-const kDuration = Duration(milliseconds: 600);
 
 class HomePageHeader extends StatefulWidget {
   const HomePageHeader({
@@ -26,75 +17,32 @@ class HomePageHeader extends StatefulWidget {
 
   final GlobalKey scrollToWorksKey;
   final AnimationController controller;
+
   @override
   _HomePageHeaderState createState() => _HomePageHeaderState();
 }
 
-class _HomePageHeaderState extends State<HomePageHeader>
-    with TickerProviderStateMixin {
-  late AnimationController controller;
-  late AnimationController rotationController;
-  late AnimationController scrollDownButtonController;
-  late AnimationController whiteCircleController;
-  late Animation<Offset> animation;
-  late Animation<Offset> scrollDownBtnAnimation;
-  late Animation<double> whiteCircleScaleAnimation;
-  late Animation<Offset> whiteCircleOffsetAnimation;
+class _HomePageHeaderState extends State<HomePageHeader> {
+  late VideoPlayerController _videoController;
+  bool _isVideoInitialized = false;
 
   @override
   void initState() {
-    scrollDownButtonController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 300),
-    );
-    rotationController = AnimationController(
-      duration: const Duration(seconds: 20),
-      vsync: this,
-    )..repeat();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 1500),
-    );
-    animation = Tween<Offset>(
-      begin: Offset(0, 0.05),
-      end: Offset(0, -0.05),
-    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
-    whiteCircleController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    );
-    whiteCircleScaleAnimation = Tween<double>(begin: 0.7, end: 1.25).animate(
-      CurvedAnimation(parent: whiteCircleController, curve: Curves.easeOutBack),
-    );
-    whiteCircleOffsetAnimation =
-        Tween<Offset>(
-          begin: const Offset(-0.1, 0),
-          end: const Offset(0.25, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: whiteCircleController,
-            curve: Curves.easeOutCubic,
-          ),
-        );
-
-    rotationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        rotationController.reset();
-        rotationController.forward();
-      }
-    });
-    controller.forward(); // Lance l'animation une seule fois
-    rotationController.forward();
-    whiteCircleController.forward();
     super.initState();
+
+    _videoController = VideoPlayerController.asset("assets/videos/braise.mp4")
+      ..initialize().then((_) {
+        setState(() => _isVideoInitialized = true);
+        _videoController
+          ..setLooping(true)
+          ..setVolume(0)
+          ..play();
+      });
   }
 
   @override
   void dispose() {
-    controller.dispose();
-    scrollDownButtonController.dispose();
-    rotationController.dispose();
-    whiteCircleController.dispose();
+    _videoController.dispose();
     super.dispose();
   }
 
@@ -102,217 +50,208 @@ class _HomePageHeaderState extends State<HomePageHeader>
   Widget build(BuildContext context) {
     final double screenWidth = widthOfScreen(context);
     final double screenHeight = heightOfScreen(context);
-    final EdgeInsets textMargin = EdgeInsets.only(
-      left: responsiveSize(
-        context,
-        20,
-        screenWidth * 0.15,
-        sm: screenWidth * 0.15,
-      ),
-      top: responsiveSize(
-        context,
-        60,
-        screenHeight * 0.35,
-        sm: screenHeight * 0.35,
-      ),
-      bottom: responsiveSize(context, 20, 40),
-    );
-    final EdgeInsets padding = EdgeInsets.symmetric(
-      horizontal: screenWidth * 0.1,
-      vertical: screenHeight * 0.1,
-    );
-    final EdgeInsets imageMargin = EdgeInsets.only(
-      right: responsiveSize(
-        context,
-        20,
-        screenWidth * 0.05,
-        sm: screenWidth * 0.05,
-      ),
-      top: responsiveSize(
-        context,
-        30,
-        screenHeight * 0.25,
-        sm: screenHeight * 0.25,
-      ),
-      bottom: responsiveSize(context, 20, 40),
-    );
 
-    return Container(
+    return SizedBox(
       width: screenWidth,
-      color: AppColors.accentColor2.withOpacity(0.35),
+      height: screenHeight + 60,
       child: Stack(
+        fit: StackFit.expand,
         children: [
+          // Vidéo en background
+          if (_isVideoInitialized)
+            FittedBox(
+              fit: BoxFit.cover,
+              clipBehavior: Clip.hardEdge,
+              child: SizedBox(
+                width: _videoController.value.size.width,
+                height: _videoController.value.size.height,
+                child: VideoPlayer(_videoController),
+              ),
+            )
+          else
+            Container(color: Colors.black),
+
+          // Dégradé vers le bas
           Container(
-            margin: EdgeInsets.only(top: assignHeight(context, 0.2)),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: AnimatedBuilder(
-                animation: whiteCircleController,
-                builder: (context, child) {
-                  return FractionalTranslation(
-                    translation: whiteCircleOffsetAnimation.value,
-                    child: Transform.scale(
-                      scale: whiteCircleScaleAnimation.value,
-                      child: WhiteCircle(),
-                    ),
-                  );
-                },
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.transparent, Color(0xff010127)],
+                stops: [0.85, 1.0], // commence à 70% de la hauteur
               ),
             ),
           ),
+
+          // Contenu par-dessus
           ResponsiveBuilder(
             builder: (context, sizingInformation) {
-              double screenWidth = sizingInformation.screenSize.width;
-              if (screenWidth < RefinedBreakpoints().tabletNormal) {
-                return Column(
-                  children: [
-                    Container(
-                      padding: padding,
-                      child: Image.asset(
-                        ImagePath.William_home,
-                        width: screenWidth,
-                      ),
-                    ),
-                    Container(
-                      padding: padding.copyWith(top: 0),
-                      child: SizedBox(
-                        width: screenWidth,
-                        child: AboutDev(
-                          controller: widget.controller,
-                          width: screenWidth,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return Stack(
-                  children: [
-                    // Trait horizontal en haut (desktop uniquement)
-                    Positioned(
-                      left: 0,
-                      top: kToolbarHeight + 20,
-                      child: Container(
-                        width: screenWidth,
-                        height: 1.5,
-                        color: Colors.black,
-                      ),
-                    ),
-                    // Trait vertical à gauche, aligné à la marge, qui coupe le trait horizontal
-                    Positioned(
-                      left:
-                          textMargin.left / 2 -
-                          0.75, // centre le trait vertical dans la marge
-                      top: 0,
-                      bottom: 0,
-                      child: Container(width: 1.5, color: Colors.black),
-                    ),
-                    // Flèche noire animée qui arrive du bas droit puis reste fixe
-                    AnimatedBuilder(
-                      animation: controller,
-                      builder: (context, child) {
-                        // Animation de slide de bas droite vers la position finale
-                        final slide =
-                            Tween<Offset>(
-                              begin: const Offset(
-                                0.4,
-                                1.0,
-                              ), // arrive du bas droit
-                              end: Offset.zero,
-                            ).animate(
-                              CurvedAnimation(
-                                parent: controller,
-                                curve: Curves.fastOutSlowIn,
-                              ),
-                            );
-                        final opacity = controller.value.clamp(0.0, 1.0);
+              final bool isMobile =
+                  sizingInformation.screenSize.width <
+                  RefinedBreakpoints().tabletNormal;
 
-                        return Positioned(
-                          left: textMargin.left / 2 - 0.75,
-                          top: kToolbarHeight + 20 + 1.5,
-                          child: Opacity(
-                            opacity: opacity,
-                            child: SlideTransition(
-                              position: slide,
-                              child: Transform.rotate(
-                                angle: -0.75,
-                                child: Icon(
-                                  Icons.arrow_upward,
-                                  color: Colors.black,
-                                  size: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+              final Widget titleBlock = Column(
+                crossAxisAlignment: isMobile
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "INGÉNIEUR FRONT-END, UX/UI DESIGNER, IOT, MOBILE",
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColors.white.withOpacity(0.8),
+                      letterSpacing: 1.2,
                     ),
-                    // Le contenu principal
+                    textAlign: isMobile ? TextAlign.center : TextAlign.left,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "WILLIAM",
+                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      color: AppColors.white,
+                      fontSize: isMobile ? 48 : 110,
+                      fontWeight: FontWeight.w800,
+                      height: 0.95,
+                    ),
+                    textAlign: isMobile ? TextAlign.center : TextAlign.left,
+                  ),
+                  Text(
+                    "AGENEAU",
+                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      color: AppColors.white,
+                      fontSize: isMobile ? 48 : 110,
+                      fontWeight: FontWeight.w800,
+                      fontStyle: FontStyle.italic,
+                      height: 0.95,
+                    ),
+                    textAlign: isMobile ? TextAlign.center : TextAlign.left,
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: isMobile ? screenWidth * 0.85 : screenWidth * 0.45,
+                    child: Text(
+                      "Je suis ingénieur front-end spécialisé en Flutter avec un fort intérêt pour le design UX/UI et l’IoT.",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppColors.white.withOpacity(0.9),
+                      ),
+                      textAlign: isMobile ? TextAlign.center : TextAlign.left,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  // Bloc projet récent
+                  if (!isMobile)
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Espace de la marge gauche (pour garder la structure)
-                        SizedBox(width: textMargin.left),
-                        // Bloc AboutDev sans la marge gauche (déjà prise par SizedBox)
-                        Container(
-                          margin: textMargin.copyWith(left: 0),
-                          child: SizedBox(
-                            width: screenWidth * 0.40,
-                            child: AboutDev(
-                              controller: widget.controller,
-                              width: screenWidth * 0.40,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: screenWidth * 0.05),
-                        // Remplace AnimatedSlideTranstion par Image.asset ici aussi :
-                        Container(
-                          margin: imageMargin,
-                          child: Image.asset(
-                            ImagePath.William_home,
-                            width: screenWidth * 0.35,
-                          ),
+                        _FramedProjectCard(imagePath: ImagePath.MARVEL_RECENT),
+                        const SizedBox(width: 28),
+                        _RecentProjectInfo(
+                          onOpen: () {
+                            final int index = Data.projects.indexOf(
+                              Projects.MARVEL,
+                            );
+                            Functions.navigateToProject(
+                              context: context,
+                              dataSource: Data.projects,
+                              currentProject: Projects.MARVEL,
+                              currentProjectIndex: index < 0 ? 0 : index,
+                            );
+                          },
                         ),
                       ],
                     ),
-                  ],
+                ],
+              );
+
+              if (isMobile) {
+                return Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 90.0,
+                      left: 16,
+                      right: 16,
+                    ),
+                    child: Column(
+                      children: [
+                        titleBlock,
+                        const SizedBox(height: 24),
+                        _FramedProjectCard(imagePath: ImagePath.MARVEL_COVER),
+                        const SizedBox(height: 16),
+                        _RecentProjectInfo(
+                          onOpen: () {
+                            final int index = Data.projects.indexOf(
+                              Projects.MARVEL,
+                            );
+                            Functions.navigateToProject(
+                              context: context,
+                              dataSource: Data.projects,
+                              currentProject: Projects.MARVEL,
+                              currentProjectIndex: index < 0 ? 0 : index,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               }
+
+              // Desktop/tablette
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 72.0),
+                  child: titleBlock,
+                ),
+              );
             },
           ),
-          Positioned(
-            right: 0,
-            bottom: 0,
-            child: ResponsiveBuilder(
-              builder: (context, sizingInformation) {
-                double screenWidth = sizingInformation.screenSize.width;
-                if (screenWidth < RefinedBreakpoints().tabletNormal) {
-                  return Container();
-                } else {
-                  return InkWell(
-                    hoverColor: Colors.transparent,
-                    onTap: () {
-                      Scrollable.ensureVisible(
-                        widget.scrollToWorksKey.currentContext!,
-                        duration: kDuration,
-                      );
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(right: 24, bottom: 40),
-                      child: MouseRegion(
-                        onEnter: (e) => scrollDownButtonController.forward(),
-                        onExit: (e) => scrollDownButtonController.reverse(),
-                        child: AnimatedSlideTranstion(
-                          controller: scrollDownButtonController,
-                          beginOffset: Offset(0, 0),
-                          targetOffset: Offset(0, 0.1),
-                          child: ScrollDownButton(),
-                        ),
-                      ),
-                    ),
-                  );
-                }
-              },
+        ],
+      ),
+    );
+  }
+}
+
+class _FramedProjectCard extends StatelessWidget {
+  const _FramedProjectCard({required this.imagePath});
+
+  final String imagePath;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 240,
+      height: 320,
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.35),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withOpacity(0.08), width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.45),
+            offset: const Offset(0, 14),
+            blurRadius: 40,
+            spreadRadius: -10,
+          ),
+        ],
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(imagePath, fit: BoxFit.cover),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              height: 36,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.black.withOpacity(0.55), Colors.transparent],
+                ),
+              ),
             ),
           ),
         ],
@@ -321,155 +260,109 @@ class _HomePageHeaderState extends State<HomePageHeader>
   }
 }
 
-class WhiteCircle extends StatelessWidget {
-  const WhiteCircle({super.key});
+class _RecentProjectInfo extends StatefulWidget {
+  const _RecentProjectInfo({required this.onOpen});
+
+  final VoidCallback onOpen;
+
+  @override
+  State<_RecentProjectInfo> createState() => _RecentProjectInfoState();
+}
+
+class _RecentProjectInfoState extends State<_RecentProjectInfo> {
+  bool _hovering = false;
 
   @override
   Widget build(BuildContext context) {
-    final widthOfCircle = responsiveSize(
-      context,
-      widthOfScreen(context) * 0.6, // Agrandi le cercle
-      widthOfScreen(context) * 0.4,
-    );
-    return IgnorePointer(
-      child: Lottie.asset(
-        ImagePath.shape,
-        width: widthOfCircle,
-        height: widthOfCircle,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-}
+    const Duration hoverDuration = Duration(milliseconds: 220);
+    const Curve hoverCurve = Curves.easeOutCubic;
 
-class AboutDev extends StatefulWidget {
-  const AboutDev({super.key, required this.controller, required this.width});
-
-  final AnimationController controller;
-  final double width;
-
-  @override
-  _AboutDevState createState() => _AboutDevState();
-}
-
-class _AboutDevState extends State<AboutDev> {
-  @override
-  Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    EdgeInsetsGeometry margin = const EdgeInsets.only(left: 16);
-    final CurvedAnimation curvedAnimation = CurvedAnimation(
-      parent: widget.controller,
-      curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn),
-    );
-    double headerFontSize = responsiveSize(context, 28, 48, md: 36, sm: 32);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: margin,
-          child: AnimatedTextSlideBoxTransition(
-            controller: widget.controller,
-            text: StringConst.HI,
-            width: widget.width,
-            maxLines: 3,
-            textStyle: textTheme.bodyMedium?.copyWith(
-              color: AppColors.black,
-              fontSize: headerFontSize,
-            ),
-            color: AppColors.surface,
+        const SizedBox(height: 64),
+        Text(
+          "Projet récent",
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            color: AppColors.white.withOpacity(0.9),
+            fontWeight: FontWeight.w700,
           ),
         ),
-        SpaceH12(),
-        Container(
-          margin: margin,
-          child: AnimatedTextSlideBoxTransition(
-            controller: widget.controller,
-            text: StringConst.DEV_INTRO,
-            width: widget.width,
-            maxLines: 3,
-            textStyle: textTheme.bodyMedium?.copyWith(
-              color: AppColors.black,
-              fontSize: headerFontSize,
-            ),
-            color: AppColors.surface,
+        const SizedBox(height: 14),
+        Text(
+          "Marvel Cinematic Universe | Flutter | 2025",
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            color: AppColors.white,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        SpaceH12(),
-        Container(
-          margin: margin,
-          child: AnimatedTextSlideBoxTransition(
-            controller: widget.controller,
-            text: StringConst.DEV_TITLE,
-            width: responsiveSize(
-              context,
-              widget.width * 0.75,
-              widget.width,
-              md: widget.width,
-              sm: widget.width,
+        const SizedBox(height: 22),
+        MouseRegion(
+          onEnter: (_) => setState(() => _hovering = true),
+          onExit: (_) => setState(() => _hovering = false),
+          child: InkWell(
+            onTap: widget.onOpen,
+            hoverColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Voir l'appli",
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleMedium?.copyWith(color: AppColors.white),
+                ),
+                const SizedBox(width: 12),
+                AnimatedContainer(
+                  duration: hoverDuration,
+                  curve: hoverCurve,
+                  width: _hovering ? 40 : 36,
+                  height: _hovering ? 40 : 36,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: _hovering
+                          ? const Color(0xFF7CFF6B)
+                          : AppColors.white.withOpacity(0.6),
+                      width: _hovering ? 2 : 1.2,
+                    ),
+                    boxShadow: _hovering
+                        ? [
+                            BoxShadow(
+                              color: const Color(0xFF7CFF6B).withOpacity(0.45),
+                              blurRadius: 18,
+                              spreadRadius: 1,
+                            ),
+                          ]
+                        : null,
+                    color: _hovering
+                        ? const Color(0x1A7CFF6B)
+                        : Colors.transparent,
+                  ),
+                  child: AnimatedPadding(
+                    duration: hoverDuration,
+                    curve: hoverCurve,
+                    padding: EdgeInsets.only(left: _hovering ? 6 : 0),
+                    child: Center(
+                      child: AnimatedRotation(
+                        duration: hoverDuration,
+                        curve: hoverCurve,
+                        turns: _hovering ? 0.0 : -0.02,
+                        child: Icon(
+                          Icons.arrow_outward_rounded,
+                          color: _hovering
+                              ? const Color(0xFF7CFF6B)
+                              : Colors.white,
+                          size: _hovering ? 22 : 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            maxLines: 3,
-            textStyle: textTheme.bodyLarge?.copyWith(
-              color: AppColors.black,
-              fontSize: headerFontSize,
-            ),
-            color: AppColors.surface,
           ),
-        ),
-        SpaceH30(),
-        Container(
-          margin: margin,
-          child: AnimatedPositionedText(
-            controller: curvedAnimation,
-            width: widget.width,
-            maxLines: 3,
-            factor: 2,
-            text: StringConst.DEV_DESC,
-            textStyle: textTheme.bodyMedium?.copyWith(
-              fontSize: responsiveSize(
-                context,
-                Sizes.TEXT_SIZE_16,
-                Sizes.TEXT_SIZE_18,
-              ),
-              height: 2,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
-        SpaceH30(),
-        AnimatedPositionedWidget(
-          controller: curvedAnimation,
-          width: 200,
-          height: 60,
-          child: AnimatedBubbleButton(
-            color: AppColors.surface,
-            imageColor: AppColors.black,
-            startOffset: Offset(0, 0),
-            targetOffset: Offset(0.1, 0),
-            targetWidth: 200,
-            startBorderRadius: const BorderRadius.all(Radius.circular(100.0)),
-            title: StringConst.ABOUT_MYSELF,
-            titleStyle: textTheme.bodyMedium?.copyWith(
-              color: AppColors.black,
-              fontSize: responsiveSize(
-                context,
-                Sizes.TEXT_SIZE_14,
-                Sizes.TEXT_SIZE_16,
-                sm: Sizes.TEXT_SIZE_15,
-              ),
-              fontWeight: FontWeight.w500,
-            ),
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                StringConst.ABOUT_PAGE,
-              ); // <-- Redirige vers la page About
-            },
-          ),
-        ),
-        SpaceH24(),
-        Container(
-          margin: margin,
-          child: Socials(socialData: Data.socialData, color: AppColors.black),
         ),
       ],
     );

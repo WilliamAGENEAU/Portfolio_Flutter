@@ -4,7 +4,6 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
-import '../../widgets/custom_spacer.dart';
 import '../../widgets/home_page_header.dart';
 import '../../widgets/loading_page.dart';
 import '../../widgets/page_wrapper.dart';
@@ -108,11 +107,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             controller: _slideTextController,
             scrollToWorksKey: _galleryKey, // Passe le key ici
           ),
-          CustomSpacer(heightFactor: 0.1),
+
+          // Dégradé de transition entre le header et la section suivante
           Container(
             key: _galleryKey,
             height: 800,
-            color: Colors.black,
+            color: Color(0xff010127),
             child: Stack(
               children: [
                 VisibilityDetector(
@@ -129,7 +129,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ],
             ),
           ),
-          CustomSpacer(heightFactor: 0.1),
           AnimatedFooter(),
         ],
       ),

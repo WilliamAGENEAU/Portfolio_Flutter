@@ -14,16 +14,10 @@ import 'simple_footer.dart';
 import 'spaces.dart';
 
 class AnimatedFooter extends StatefulWidget {
-  const AnimatedFooter({
-    super.key,
-    this.height,
-    this.width,
-    this.backgroundColor = AppColors.black,
-  });
+  const AnimatedFooter({super.key, this.height, this.width});
 
   final double? width;
   final double? height;
-  final Color backgroundColor;
 
   @override
   _AnimatedFooterState createState() => _AnimatedFooterState();
@@ -74,7 +68,7 @@ class _AnimatedFooterState extends State<AnimatedFooter>
     return Container(
       width: widget.width ?? widthOfScreen(context),
       height: widget.height ?? assignHeight(context, 0.70),
-      color: widget.backgroundColor,
+      color: Color(0xff010127),
       child: VisibilityDetector(
         key: Key('animated-footer'),
         onVisibilityChanged: (visibilityInfo) {

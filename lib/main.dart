@@ -10,7 +10,7 @@ import 'sections/routes/routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureApp();
-  runApp(MyPortfolio());
+  runApp(const MyPortfolio());
 }
 
 class MyPortfolio extends StatelessWidget {
@@ -18,10 +18,14 @@ class MyPortfolio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MaterialTheme theme = MaterialTheme(
+      Theme.of(context).textTheme.apply(fontFamily: "Montserrat"),
+    );
+
     return Layout(
       child: MaterialApp(
         title: StringConst.APP_TITLE,
-        theme: AppTheme.lightThemeData,
+        theme: theme.dark(),
         debugShowCheckedModeBanner: false,
         initialRoute: HomePage.homePageRoute,
         onGenerateRoute: RouteConfiguration.onGenerateRoute,

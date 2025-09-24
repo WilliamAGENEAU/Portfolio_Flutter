@@ -21,7 +21,7 @@ class NavBar extends StatelessWidget {
     this.onMenuTap,
     this.onNavItemWebTap,
     this.hasSideTitle = true,
-    this.selectedTitleColor = AppColors.black,
+    this.selectedTitleColor = const Color(0xFFCAFF00),
     this.titleColor = AppColors.grey600,
     this.appLogoColor = AppColors.black,
   });
@@ -82,7 +82,7 @@ class NavBar extends StatelessWidget {
     TextStyle? style =
         selectedRouteTitleStyle ??
         textTheme.bodyMedium?.copyWith(
-          color: AppColors.black,
+          color: AppColors.white,
           fontWeight: FontWeight.w400,
           fontSize: Sizes.TEXT_SIZE_12,
         );
@@ -104,10 +104,10 @@ class NavBar extends StatelessWidget {
                 height: Sizes.HEIGHT_36,
                 hasIcon: false,
                 width: 80,
-                buttonColor: AppColors.surface,
-                borderColor: appLogoColor,
-                onHoverColor: appLogoColor,
-                title: StringConst.RESUME.toUpperCase(),
+                buttonColor: const Color(0xFF010127),
+                borderColor: const Color(0xFF010127),
+                onHoverColor: const Color(0xFFCAFF00),
+                title: StringConst.CV.toUpperCase(),
                 onPressed: () {
                   Functions.launchUrl(DocumentPath.CV);
                 },
