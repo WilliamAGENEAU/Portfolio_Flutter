@@ -215,6 +215,13 @@ class StringConst {
   static const String ELEVAGEY_SUBTITLE = "";
   static const String ELEVAGEY_DETAIL = "";
 
+  static const String INAZUMA = "Inazuma Eleven";
+  static const String INAZUMA_PLATFORM = "Cross-platform.";
+  static const String INAZUMA_CATEGORY = "FLUTTER.";
+  static const String INAZUMA_DESIGNER = "Inazuma-eleven.fr & William Ageneau.";
+  static const String INAZUMA_SUBTITLE = "";
+  static const String INAZUMA_DETAIL = "";
+
   static const String MOTION_DESIGN = "Motion Design";
   static const String MOTION_PLATFORM = "3D.";
   static const String MOTION_CATEGORY = " VISUALS MOTION DESIGN.";

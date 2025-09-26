@@ -308,14 +308,14 @@ class _RecentProjectInfoState extends State<_RecentProjectInfo> {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: _hovering
-                          ? const Color(0xFF7CFF6B)
+                          ? AppColors.white
                           : AppColors.white.withOpacity(0.6),
                       width: _hovering ? 2 : 1.2,
                     ),
                     boxShadow: _hovering
                         ? [
                             BoxShadow(
-                              color: const Color(0xFF7CFF6B).withOpacity(0.45),
+                              color: AppColors.white.withOpacity(0.45),
                               blurRadius: 18,
                               spreadRadius: 1,
                             ),
@@ -330,17 +330,10 @@ class _RecentProjectInfoState extends State<_RecentProjectInfo> {
                     curve: hoverCurve,
                     padding: EdgeInsets.only(left: _hovering ? 6 : 0),
                     child: Center(
-                      child: AnimatedRotation(
-                        duration: hoverDuration,
-                        curve: hoverCurve,
-                        turns: _hovering ? 0.0 : -0.02,
-                        child: Icon(
-                          Icons.arrow_outward_rounded,
-                          color: _hovering
-                              ? const Color(0xFF7CFF6B)
-                              : Colors.white,
-                          size: _hovering ? 22 : 18,
-                        ),
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: _hovering ? AppColors.white : Colors.white,
+                        size: _hovering ? 22 : 18,
                       ),
                     ),
                   ),

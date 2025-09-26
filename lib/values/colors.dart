@@ -54,6 +54,7 @@ class AppColors {
   static const Color roamAppLogo = Color(0xFF2762CB);
 
   static const Color elevagey = Color.fromARGB(255, 51, 118, 95);
+  static const Color inazuma = Color.fromARGB(255, 26, 186, 222);
 
   static const Color garden = Color(0xFFcbebc5);
   static const Color dropNavTitle = Color(0xFF2A5A4A);

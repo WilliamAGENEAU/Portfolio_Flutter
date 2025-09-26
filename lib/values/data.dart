@@ -186,6 +186,7 @@ class Data {
     Projects.MOTION_DESIGN,
     Projects.MARVEL,
     Projects.ELEVAGEY,
+    Projects.INAZUMA,
   ];
 }
 
@@ -316,5 +317,25 @@ class Projects {
     technologyUsed: StringConst.BLENDER,
     gitHubUrl: StringConst.MOTION_GITHUB_URL,
     playStoreUrl: StringConst.MOTION_PLAYSTORE_URL,
+  );
+  static ProjectItemData INAZUMA = ProjectItemData(
+    title: StringConst.INAZUMA,
+    subtitle: StringConst.INAZUMA,
+    primaryColor: AppColors.inazuma,
+    category: StringConst.INAZUMA_CATEGORY,
+    designer: StringConst.INAZUMA_DESIGNER,
+    platform: StringConst.INAZUMA_PLATFORM,
+    image: ImagePath.INAZUMA_COVER,
+    coverUrl: ImagePath.INAZUMA_COVER,
+    navTitleColor: AppColors.primaryColor,
+    navSelectedTitleColor: AppColors.primaryColor,
+    appLogoColor: AppColors.primaryColor,
+    projectAssets: [ImagePath.INAZUMA_COVER],
+    portfolioDescription: StringConst.MARVEL_DETAIL,
+    isPublic: true,
+    isOnPlayStore: false,
+    technologyUsed: StringConst.FLUTTER,
+    gitHubUrl: StringConst.MARVEL_GITHUB_URL,
+    playStoreUrl: StringConst.MARVEL_PLAYSTORE_URL,
   );
 }

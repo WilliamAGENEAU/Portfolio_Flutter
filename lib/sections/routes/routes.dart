@@ -4,7 +4,7 @@ import '../pages/contact_page.dart';
 import '../pages/home_page.dart';
 import '../pages/privacy_policy_page.dart';
 import '../pages/project_detail_page.dart';
-import '../pages/works_page.dart';
+import '../pages/projet_page.dart';
 
 typedef PathWidgetBuilder =
     Widget Function(BuildContext, String? /*Map<String, String>*/);
@@ -44,8 +44,8 @@ class RouteConfiguration {
       (context, matches) => const ContactPage(),
     ),
     Path(
-      r'^' + WorksPage.worksPageRoute,
-      (context, matches) => const WorksPage(),
+      r'^' + ProjetPage.worksPageRoute,
+      (context, matches) => const ProjetPage(),
     ),
     Path(
       r'^' + ProjectDetailPage.projectDetailPageRoute,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio_flutter/widgets/gallery_guirlande.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
@@ -25,8 +23,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late AnimationController _viewProjectsController;
   late AnimationController _slideTextController;
   late NavigationArguments _arguments;
-
-  bool _galleryVisible = false;
 
   // Déclare ta liste d'images (par exemple en haut de _HomePageState) :
   final List<String> recentProjectImages = [
@@ -107,26 +103,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             controller: _slideTextController,
             scrollToWorksKey: _galleryKey, // Passe le key ici
           ),
-          Container(
-            key: _galleryKey,
-            height: 800,
-            color: Color(0xff171014),
-            child: Stack(
-              children: [
-                VisibilityDetector(
-                  key: const Key('gallery-visibility'),
-                  onVisibilityChanged: (info) {
-                    if (info.visibleFraction > 0.3 && !_galleryVisible) {
-                      setState(() {
-                        _galleryVisible = true;
-                      });
-                    }
-                  },
-                  child: GalleryGuirlande(images: recentProjectImages),
-                ),
-              ],
-            ),
-          ),
+
           AnimatedFooter(),
         ],
       ),

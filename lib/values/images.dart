@@ -80,11 +80,13 @@ class ImagePath {
   static const String MARVEL_2 = "$projectsDir/marvel_bkg.jpg";
   static const String MARVEL_3 = "$projectsDir/marvel_3.jpg";
   static const String MARVEL_RECENT = "$projectsDir/marvel_recent.png";
+  static const String MARVEL_TUBE = "$projectsDir/marvel_tube.jpg";
 
   // Elevage Y
   static const String ELEVAGEY_COVER = "$projectsDir/elevage_cover.jpg";
   static const String ELEVAGEY_1 = "$projectsDir/elevage_1.png";
   static const String ELEVAGEY_2 = "$projectsDir/elevage_2.png";
+  static const String ELEVAGEY_TUBE = "$projectsDir/elevage_tube.jpg";
 
   // Museum
   static const String MUSEUM_COVER = "$projectsDir/museum_cover.png";
@@ -93,6 +95,7 @@ class ImagePath {
   static const String MUSEUM_2 = "$projectsDir/museum_2.png";
   static const String MUSEUM_3 = "$projectsDir/museum_3.png";
   static const String MUSEUM_4 = "$projectsDir/museum_4.png";
+  static const String MUSEUM_TUBE = "$projectsDir/museum_tube.png";
 
   // Chessboard
   static const String CHESSBOARD_COVER = "$projectsDir/chessboard_cover.jpg";
@@ -103,6 +106,7 @@ class ImagePath {
   static const String CHESS_4 = "$projectsDir/chess_4.jpg";
   static const String CHESS_5 = "$projectsDir/chess_5.jpg";
   static const String CHESS_6 = "$projectsDir/chess_6.png";
+  static const String CHESS_TUBE = "$projectsDir/chess_tube.jpg";
 
   // Motion
   static const String MOTION_COVER = "$projectsDir/motion_cover.png";
@@ -113,6 +117,11 @@ class ImagePath {
   static const String MOTION_5 = "$projectsDir/motion_5.jpg";
   static const String MOTION_6 = "$projectsDir/motion_6.png";
   static const String MOTION_7 = "$projectsDir/motion_7.png";
+  static const String MOTION_CTUBE = "$projectsDir/motion_tube.jpg";
+
+  // Inazuma Eleven
+  static const String INAZUMA_COVER = "$projectsDir/inazuma_cover.jpg";
+  static const String INAZUMA_TUBE = "$projectsDir/inazuma_tube.jpg";
 
   static const String about = "$imageDir/about.png";
   static const String work = "$imageDir/work.png";
