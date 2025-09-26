@@ -6,7 +6,6 @@ import '../../core/adaptive.dart';
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
 import '../../widgets/content_area.dart';
-import '../../widgets/page_header.dart';
 import '../../widgets/page_wrapper.dart';
 import '../../widgets/spaces.dart';
 
@@ -71,10 +70,6 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage>
           parent: AlwaysScrollableScrollPhysics(),
         ),
         children: [
-          PageHeader(
-            headingText: StringConst.PRIVACY_POLICY,
-            headingTextController: _controller,
-          ),
           Padding(
             padding: padding,
             child: ContentArea(

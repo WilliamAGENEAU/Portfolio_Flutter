@@ -6,7 +6,6 @@ import '../../core/functions.dart';
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
 import '../../widgets/custom_spacer.dart';
-import '../../widgets/page_header.dart';
 import '../../widgets/page_wrapper.dart';
 import '../../widgets/project_item.dart';
 
@@ -65,20 +64,6 @@ class _WorksPageState extends State<WorksPage> with TickerProviderStateMixin {
           parent: AlwaysScrollableScrollPhysics(),
         ),
         children: [
-          PageHeader(
-            headingText: StringConst.PROJETS,
-            headingTextController: _headingTextController,
-            onArrowTap: () {
-              final ctx = _projectsStackKey.currentContext;
-              if (ctx != null) {
-                Scrollable.ensureVisible(
-                  ctx,
-                  duration: const Duration(milliseconds: 600),
-                  curve: Curves.easeInOut,
-                );
-              }
-            },
-          ),
           ResponsiveBuilder(
             builder: (context, sizingInformation) {
               double screenWidth = sizingInformation.screenSize.width;

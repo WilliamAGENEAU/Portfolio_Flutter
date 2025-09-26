@@ -22,7 +22,7 @@ class _GalleryGuirlandeState extends State<GalleryGuirlande> {
   Widget build(BuildContext context) {
     return Container(
       height: 800,
-      color: Color(0xff010127),
+      color: Color(0xff171014),
       child: Stack(
         children: [
           VisibilityDetector(

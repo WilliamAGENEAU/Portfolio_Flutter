@@ -208,6 +208,13 @@ class StringConst {
       "https://github.com/WilliamAGENEAU/marvel_cinematic_universe";
   static const String MARVEL_PLAYSTORE_URL = "";
 
+  static const String ELEVAGEY = "Élevage Y";
+  static const String ELEVAGEY_PLATFORM = "Cross-platform.";
+  static const String ELEVAGEY_CATEGORY = "FLUTTER.";
+  static const String ELEVAGEY_DESIGNER = "William Ageneau.";
+  static const String ELEVAGEY_SUBTITLE = "";
+  static const String ELEVAGEY_DETAIL = "";
+
   static const String MOTION_DESIGN = "Motion Design";
   static const String MOTION_PLATFORM = "3D.";
   static const String MOTION_CATEGORY = " VISUALS MOTION DESIGN.";

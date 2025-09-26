@@ -5,7 +5,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../core/adaptive.dart';
 import '../core/functions.dart';
 import '../values/values.dart';
-import 'aerium_button.dart';
 import 'animated_text_slide_box_transition.dart';
 import 'empty.dart';
 import 'nav_item.dart';
@@ -21,8 +20,8 @@ class NavBar extends StatelessWidget {
     this.onMenuTap,
     this.onNavItemWebTap,
     this.hasSideTitle = true,
-    this.selectedTitleColor = const Color(0xFFCAFF00),
-    this.titleColor = AppColors.grey600,
+    this.selectedTitleColor = AppColors.white,
+    this.titleColor = AppColors.white,
     this.appLogoColor = AppColors.black,
   });
 
@@ -100,15 +99,15 @@ class NavBar extends StatelessWidget {
             children: [
               Spacer(),
               ..._buildNavItems(context, menuList: Data.menuItems),
-              AeriumButton(
-                height: Sizes.HEIGHT_36,
-                hasIcon: false,
-                width: 80,
-                buttonColor: const Color(0xFF010127),
-                borderColor: const Color(0xFF010127),
-                onHoverColor: const Color(0xFFCAFF00),
+              NavItem(
+                controller: controller,
                 title: StringConst.CV.toUpperCase(),
-                onPressed: () {
+                route: '#',
+                titleColor: titleColor,
+                selectedColor: selectedTitleColor,
+                index: Data.menuItems.length + 1,
+                isSelected: false,
+                onTap: () {
                   Functions.launchUrl(DocumentPath.CV);
                 },
               ),

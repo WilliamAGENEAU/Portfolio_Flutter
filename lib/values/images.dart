@@ -81,6 +81,11 @@ class ImagePath {
   static const String MARVEL_3 = "$projectsDir/marvel_3.jpg";
   static const String MARVEL_RECENT = "$projectsDir/marvel_recent.png";
 
+  // Elevage Y
+  static const String ELEVAGEY_COVER = "$projectsDir/elevage_cover.jpg";
+  static const String ELEVAGEY_1 = "$projectsDir/elevage_1.png";
+  static const String ELEVAGEY_2 = "$projectsDir/elevage_2.png";
+
   // Museum
   static const String MUSEUM_COVER = "$projectsDir/museum_cover.png";
   static const String MUSEUM_SCREENS = "$projectsDir/museum_bkg.png";

@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:lottie/lottie.dart';
 import 'package:portfolio_flutter/core/extensions.dart';
 import 'package:portfolio_flutter/widgets/animated_positioned_widget.dart';
-import 'package:portfolio_flutter/widgets/social.dart';
 
 import '../../core/adaptive.dart';
 import '../../values/values.dart';
@@ -16,7 +14,6 @@ import '../../widgets/content_area.dart';
 import '../../widgets/custom_spacer.dart';
 import '../../widgets/page_wrapper.dart';
 import '../../widgets/simple_footer.dart';
-import '../../widgets/spaces.dart';
 
 class ContactPage extends StatefulWidget {
   static const String contactPageRoute = StringConst.CONTACT_PAGE;
@@ -110,32 +107,36 @@ class _ContactPageState extends State<ContactPage>
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController messageController = TextEditingController();
+    // Use persistent controllers already defined for a consistent UX
+    final TextEditingController emailController = _emailController;
+    final TextEditingController messageController = _messageController;
+    final TextEditingController firstNameController = _nameController;
+    final TextEditingController lastNameController = TextEditingController();
+    final TextEditingController subjectController = _subjectController;
     TextTheme textTheme = Theme.of(context).textTheme;
 
     double contentAreaWidth = responsiveSize(
       context,
-      assignWidth(context, 0.8),
-      assignWidth(context, 0.6),
+      assignWidth(context, 0.9),
+      assignWidth(context, 0.65),
     );
 
     // Remonte le padding top pour placer le form plus haut
     EdgeInsetsGeometry padding = EdgeInsets.only(
       left: responsiveSize(
         context,
+        assignWidth(context, 0.06),
         assignWidth(context, 0.10),
-        assignWidth(context, 0.15),
       ),
       right: responsiveSize(
         context,
+        assignWidth(context, 0.06),
         assignWidth(context, 0.10),
-        assignWidth(context, 0.25),
       ),
       top: responsiveSize(
         context,
-        assignHeight(context, 0.08), // Était 0.25, maintenant plus haut
-        assignHeight(context, 0.12),
+        assignHeight(context, 0.06),
+        assignHeight(context, 0.10),
       ),
     );
     TextStyle? headingStyle = textTheme.bodyLarge?.copyWith(
@@ -150,203 +151,270 @@ class _ContactPageState extends State<ContactPage>
       onLoadingAnimationDone: () {
         _controller.forward();
       },
-      child: ListView(
-        padding: EdgeInsets.zero,
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
-        ),
-        children: [
-          Padding(
-            padding: padding,
-            child: ContentArea(
-              width: contentAreaWidth,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // FORMULAIRE (2/3)
-                  Expanded(
-                    flex: 2,
-                    child: Column(
+      child: Container(
+        color: const Color(0xff171014),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
+          children: [
+            Padding(
+              padding: padding,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1100),
+                  child: ContentArea(
+                    width: contentAreaWidth,
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        AnimatedTextSlideBoxTransition(
-                          controller: _controller,
-                          text: StringConst.GET_IN_TOUCH,
-                          textStyle: headingStyle,
-                          color: AppColors.background,
-                        ),
-                        CustomSpacer(heightFactor: 0.03),
-                        AnimatedPositionedText(
-                          width: contentAreaWidth * 0.66,
-                          controller: CurvedAnimation(
-                            parent: _controller,
-                            curve: Interval(
-                              0.6,
-                              1.0,
-                              curve: Curves.fastOutSlowIn,
-                            ),
-                          ),
-                          text: StringConst.CONTACT_MSG,
-                          maxLines: 5,
-                          textStyle: textTheme.bodyLarge?.copyWith(
-                            color: AppColors.grey700,
-                            height: 2.0,
-                            fontSize: responsiveSize(
-                              context,
-                              Sizes.TEXT_SIZE_16,
-                              Sizes.TEXT_SIZE_18,
-                            ),
-                          ),
-                        ),
-                        CustomSpacer(heightFactor: 0.03),
-                        AnimatedPositionedWidget(
-                          controller: CurvedAnimation(
-                            parent: _controller,
-                            curve: Curves.fastOutSlowIn,
-                          ),
-                          width: contentAreaWidth * 0.66,
-                          height: assignHeight(context, 0.6),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  width:
-                                      contentAreaWidth *
-                                      0.66, // Réduit la largeur du champ
-                                  child: TextFormField(
-                                    controller: emailController,
-                                    keyboardType: TextInputType.emailAddress,
-                                    decoration: InputDecoration(
-                                      labelText: "Your email",
-                                      errorText: _emailError,
-                                    ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Please enter your email";
-                                      }
-                                      if (!RegExp(
-                                        r'^[^@]+@[^@]+\.[^@]+',
-                                      ).hasMatch(value)) {
-                                        return "Please enter a valid email";
-                                      }
-                                      return null;
-                                    },
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Titre principal
+                              AnimatedTextSlideBoxTransition(
+                                controller: _controller,
+                                text: "ENTRONS EN CONTACT !",
+                                textStyle: headingStyle?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 1.2,
+                                ),
+                                color: const Color(0xff171014),
+                              ),
+                              CustomSpacer(heightFactor: 0.03),
+                              // Sous-titre
+                              AnimatedPositionedText(
+                                width: contentAreaWidth * 0.9,
+                                controller: CurvedAnimation(
+                                  parent: _controller,
+                                  curve: const Interval(
+                                    0.6,
+                                    1.0,
+                                    curve: Curves.fastOutSlowIn,
                                   ),
                                 ),
-                                SpaceH20(),
-                                SizedBox(
-                                  width: contentAreaWidth * 0.66,
-                                  child: TextFormField(
-                                    controller: messageController,
-                                    maxLines: 8,
-                                    decoration: InputDecoration(
-                                      labelText: "Your message",
-                                      errorText: _messageError,
-                                    ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Please enter your message";
-                                      }
-                                      return null;
-                                    },
+                                text:
+                                    "N'HÉSITEZ PAS À ME CONTACTER POUR DE FUTURS PROJETS ET OPPORTUNITÉ.",
+                                maxLines: 3,
+                                textStyle: textTheme.bodyLarge?.copyWith(
+                                  color: Colors.white70,
+                                  height: 1.8,
+                                  fontSize: responsiveSize(
+                                    context,
+                                    Sizes.TEXT_SIZE_16,
+                                    Sizes.TEXT_SIZE_18,
                                   ),
                                 ),
-                                SpaceH20(),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: AeriumButton(
-                                    title: "Send",
-                                    isLoading: _isSending,
-                                    onPressed: _isSending
-                                        ? null
-                                        : () async {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              await sendFormspree(
-                                                emailController.text,
-                                                messageController.text,
-                                              );
-                                            }
-                                          },
-                                  ),
+                              ),
+                              CustomSpacer(heightFactor: 0.05),
+                              // Formulaire
+                              Theme(
+                                data: Theme.of(context).copyWith(
+                                  inputDecorationTheme:
+                                      const InputDecorationTheme(
+                                        labelStyle: TextStyle(
+                                          color: Colors.white70,
+                                        ),
+                                        hintStyle: TextStyle(
+                                          color: Colors.white54,
+                                        ),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.white54,
+                                          ),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        errorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.redAccent,
+                                          ),
+                                        ),
+                                        focusedErrorBorder:
+                                            UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.redAccent,
+                                              ),
+                                            ),
+                                      ),
                                 ),
-                                if (_sent)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 16.0),
-                                    child: Text(
-                                      "Message sent! Thank you.",
-                                      style: TextStyle(color: Colors.green),
+                                child: AnimatedPositionedWidget(
+                                  controller: CurvedAnimation(
+                                    parent: _controller,
+                                    curve: Curves.fastOutSlowIn,
+                                  ),
+                                  width: contentAreaWidth,
+                                  height: assignHeight(context, 0.6),
+                                  child: Form(
+                                    key: _formKey,
+                                    child: LayoutBuilder(
+                                      builder: (context, constraints) {
+                                        final bool isNarrow =
+                                            constraints.maxWidth < 820;
+                                        final double fieldWidth = isNarrow
+                                            ? constraints.maxWidth
+                                            : (constraints.maxWidth - 40) /
+                                                  2; // 40 = gap
+                                        return Wrap(
+                                          spacing: 40,
+                                          runSpacing: isNarrow ? 22 : 28,
+                                          children: [
+                                            SizedBox(
+                                              width: fieldWidth,
+                                              child: TextFormField(
+                                                controller: firstNameController,
+                                                textInputAction:
+                                                    TextInputAction.next,
+                                                decoration:
+                                                    const InputDecoration(
+                                                      labelText: "Prénom",
+                                                    ),
+                                                onChanged: isNameValid,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: fieldWidth,
+                                              child: TextFormField(
+                                                controller: lastNameController,
+                                                textInputAction:
+                                                    TextInputAction.next,
+                                                decoration:
+                                                    const InputDecoration(
+                                                      labelText:
+                                                          "Nom de famille",
+                                                    ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: fieldWidth,
+                                              child: TextFormField(
+                                                controller: emailController,
+                                                keyboardType:
+                                                    TextInputType.emailAddress,
+                                                textInputAction:
+                                                    TextInputAction.next,
+                                                decoration: InputDecoration(
+                                                  labelText: "E-mail *",
+                                                  errorText: _emailError,
+                                                ),
+                                                validator: (value) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
+                                                    return "Veuillez entrer votre e-mail";
+                                                  }
+                                                  if (!RegExp(
+                                                    r'^[^@]+@[^@]+\.[^@]+',
+                                                  ).hasMatch(value)) {
+                                                    return "Veuillez entrer un e-mail valide";
+                                                  }
+                                                  return null;
+                                                },
+                                                onChanged: isEmailValid,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: fieldWidth,
+                                              child: TextFormField(
+                                                controller: subjectController,
+                                                textInputAction:
+                                                    TextInputAction.next,
+                                                decoration:
+                                                    const InputDecoration(
+                                                      labelText: "Objet",
+                                                    ),
+                                                onChanged: isSubjectValid,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: constraints.maxWidth,
+                                              child: TextFormField(
+                                                controller: messageController,
+                                                maxLines: 8,
+                                                decoration: InputDecoration(
+                                                  labelText:
+                                                      "Laissez-moi un message...",
+                                                  errorText: _messageError,
+                                                ),
+                                                validator: (value) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
+                                                    return "Veuillez entrer votre message";
+                                                  }
+                                                  return null;
+                                                },
+                                                onChanged: isMessageValid,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: constraints.maxWidth,
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: AeriumButton(
+                                                  title: "Envoyer",
+                                                  isLoading: _isSending,
+                                                  onPressed: _isSending
+                                                      ? null
+                                                      : () async {
+                                                          if (_formKey
+                                                              .currentState!
+                                                              .validate()) {
+                                                            await sendFormspree(
+                                                              emailController
+                                                                  .text,
+                                                              messageController
+                                                                  .text,
+                                                            );
+                                                          }
+                                                        },
+                                                ),
+                                              ),
+                                            ),
+                                            if (_sent)
+                                              SizedBox(
+                                                width: constraints.maxWidth,
+                                                child: const Padding(
+                                                  padding: EdgeInsets.only(
+                                                    top: 16.0,
+                                                  ),
+                                                  child: Text(
+                                                    "Message envoyé ! Merci.",
+                                                    style: TextStyle(
+                                                      color: Colors.green,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        );
+                                      },
                                     ),
                                   ),
-                              ],
-                            ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  // ESPACE DROITE (1/3)
-                  SpaceW40(),
-                  Expanded(
-                    flex: 1,
-                    child: AnimatedBuilder(
-                      animation: _controller,
-                      builder: (context, child) {
-                        // Slide de droite vers la position finale, fade in en même temps
-                        final slide =
-                            Tween<Offset>(
-                              begin: const Offset(
-                                0.4,
-                                0,
-                              ), // Décalé à droite, hors écran
-                              end: Offset.zero,
-                            ).animate(
-                              CurvedAnimation(
-                                parent: _controller,
-                                curve: Curves.fastEaseInToSlowEaseOut,
-                              ),
-                            );
-                        final opacity = _controller.drive(
-                          CurveTween(curve: Curves.easeIn),
-                        );
-                        return Opacity(
-                          opacity: opacity.value,
-                          child: SlideTransition(
-                            position: slide,
-                            child: Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.center, // Centrage vertical
-                              crossAxisAlignment: CrossAxisAlignment
-                                  .center, // Centrage horizontal
-                              children: [
-                                _LottieHover(
-                                  width: contentAreaWidth * 0.33,
-                                  height: assignHeight(
-                                    context,
-                                    0.6,
-                                  ), // Réduit pour équilibrer
-                                ),
-                                Socials(
-                                  size: 30,
-                                  socialData: Data.socialData,
-                                  color: AppColors.black,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          CustomSpacer(heightFactor: 0.15),
-          SimpleFooter(),
-        ],
+                ), // ConstrainedBox
+              ), // Align
+            ), // Padding
+            CustomSpacer(heightFactor: 0.15),
+            SimpleFooter(),
+          ],
+        ),
       ),
     );
   }
@@ -391,47 +459,5 @@ class _ContactPageState extends State<ContactPage>
     _emailController.text = "";
     _subjectController.text = "";
     _messageController.text = "";
-  }
-}
-
-class _LottieHover extends StatefulWidget {
-  final double width;
-  final double height;
-  const _LottieHover({required this.width, required this.height});
-
-  @override
-  State<_LottieHover> createState() => _LottieHoverState();
-}
-
-class _LottieHoverState extends State<_LottieHover>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _lottieController;
-
-  @override
-  void initState() {
-    super.initState();
-    _lottieController = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _lottieController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 60), // Décalage droite + bas
-      child: SizedBox(
-        width: widget.width, // Agrandit la largeur
-        height: widget.height, // Agrandit la hauteur
-        child: Lottie.asset(
-          ImagePath.contact,
-          repeat: false,
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
   }
 }

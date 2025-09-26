@@ -90,7 +90,6 @@ class SubMenuData {
 class Data {
   static List<NavItemData> menuItems = [
     NavItemData(name: StringConst.HOME, route: StringConst.HOME_PAGE),
-    NavItemData(name: StringConst.ABOUT, route: StringConst.ABOUT_PAGE),
     NavItemData(name: StringConst.PROJETS, route: StringConst.WORKS_PAGE),
     NavItemData(name: StringConst.CONTACT, route: StringConst.CONTACT_PAGE),
   ];
@@ -178,6 +177,7 @@ class Data {
     Projects.CONNECTED_CHESSBOARD,
     Projects.MOTION_DESIGN,
     Projects.MARVEL,
+    Projects.ELEVAGEY,
   ];
 
   static List<ProjectItemData> projects = [
@@ -185,6 +185,7 @@ class Data {
     Projects.CONNECTED_CHESSBOARD,
     Projects.MOTION_DESIGN,
     Projects.MARVEL,
+    Projects.ELEVAGEY,
   ];
 }
 
@@ -257,6 +258,30 @@ class Projects {
       ImagePath.MARVEL_1,
       ImagePath.MARVEL_2,
       ImagePath.MARVEL_3,
+    ],
+    portfolioDescription: StringConst.MARVEL_DETAIL,
+    isPublic: true,
+    isOnPlayStore: false,
+    technologyUsed: StringConst.FLUTTER,
+    gitHubUrl: StringConst.MARVEL_GITHUB_URL,
+    playStoreUrl: StringConst.MARVEL_PLAYSTORE_URL,
+  );
+  static ProjectItemData ELEVAGEY = ProjectItemData(
+    title: StringConst.ELEVAGEY,
+    subtitle: StringConst.ELEVAGEY,
+    primaryColor: AppColors.elevagey,
+    category: StringConst.ELEVAGEY_CATEGORY,
+    designer: StringConst.ELEVAGEY_DESIGNER,
+    platform: StringConst.ELEVAGEY_PLATFORM,
+    image: ImagePath.ELEVAGEY_COVER,
+    coverUrl: ImagePath.ELEVAGEY_COVER,
+    navTitleColor: AppColors.primaryColor,
+    navSelectedTitleColor: AppColors.primaryColor,
+    appLogoColor: AppColors.primaryColor,
+    projectAssets: [
+      ImagePath.ELEVAGEY_COVER,
+      ImagePath.ELEVAGEY_1,
+      ImagePath.ELEVAGEY_2,
     ],
     portfolioDescription: StringConst.MARVEL_DETAIL,
     isPublic: true,

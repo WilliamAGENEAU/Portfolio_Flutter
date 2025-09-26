@@ -12,7 +12,7 @@ class SimpleFooter extends StatelessWidget {
     super.key,
     this.height,
     this.width,
-    this.backgroundColor = AppColors.black,
+    this.backgroundColor = const Color(0xff171014),
   });
 
   final double? width;

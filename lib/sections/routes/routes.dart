@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../pages/about_page.dart';
 import '../pages/contact_page.dart';
 import '../pages/home_page.dart';
 import '../pages/privacy_policy_page.dart';
@@ -43,10 +42,6 @@ class RouteConfiguration {
     Path(
       r'^' + ContactPage.contactPageRoute,
       (context, matches) => const ContactPage(),
-    ),
-    Path(
-      r'^' + AboutPage.aboutPageRoute,
-      (context, matches) => const AboutPage(),
     ),
     Path(
       r'^' + WorksPage.worksPageRoute,

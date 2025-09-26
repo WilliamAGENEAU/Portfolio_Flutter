@@ -107,12 +107,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             controller: _slideTextController,
             scrollToWorksKey: _galleryKey, // Passe le key ici
           ),
-
-          // Dégradé de transition entre le header et la section suivante
           Container(
             key: _galleryKey,
             height: 800,
-            color: Color(0xff010127),
+            color: Color(0xff171014),
             child: Stack(
               children: [
                 VisibilityDetector(

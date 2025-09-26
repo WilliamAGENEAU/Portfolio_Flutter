@@ -68,7 +68,7 @@ class _AnimatedFooterState extends State<AnimatedFooter>
     return Container(
       width: widget.width ?? widthOfScreen(context),
       height: widget.height ?? assignHeight(context, 0.70),
-      color: Color(0xff010127),
+      color: Color(0xff171014),
       child: VisibilityDetector(
         key: Key('animated-footer'),
         onVisibilityChanged: (visibilityInfo) {

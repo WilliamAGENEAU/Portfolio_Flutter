@@ -71,17 +71,17 @@ class _HomePageHeaderState extends State<HomePageHeader> {
           else
             Container(color: Colors.black),
 
-          // Dégradé vers le bas
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.transparent, Color(0xff010127)],
-                stops: [0.85, 1.0], // commence à 70% de la hauteur
-              ),
-            ),
-          ),
+          // // Dégradé vers le bas
+          // Container(
+          //   decoration: const BoxDecoration(
+          //     gradient: LinearGradient(
+          //       begin: Alignment.topCenter,
+          //       end: Alignment.bottomCenter,
+          //       colors: [Colors.transparent, Color(0xff171014)],
+          //       stops: [0.96, 1.0], // commence à 70% de la hauteur
+          //     ),
+          //   ),
+          // ),
 
           // Contenu par-dessus
           ResponsiveBuilder(
@@ -239,22 +239,7 @@ class _FramedProjectCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Stack(
         fit: StackFit.expand,
-        children: [
-          Image.asset(imagePath, fit: BoxFit.cover),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              height: 36,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.black.withOpacity(0.55), Colors.transparent],
-                ),
-              ),
-            ),
-          ),
-        ],
+        children: [Image.asset(imagePath, fit: BoxFit.cover)],
       ),
     );
   }
