@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../values/values.dart';
-import 'animated_positioned_text.dart';
-import 'animated_text_slide_box_transition.dart';
-import 'spaces.dart';
-
-const double spacing = 20;
 
 class TechnologySection extends StatelessWidget {
   const TechnologySection({
@@ -16,161 +11,187 @@ class TechnologySection extends StatelessWidget {
   });
 
   final AnimationController controller;
-
   final double width;
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? titleStyle = textTheme.bodySmall?.copyWith(
-      fontSize: Sizes.TEXT_SIZE_16,
-      color: AppColors.black,
+
+    final titleStyle = textTheme.headlineSmall?.copyWith(
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
     );
-    return SizedBox(
-      width: width,
+
+    final itemStyle = textTheme.bodyMedium?.copyWith(
+      fontSize: Sizes.TEXT_SIZE_15,
+      color: Colors.white,
+      fontWeight: FontWeight.w400,
+      height: 1.6,
+    );
+
+    // ✅ Listes comme dans ton image
+    final webMobileLogiciel1 = [
+      "Flutter",
+      "HTML 5",
+      "CSS 3",
+      "Python",
+      "JavaScript",
+      "React JS",
+      "Node JS",
+      "Git",
+      "Google Cloud",
+      "PHP",
+      "Azure",
+    ];
+
+    final webMobileLogiciel2 = [
+      "SQL",
+      "Embedded C/C++",
+      "Firebase",
+      "Wordpress",
+      "Machine Learning",
+      "Development .NET",
+      "Edge computing",
+      "Bluetooth",
+      "Zigbee",
+      "LoRa",
+    ];
+
+    final uxUi = [
+      "Figma",
+      "UX Research",
+      "Chakra UI",
+      "Wireframing",
+      "Blender",
+      "Resolume",
+    ];
+
+    return Container(
+      color: const Color(0xff171014), // ✅ même fond que AboutSection
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
       child: ResponsiveBuilder(
         builder: (context, sizingInformation) {
-          double screenWidth = sizingInformation.screenSize.width;
+          bool isMobile =
+              sizingInformation.screenSize.width <
+              RefinedBreakpoints().tabletNormal;
 
-          if (screenWidth < RefinedBreakpoints().tabletNormal) {
+          if (isMobile) {
+            // ✅ Mobile = tout en colonne
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AnimatedTextSlideBoxTransition(
-                  controller: controller,
-                  width: screenWidth,
-                  text: StringConst.UI,
-                  textStyle: titleStyle,
-                  color: AppColors.background,
+                _buildCategory(
+                  "Web / Mobile / Logiciel",
+                  [webMobileLogiciel1, webMobileLogiciel2],
+                  titleStyle!,
+                  itemStyle!,
+                  isMobile: true,
                 ),
-                SpaceH20(),
-                Wrap(
-                  direction: Axis.vertical,
-                  spacing: 20,
-                  children: _buildTechnologies(
-                    context,
-                    data: Data.ui,
-                    controller: controller,
-                    width: screenWidth,
-                  ),
-                ),
-                SpaceH40(),
-                AnimatedTextSlideBoxTransition(
-                  controller: controller,
-                  width: screenWidth,
-                  text: StringConst.OTHER_TECH,
-                  textStyle: titleStyle,
-                  color: AppColors.background,
-                ),
-                SpaceH20(),
-                Wrap(
-                  spacing: (width * 0.1) / 3,
-                  runSpacing: 20,
-                  children: _buildTechnologies(
-                    context,
-                    controller: controller,
-                    data: Data.otherTechnologies,
-                    width: width * 0.3,
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  width: width * 0.25,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AnimatedTextSlideBoxTransition(
-                        controller: controller,
-                        width: width * 0.25,
-                        text: StringConst.UI,
-                        textStyle: titleStyle,
-                        color: AppColors.background,
-                      ),
-                      SpaceH20(),
-                      Wrap(
-                        direction: Axis.vertical,
-                        spacing: spacing,
-                        children: _buildTechnologies(
-                          context,
-                          controller: controller,
-                          data: Data.ui,
-                          width: width * 0.25,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    width: (width * 0.75),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AnimatedTextSlideBoxTransition(
-                          controller: controller,
-                          width: (width * 0.75),
-                          text: StringConst.OTHER_TECH,
-                          textStyle: titleStyle,
-                          color: AppColors.background,
-                        ),
-                        SpaceH20(),
-                        Wrap(
-                          spacing: spacing,
-                          runSpacing: spacing,
-                          children: _buildTechnologies(
-                            context,
-                            controller: controller,
-                            data: Data.otherTechnologies,
-                            width: ((width * 0.75) - (spacing * 3)) / 5,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                const SizedBox(height: 40),
+                _buildCategory(
+                  "UX/UI",
+                  [uxUi],
+                  titleStyle,
+                  itemStyle,
+                  isMobile: true,
                 ),
               ],
             );
           }
+
+          // ✅ Desktop = deux grandes colonnes
+          return Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1000),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Colonne gauche
+                  Expanded(
+                    flex: 2,
+                    child: _buildCategory(
+                      "Web / Mobile / Logiciel",
+                      [webMobileLogiciel1, webMobileLogiciel2],
+                      titleStyle!,
+                      itemStyle!,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 40),
+                    width: 1,
+                    color: Colors.white.withOpacity(
+                      0.6,
+                    ), // ✅ séparateur vertical
+                  ),
+                  // Colonne droite
+                  Expanded(
+                    flex: 1,
+                    child: _buildCategory(
+                      "UX/UI",
+                      [uxUi],
+                      titleStyle,
+                      itemStyle,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         },
       ),
     );
   }
 
-  List<Widget> _buildTechnologies(
-    BuildContext context, {
-    required List<String> data,
-    required AnimationController controller,
-    double? width,
+  Widget _buildCategory(
+    String title,
+    List<List<String>> lists,
+    TextStyle titleStyle,
+    TextStyle itemStyle, {
+    bool isMobile = false,
   }) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? bodyText1Style = textTheme.bodyMedium?.copyWith(
-      fontSize: Sizes.TEXT_SIZE_15,
-      color: AppColors.grey750,
-      fontWeight: FontWeight.w400,
+    return Column(
+      crossAxisAlignment: isMobile
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
+      children: [
+        Text(title, style: titleStyle),
+        const SizedBox(height: 20),
+        isMobile
+            ? Column(
+                children: lists
+                    .map((list) => _buildList(list, itemStyle))
+                    .toList(),
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: lists
+                    .map((list) => Expanded(child: _buildList(list, itemStyle)))
+                    .toList(),
+              ),
+      ],
     );
-    List<Widget> items = [];
-    for (var item in data) {
-      items.add(
-        SizedBox(
-          width: width,
-          child: AnimatedPositionedText(
-            controller: CurvedAnimation(
-              parent: controller,
-              curve: Interval(0.6, 1.0, curve: Curves.ease),
-            ),
-            text: item,
-            textStyle: bodyText1Style,
-          ),
-        ),
-      );
-    }
+  }
 
-    return items;
+  Widget _buildList(List<String> items, TextStyle style) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: items
+          .map(
+            (e) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                children: [
+                  const Text(
+                    "• ",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  Expanded(child: Text(e, style: style)),
+                ],
+              ),
+            ),
+          )
+          .toList(),
+    );
   }
 }

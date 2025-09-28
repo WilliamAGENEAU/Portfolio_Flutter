@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../pages/contact_page.dart';
 import '../pages/home_page.dart';
-import '../pages/privacy_policy_page.dart';
 import '../pages/project_detail_page.dart';
 import '../pages/projet_page.dart';
 
@@ -35,10 +34,6 @@ class RouteConfiguration {
   /// will be returned. This means that the paths higher up in the list will
   /// take priority.
   static List<Path> paths = [
-    Path(
-      r'^' + PrivacyPolicyPage.pageRoute,
-      (context, matches) => const PrivacyPolicyPage(),
-    ),
     Path(
       r'^' + ContactPage.contactPageRoute,
       (context, matches) => const ContactPage(),

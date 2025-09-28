@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_flutter/core/adaptive.dart';
+import 'package:portfolio_flutter/widgets/about_section.dart';
+import 'package:portfolio_flutter/widgets/technology_section.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../values/values.dart';
 import '../../widgets/animated_footer.dart';
@@ -23,6 +27,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late AnimationController _viewProjectsController;
   late AnimationController _slideTextController;
   late NavigationArguments _arguments;
+  late AnimationController _technologyController;
 
   // Déclare ta liste d'images (par exemple en haut de _HomePageState) :
   final List<String> recentProjectImages = [
@@ -48,7 +53,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       vsync: this,
       duration: Animations.slideAnimationDurationLong,
     );
-
+    _technologyController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
     super.initState();
   }
 
@@ -74,8 +82,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    getArguments();
+    double contentAreaWidth = responsiveSize(
+      context,
+      assignWidth(context, 0.75),
+      assignWidth(context, 0.75),
+      sm: assignWidth(context, 0.8),
+    );
     TextTheme textTheme = Theme.of(context).textTheme;
+
+    getArguments();
     return PageWrapper(
       selectedRoute: HomePage.homePageRoute,
       selectedPageName: StringConst.HOME,
@@ -103,7 +118,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             controller: _slideTextController,
             scrollToWorksKey: _galleryKey, // Passe le key ici
           ),
-
+          AboutSection(),
+          VisibilityDetector(
+            key: const Key('technology-section'),
+            onVisibilityChanged: (visibilityInfo) {
+              double visiblePercentage = visibilityInfo.visibleFraction * 100;
+              if (visiblePercentage > 50) {
+                _technologyController.forward(); // ✅ joue l’animation
+              }
+            },
+            child: Container(
+              color: const Color(0xff171014),
+              child: TechnologySection(
+                controller: _technologyController, // ✅ passe ton controller
+                width: contentAreaWidth, // ✅ largeur responsive
+              ),
+            ),
+          ),
           AnimatedFooter(),
         ],
       ),

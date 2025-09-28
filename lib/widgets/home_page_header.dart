@@ -97,7 +97,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "INGÉNIEUR FRONT-END, UX/UI DESIGNER, IOT, MOBILE",
+                    "INGÉNIEUR FRONT-END, IOT, MOBILE, UX/UI DESIGNER",
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: AppColors.white.withOpacity(0.8),
                       letterSpacing: 1.2,

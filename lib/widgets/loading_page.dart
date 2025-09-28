@@ -202,10 +202,15 @@ class _LoadingHomePageAnimationState extends State<LoadingHomePageAnimation>
                             width: widthOfLeftLine,
                             child: Stack(
                               children: [
-                                Container(
-                                  width: widthOfLeftLine,
-                                  height: lineHeight,
-                                  color: lineColor,
+                                // Ligne gauche
+                                AnimatedOpacity(
+                                  opacity: _leftRightAnimationDone ? 0.0 : 1.0,
+                                  duration: _leftRightContainerDuration,
+                                  child: Container(
+                                    width: widthOfLeftLine,
+                                    height: lineHeight,
+                                    color: lineColor,
+                                  ),
                                 ),
                                 Positioned(
                                   child: AnimatedContainer(
@@ -215,25 +220,34 @@ class _LoadingHomePageAnimationState extends State<LoadingHomePageAnimation>
                                     height: lineHeight,
                                     color: AppColors.black,
                                     duration: _leftRightContainerDuration,
-                                    // curve: Curves.ease,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          containerAnimationBuilder(
-                            controller: _containerController,
-                            animation: containerAnimation,
-                            color: lineColor,
+                          // Ligne centrale (sous le texte)
+                          AnimatedOpacity(
+                            opacity: _leftRightAnimationDone ? 0.0 : 1.0,
+                            duration: _leftRightContainerDuration,
+                            child: containerAnimationBuilder(
+                              controller: _containerController,
+                              animation: containerAnimation,
+                              color: lineColor,
+                            ),
                           ),
+                          // Ligne droite
                           SizedBox(
                             width: widthOfRightLine,
                             child: Stack(
                               children: [
-                                Container(
-                                  width: widthOfRightLine,
-                                  height: lineHeight,
-                                  color: lineColor,
+                                AnimatedOpacity(
+                                  opacity: _leftRightAnimationDone ? 0.0 : 1.0,
+                                  duration: _leftRightContainerDuration,
+                                  child: Container(
+                                    width: widthOfRightLine,
+                                    height: lineHeight,
+                                    color: lineColor,
+                                  ),
                                 ),
                                 Positioned(
                                   right: 0,
@@ -244,7 +258,6 @@ class _LoadingHomePageAnimationState extends State<LoadingHomePageAnimation>
                                     height: lineHeight,
                                     color: AppColors.black,
                                     duration: _leftRightContainerDuration,
-                                    onEnd: () {},
                                   ),
                                 ),
                               ],

@@ -14,7 +14,6 @@ part 'images.dart';
 part 'sizes.dart';
 part 'strings.dart';
 part 'gradients.dart';
-part 'decoration.dart';
 part 'data.dart';
 part 'docs.dart';
 part 'animations.dart';
