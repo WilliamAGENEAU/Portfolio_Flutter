@@ -31,6 +31,8 @@ class ProjectItemData {
     this.navTitleColor = AppColors.white,
     this.navSelectedTitleColor = AppColors.black,
     this.appLogoColor = AppColors.black,
+    this.entreprise,
+    this.domaine,
   });
 
   final Color primaryColor;
@@ -55,6 +57,8 @@ class ProjectItemData {
   final bool isLive;
   final String webUrl;
   final String? technologyUsed;
+  final String? entreprise; // ✅ nouvelle rubrique
+  final String? domaine; // ✅ nouvelle rubrique
 }
 
 class ProjectData extends StatelessWidget {

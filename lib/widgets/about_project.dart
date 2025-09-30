@@ -53,16 +53,18 @@ class _AboutprojectState extends State<Aboutproject> {
 
   @override
   Widget build(BuildContext context) {
-    double googlePlayButtonWidth = 150;
     double targetWidth = responsiveSize(context, 118, 150, md: 150);
     double initialWidth = responsiveSize(context, 36, 50, md: 50);
     TextTheme textTheme = Theme.of(context).textTheme;
+
+    // ✅ Styles adaptés
     TextStyle? bodyTextStyle = textTheme.bodyMedium?.copyWith(
       fontSize: Sizes.TEXT_SIZE_18,
-      color: AppColors.grey750,
+      color: Colors.white, // blanc
       fontWeight: FontWeight.w400,
       height: 2.0,
     );
+
     double projectDataWidth = responsiveSize(
       context,
       widget.width,
@@ -79,8 +81,9 @@ class _AboutprojectState extends State<Aboutproject> {
     BorderRadiusGeometry borderRadius = BorderRadius.all(
       Radius.circular(100.0),
     );
+
     TextStyle? buttonStyle = textTheme.bodyMedium?.copyWith(
-      color: AppColors.black,
+      color: Colors.black,
       fontSize: responsiveSize(
         context,
         Sizes.TEXT_SIZE_14,
@@ -89,19 +92,21 @@ class _AboutprojectState extends State<Aboutproject> {
       ),
       fontWeight: FontWeight.w500,
     );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AnimatedTextSlideBoxTransition(
-          controller: widget.controller,
-          text: StringConst.ABOUT_PROJECT,
-          coverColor: AppColors.white,
-          textStyle: textTheme.bodyLarge?.copyWith(
+        // ✅ Titre simple, en blanc
+        Text(
+          StringConst.ABOUT_PROJECT,
+          style: textTheme.bodyLarge?.copyWith(
             fontSize: Sizes.TEXT_SIZE_48,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
-          color: AppColors.background,
         ),
         SpaceH40(),
+        // ✅ Description
         AnimatedPositionedText(
           controller: CurvedAnimation(
             parent: widget.controller,
@@ -112,7 +117,8 @@ class _AboutprojectState extends State<Aboutproject> {
           text: widget.projectData.portfolioDescription,
           textStyle: bodyTextStyle,
         ),
-        SpaceH12(),
+        SpaceH40(),
+        // ✅ Données principales
         SizedBox(
           width: projectDataWidth,
           child: Wrap(
@@ -122,35 +128,54 @@ class _AboutprojectState extends State<Aboutproject> {
               ProjectData(
                 controller: widget.projectDataController,
                 width: widthOfProjectItem,
-                title: StringConst.PLATFORM,
+                title: "Plateforme",
                 subtitle: widget.projectData.platform,
               ),
               ProjectData(
                 controller: widget.projectDataController,
                 width: widthOfProjectItem,
-                title: StringConst.CATEGORY,
+                title: "Catégorie",
                 subtitle: widget.projectData.category,
               ),
+              if (widget.projectData.entreprise != null)
+                ProjectData(
+                  controller: widget.projectDataController,
+                  width: widthOfProjectItem,
+                  title: "Entreprise",
+                  subtitle: widget.projectData.entreprise!,
+                ),
+              if (widget.projectData.domaine != null)
+                ProjectData(
+                  controller: widget.projectDataController,
+                  width: widthOfProjectItem,
+                  title: "Domaine",
+                  subtitle: widget.projectData.domaine!,
+                ),
             ],
           ),
         ),
+
         widget.projectData.designer != null ? SpaceH30() : Empty(),
         widget.projectData.designer != null
             ? ProjectData(
                 controller: widget.projectDataController,
-                title: StringConst.DESIGNER,
+                title: "Designer",
                 subtitle: widget.projectData.designer!,
               )
             : Empty(),
+
         widget.projectData.technologyUsed != null ? SpaceH30() : Empty(),
         widget.projectData.technologyUsed != null
             ? ProjectData(
                 controller: widget.projectDataController,
-                title: StringConst.TECHNOLOGY_USED,
+                title: "Technologies utilisées",
                 subtitle: widget.projectData.technologyUsed!,
               )
             : Empty(),
+
         SpaceH30(),
+
+        // ✅ Boutons Live / GitHub
         Row(
           children: [
             widget.projectData.isLive
@@ -163,8 +188,8 @@ class _AboutprojectState extends State<Aboutproject> {
                     height: initialWidth,
                     child: AnimatedBubbleButton(
                       title: StringConst.LAUNCH_APP,
-                      color: AppColors.grey100,
-                      imageColor: AppColors.black,
+                      color: Colors.white,
+                      imageColor: Colors.black,
                       startBorderRadius: borderRadius,
                       startWidth: initialWidth,
                       height: initialWidth,
@@ -173,8 +198,8 @@ class _AboutprojectState extends State<Aboutproject> {
                       onTap: () {
                         Functions.launchUrl(widget.projectData.webUrl);
                       },
-                      startOffset: Offset(0, 0),
-                      targetOffset: Offset(0.1, 0),
+                      startOffset: const Offset(0, 0),
+                      targetOffset: const Offset(0.1, 0),
                     ),
                   )
                 : Empty(),
@@ -189,46 +214,26 @@ class _AboutprojectState extends State<Aboutproject> {
                     height: initialWidth,
                     child: AnimatedBubbleButton(
                       title: StringConst.SOURCE_CODE,
-                      color: AppColors.grey100,
-                      imageColor: AppColors.black,
+                      color: Colors.white,
+                      imageColor: Colors.black,
                       startBorderRadius: borderRadius,
                       startWidth: initialWidth,
                       height: initialWidth,
                       targetWidth: targetWidth,
                       titleStyle: buttonStyle,
-                      startOffset: Offset(0, 0),
-                      targetOffset: Offset(0.1, 0),
+                      startOffset: const Offset(0, 0),
+                      targetOffset: const Offset(0.1, 0),
                       onTap: () {
                         Functions.launchUrl(widget.projectData.gitHubUrl);
                       },
                     ),
                   )
                 : Empty(),
-            widget.projectData.isPublic ? Spacer() : Empty(),
           ],
         ),
+
         widget.projectData.isPublic || widget.projectData.isLive
             ? SpaceH30()
-            : Empty(),
-        widget.projectData.isOnPlayStore
-            ? InkWell(
-                onTap: () {
-                  Functions.launchUrl(widget.projectData.playStoreUrl);
-                },
-                child: AnimatedPositionedWidget(
-                  controller: CurvedAnimation(
-                    parent: widget.projectDataController,
-                    curve: Animations.textSlideInCurve,
-                  ),
-                  width: googlePlayButtonWidth,
-                  height: 50,
-                  child: Image.asset(
-                    ImagePath.GOOGLE_PLAY,
-                    width: googlePlayButtonWidth,
-                    // fit: BoxFit.fitHeight,
-                  ),
-                ),
-              )
             : Empty(),
       ],
     );
@@ -257,13 +262,16 @@ class ProjectData extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
+    // ✅ Styles en blanc
     TextStyle? defaultTitleStyle = textTheme.bodySmall?.copyWith(
-      color: AppColors.black,
+      color: Colors.white,
       fontSize: 17,
+      fontWeight: FontWeight.bold,
     );
+
     TextStyle? defaultSubtitleStyle = textTheme.bodySmall?.copyWith(
       fontSize: 15,
-      color: AppColors.black,
+      color: Colors.white,
     );
 
     return SizedBox(
@@ -272,14 +280,15 @@ class ProjectData extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          // ✅ Animation conservée mais sans surlignage blanc
           AnimatedTextSlideBoxTransition(
             width: width,
             maxLines: 2,
-            coverColor: AppColors.white,
             controller: controller,
             text: title,
             textStyle: titleStyle ?? defaultTitleStyle,
-            color: AppColors.background,
+            color: Colors.transparent, // enlève le surlignage
+            coverColor: Colors.transparent, // idem
           ),
           SpaceH12(),
           AnimatedPositionedText(

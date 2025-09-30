@@ -102,14 +102,14 @@ class StringConst {
       "Here are some projects worth mentioning. They are also available on my github repository";
 
   // Project Detail
-  static const String ABOUT_PROJECT = "About Project";
+  static const String ABOUT_PROJECT = "À propos du projet";
   static const String PLATFORM = "Platform";
   static const String CATEGORY = "Category";
   static const String AUTHOR = "Author";
   static const String DESIGNER = "Designer";
   static const String TECHNOLOGY_USED = "Technology used";
   static const String LAUNCH_APP = "Launch App";
-  static const String SOURCE_CODE = "Source Code";
+  static const String SOURCE_CODE = "Code source";
   static const String NEXT_PROJECT = "Next Project";
 
   static const String VIEW = "View";
@@ -184,19 +184,7 @@ class StringConst {
   static const String INSTAGRAM = "Instagram";
   static const String GITHUB = "Github";
 
-  //Portfolio, Projects
-  static const String PORTFOLIO_SITE_V2 = "Aerium V2";
-  static const String PORTFOLIO_SITE_V2_PLATFORM = "Web";
-  static const String PORTFOLIO_SITE_V2_CATEGORY = "Portfolio / CV.";
-  static const String PORTFOLIO_SITE_V2_DESIGNER = "Julius Guevarra.";
-  static const String PORTFOLIO_SITE_V2_SUBTITLE =
-      "A beautiful portfolio website built with flutter web.";
-  static const String PORTFOLIO_SITE_V2_DETAIL =
-      "As you can tell, you're currently on my portfolio website (Aerium-v2) right now. Aerium-v2 is an elegant progressive web app built to help developers tell their story by showcasing their works and skills.";
-  static const String PORTFOLIO_SITE_V2_GITHUB_URL =
-      "https://github.com/david-legend/david-legend.github.io";
-  static const String PORTFOLIO_SITE_V2_WEB_URL = "https://davidcobbina.com/";
-
+  //Marvel App
   static const String MARVEL = "Marvel Cinematic Universe App";
   static const String MARVEL_PLATFORM = "Android / IOS.";
   static const String MARVEL_CATEGORY = "FLUTTER.";
@@ -208,12 +196,16 @@ class StringConst {
       "https://github.com/WilliamAGENEAU/marvel_cinematic_universe";
   static const String MARVEL_PLAYSTORE_URL = "";
 
+  //Elevage Y
   static const String ELEVAGEY = "Élevage Y";
   static const String ELEVAGEY_PLATFORM = "Cross-platform.";
   static const String ELEVAGEY_CATEGORY = "FLUTTER.";
   static const String ELEVAGEY_DESIGNER = "William Ageneau.";
   static const String ELEVAGEY_SUBTITLE = "";
-  static const String ELEVAGEY_DETAIL = "";
+  static const String ELEVAGEY_DETAIL =
+      "Solution logiciel cross-platform (bureau/android) à destination des éleveurs de poules. L'outil permet de saisir les données de l'élevage et d'avoir un suivi et analyse des performances de ponte, mortalité, maladies, etc...";
+  static const String ELEVAGEY_ENTREPRISE = "Team Y";
+  static const String ELEVAGEY_DOMAINE = "Industriel / Agricole";
 
   static const String INAZUMA = "Inazuma Eleven";
   static const String INAZUMA_PLATFORM = "Cross-platform.";

@@ -284,12 +284,10 @@ class Projects {
       ImagePath.ELEVAGEY_1,
       ImagePath.ELEVAGEY_2,
     ],
-    portfolioDescription: StringConst.MARVEL_DETAIL,
-    isPublic: true,
-    isOnPlayStore: false,
+    portfolioDescription: StringConst.ELEVAGEY_DETAIL,
     technologyUsed: StringConst.FLUTTER,
-    gitHubUrl: StringConst.MARVEL_GITHUB_URL,
-    playStoreUrl: StringConst.MARVEL_PLAYSTORE_URL,
+    entreprise: StringConst.ELEVAGEY_ENTREPRISE,
+    domaine: StringConst.ELEVAGEY_DOMAINE,
   );
   static ProjectItemData MOTION_DESIGN = ProjectItemData(
     title: StringConst.MOTION_DESIGN,

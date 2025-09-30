@@ -57,22 +57,61 @@ class Socials extends StatelessWidget {
 
     for (int index = 0; index < socialData.length; index++) {
       items.add(
-        InkWell(
-          onTap: () => Functions.launchUrl(socialData[index].url),
-          child: Icon(
-            socialData[index].iconData,
-            color: color ?? socialData[index].color ?? AppColors.accentColor,
-            size: size,
-          ),
+        _HoverableIcon(
+          iconData: socialData[index].iconData,
+          url: socialData[index].url,
+          baseSize: size,
+          color: color ?? socialData[index].color ?? AppColors.accentColor,
         ),
       );
 
-      // if it is vertical, add spaces
       if (!isHorizontal) {
         items.add(SpaceH30());
       }
     }
 
     return items;
+  }
+}
+
+class _HoverableIcon extends StatefulWidget {
+  final IconData iconData;
+  final String url;
+  final double baseSize;
+  final Color color;
+
+  const _HoverableIcon({
+    required this.iconData,
+    required this.url,
+    required this.baseSize,
+    required this.color,
+  });
+
+  @override
+  State<_HoverableIcon> createState() => _HoverableIconState();
+}
+
+class _HoverableIconState extends State<_HoverableIcon> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: InkWell(
+        onTap: () => Functions.launchUrl(widget.url),
+        child: AnimatedScale(
+          scale: _isHovered ? 1.2 : 1.0, // 🔥 zoom au hover
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+          child: Icon(
+            widget.iconData,
+            color: widget.color,
+            size: widget.baseSize,
+          ),
+        ),
+      ),
+    );
   }
 }

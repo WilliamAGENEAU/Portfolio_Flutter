@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -29,7 +31,6 @@ class TechnologySection extends StatelessWidget {
       height: 1.6,
     );
 
-    // ✅ Listes comme dans ton image
     final webMobileLogiciel1 = [
       "Flutter",
       "HTML 5",
@@ -67,7 +68,7 @@ class TechnologySection extends StatelessWidget {
     ];
 
     return Container(
-      color: const Color(0xff171014), // ✅ même fond que AboutSection
+      color: const Color(0xff171014),
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
       child: ResponsiveBuilder(
@@ -77,7 +78,7 @@ class TechnologySection extends StatelessWidget {
               RefinedBreakpoints().tabletNormal;
 
           if (isMobile) {
-            // ✅ Mobile = tout en colonne
+            // ✅ Mobile : tout en colonne
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -100,41 +101,43 @@ class TechnologySection extends StatelessWidget {
             );
           }
 
-          // ✅ Desktop = deux grandes colonnes
+          // ✅ Desktop : deux colonnes avec un séparateur vertical
           return Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1000),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Colonne gauche
-                  Expanded(
-                    flex: 2,
-                    child: _buildCategory(
-                      "Web / Mobile / Logiciel",
-                      [webMobileLogiciel1, webMobileLogiciel2],
-                      titleStyle!,
-                      itemStyle!,
+              child: IntrinsicHeight(
+                // 🔥 permet au séparateur de s'adapter à la hauteur max
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Colonne gauche
+                    Expanded(
+                      flex: 2,
+                      child: _buildCategory(
+                        "Web / Mobile / Logiciel",
+                        [webMobileLogiciel1, webMobileLogiciel2],
+                        titleStyle!,
+                        itemStyle!,
+                      ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 40),
-                    width: 1,
-                    color: Colors.white.withOpacity(
-                      0.6,
-                    ), // ✅ séparateur vertical
-                  ),
-                  // Colonne droite
-                  Expanded(
-                    flex: 1,
-                    child: _buildCategory(
-                      "UX/UI",
-                      [uxUi],
-                      titleStyle,
-                      itemStyle,
+                    // ✅ Trait vertical blanc entre les colonnes
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 40),
+                      width: 1,
+                      color: Colors.white.withOpacity(0.5),
                     ),
-                  ),
-                ],
+                    // Colonne droite
+                    Expanded(
+                      flex: 1,
+                      child: _buildCategory(
+                        "UX/UI",
+                        [uxUi],
+                        titleStyle,
+                        itemStyle,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

@@ -37,8 +37,7 @@ class ProjectDetailArguments {
 
 class ProjectDetailPage extends StatefulWidget {
   static const String projectDetailPageRoute = StringConst.PROJECT_DETAIL_PAGE;
-  // ignore: use_super_parameters
-  const ProjectDetailPage({Key? key}) : super(key: key);
+  const ProjectDetailPage({super.key});
 
   @override
   _ProjectDetailPageState createState() => _ProjectDetailPageState();
@@ -101,13 +100,16 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
   Widget build(BuildContext context) {
     getArguments();
     TextTheme textTheme = Theme.of(context).textTheme;
+
+    // ✅ Titres & sous-titres forcés en blanc
     TextStyle? coverTitleStyle = textTheme.displayMedium?.copyWith(
-      color: AppColors.white,
+      color: Colors.white,
       fontSize: 40,
     );
     TextStyle? coverSubtitleStyle = textTheme.bodyLarge?.copyWith(
-      color: AppColors.white,
+      color: Colors.white,
     );
+
     EdgeInsetsGeometry padding = EdgeInsets.only(
       left: responsiveSize(
         context,
@@ -125,15 +127,16 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
       assignWidth(context, 0.60),
       assignWidth(context, 0.80),
     );
+
     return PageWrapper(
-      backgroundColor: AppColors.white,
+      backgroundColor: const Color(0xff171014), // ✅ fond sombre cohérent
       selectedRoute: ProjectDetailPage.projectDetailPageRoute,
       hasSideTitle: false,
       selectedPageName: StringConst.PROJECT,
       navBarAnimationController: _controller,
-      navBarTitleColor: projectDetails.data.navTitleColor,
-      navBarSelectedTitleColor: projectDetails.data.navSelectedTitleColor,
-      appLogoColor: projectDetails.data.appLogoColor,
+      navBarTitleColor: Colors.white, // ✅ barre nav en blanc
+      navBarSelectedTitleColor: Colors.white,
+      appLogoColor: Colors.white,
       onLoadingAnimationDone: () {
         _controller.forward();
       },
@@ -148,14 +151,12 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
             height: heightOfScreen(context),
             child: Stack(
               children: [
-                Opacity(
-                  opacity: 0.8,
-                  child: Image.asset(
-                    projectDetails.data.coverUrl,
-                    fit: BoxFit.cover,
-                    width: widthOfScreen(context),
-                    height: heightOfScreen(context),
-                  ),
+                // ✅ Image de couverture brute sans opacité
+                Image.asset(
+                  projectDetails.data.coverUrl,
+                  fit: BoxFit.cover,
+                  width: widthOfScreen(context),
+                  height: heightOfScreen(context),
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: waveLineHeight + 40),
@@ -171,7 +172,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
                           coverColor: projectDetails.data.primaryColor,
                           textStyle: coverTitleStyle,
                           textAlign: TextAlign.center,
-                          color: AppColors.background,
+                          color: Colors.white,
                         ),
                         SpaceH20(),
                         AnimatedTextSlideBoxTransition(
@@ -181,7 +182,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
                           coverColor: projectDetails.data.primaryColor,
                           textStyle: coverSubtitleStyle,
                           textAlign: TextAlign.center,
-                          color: AppColors.background,
+                          color: Colors.white,
                         ),
                       ],
                     ),
@@ -202,7 +203,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
           ),
           CustomSpacer(heightFactor: 0.15),
           VisibilityDetector(
-            key: Key('about-project'),
+            key: const Key('about-project'),
             onVisibilityChanged: (visibilityInfo) {
               double visiblePercentage = visibilityInfo.visibleFraction * 100;
               if (visiblePercentage > 40) {
@@ -224,7 +225,7 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
           ),
           CustomSpacer(heightFactor: 0.15),
           VisibilityDetector(
-            key: Key('project-album'),
+            key: const Key('project-album'),
             onVisibilityChanged: (visibilityInfo) {
               double visiblePercentage = visibilityInfo.visibleFraction * 100;
               if (visiblePercentage > 40 && !_albumVisible) {
@@ -235,14 +236,11 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
             },
             child: _albumVisible
                 ? _buildProjectAlbum(projectDetails.data.projectAssets)
-                : SizedBox(
-                    height:
-                        400, // hauteur placeholder pour garder la place dans le scroll
-                  ),
+                : const SizedBox(height: 400),
           ),
           projectDetails.hasNextProject
               ? CustomSpacer(heightFactor: 0.15)
-              : Empty(),
+              : const Empty(),
           projectDetails.hasNextProject
               ? Padding(
                   padding: padding,
@@ -262,11 +260,11 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
                     ),
                   ),
                 )
-              : Empty(),
+              : const Empty(),
           projectDetails.hasNextProject
               ? CustomSpacer(heightFactor: 0.15)
-              : Empty(),
-          SimpleFooter(),
+              : const Empty(),
+          const SimpleFooter(),
         ],
       ),
     );
@@ -281,10 +279,10 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
           physics: const NeverScrollableScrollPhysics(),
           itemCount: data.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, // 2 images par ligne
+            crossAxisCount: 4,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
-            childAspectRatio: 1.2, // Ajuste selon tes images
+            childAspectRatio: 1.2,
           ),
           itemBuilder: (context, index) {
             return AnimationConfiguration.staggeredGrid(
