@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../values/values.dart';
-import 'spaces.dart';
 
 class AnimatedBubbleButton extends StatefulWidget {
   const AnimatedBubbleButton({
@@ -159,7 +158,6 @@ class _AnimatedBubbleButtonState extends State<AnimatedBubbleButton>
                               textAlign: TextAlign.center,
                               style: widget.titleStyle ?? buttonStyle,
                             ),
-                            SpaceW8(),
                             Image.asset(
                               ImagePath.ARROW_RIGHT,
                               color: widget.imageColor,

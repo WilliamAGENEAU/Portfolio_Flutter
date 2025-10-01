@@ -14,7 +14,7 @@ class ProjectItemData {
     required this.coverUrl,
     required this.subtitle,
     required this.portfolioDescription,
-    required this.platform,
+    this.platform,
     required this.primaryColor,
     required this.category,
     this.designer,
@@ -47,7 +47,7 @@ class ProjectItemData {
   final double? imageSize;
   final String title;
   final String subtitle;
-  final String platform;
+  final String? platform;
   final String? designer;
   final bool isPublic;
   final bool hasBeenReleased;

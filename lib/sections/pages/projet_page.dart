@@ -66,10 +66,10 @@ class _ProjetPageState extends State<ProjetPage> with TickerProviderStateMixin {
                     GalleryGuirlande(
                       images: [
                         ImagePath.ELEVAGEY_TUBE,
-                        ImagePath.MARVEL_TUBE,
+                        ImagePath.MARVEL_2,
                         ImagePath.MUSEUM_TUBE,
                         ImagePath.CHESS_TUBE,
-                        ImagePath.MOTION_CTUBE,
+                        ImagePath.MOTION_TUBE,
                         ImagePath.INAZUMA_TUBE,
                       ],
                       projects: [
@@ -89,10 +89,10 @@ class _ProjetPageState extends State<ProjetPage> with TickerProviderStateMixin {
                     GalleryGuirlande(
                       images: [
                         ImagePath.ELEVAGEY_TUBE,
-                        ImagePath.MARVEL_TUBE,
+                        ImagePath.MARVEL_2,
                         ImagePath.MUSEUM_TUBE,
                         ImagePath.CHESS_TUBE,
-                        ImagePath.MOTION_CTUBE,
+                        ImagePath.MOTION_TUBE,
                         ImagePath.INAZUMA_TUBE,
                       ],
                       projects: [

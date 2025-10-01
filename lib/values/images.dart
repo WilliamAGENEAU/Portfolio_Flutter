@@ -63,24 +63,14 @@ class ImagePath {
   static const String DATA_SCIENCE_CERT = "$imageDir/data_science_cert.png";
 
   // Projects
-
-  // Portfolio Site V2
-  static const String AERIUM_V2_COVER =
-      "$projectsDir/aerium-v2/aerium_v2_cover.png";
-  static const String AERIUM_V2_OVERALL = "$projectsDir/aerium-v2/overall.jpg";
-  static const String AERIUM_V2_FIRST = "$projectsDir/aerium-v2/first.jpg";
-  static const String AERIUM_V2_TYPOGRAPHY =
-      "$projectsDir/aerium-v2/typography.jpg";
-  static const String AERIUM_V2_LAST = "$projectsDir/aerium-v2/last.jpg";
-
   // Marvel cinematic universe app
-  static const String MARVEL_COVER = "$projectsDir/marvel_cover.jpg";
-  static const String MARVEL_BKG = "$projectsDir/marvel_2.jpg";
+  static const String MARVEL_BKG = "$projectsDir/marvel_bkg.jpg";
   static const String MARVEL_1 = "$projectsDir/marvel_1.jpg";
-  static const String MARVEL_2 = "$projectsDir/marvel_bkg.jpg";
+  static const String MARVEL_2 = "$projectsDir/marvel_2.jpg";
   static const String MARVEL_3 = "$projectsDir/marvel_3.jpg";
+  static const String MARVEL_4 = "$projectsDir/marvel_4.jpg";
+  static const String MARVEL_5 = "$projectsDir/marvel_5.jpg";
   static const String MARVEL_RECENT = "$projectsDir/marvel_recent.png";
-  static const String MARVEL_TUBE = "$projectsDir/marvel_tube.jpg";
 
   // Elevage Y
   static const String ELEVAGEY_COVER = "$projectsDir/elevage_cover.jpg";
@@ -98,7 +88,7 @@ class ImagePath {
   static const String MUSEUM_TUBE = "$projectsDir/museum_tube.png";
 
   // Chessboard
-  static const String CHESSBOARD_COVER = "$projectsDir/chessboard_cover.jpg";
+  static const String CHESSBOARD_COVER = "$projectsDir/chess_bkg.jpg";
   static const String CHESS_SCREENS = "$projectsDir/chess_bkg.jpg";
   static const String CHESS_1 = "$projectsDir/chess_1.jpg";
   static const String CHESS_2 = "$projectsDir/chess_2.jpg";
@@ -109,7 +99,7 @@ class ImagePath {
   static const String CHESS_TUBE = "$projectsDir/chess_tube.jpg";
 
   // Motion
-  static const String MOTION_COVER = "$projectsDir/motion_cover.png";
+  static const String MOTION_COVER = "$projectsDir/motion_3.jpg";
   static const String MOTION_1 = "$projectsDir/motion_1.png";
   static const String MOTION_2 = "$projectsDir/motion_2.png";
   static const String MOTION_3 = "$projectsDir/motion_3.jpg";
@@ -117,11 +107,14 @@ class ImagePath {
   static const String MOTION_5 = "$projectsDir/motion_5.jpg";
   static const String MOTION_6 = "$projectsDir/motion_6.png";
   static const String MOTION_7 = "$projectsDir/motion_7.png";
-  static const String MOTION_CTUBE = "$projectsDir/motion_tube.jpg";
+  static const String MOTION_TUBE = "$projectsDir/motion_tube.jpg";
 
   // Inazuma Eleven
   static const String INAZUMA_COVER = "$projectsDir/inazuma_cover.jpg";
   static const String INAZUMA_TUBE = "$projectsDir/inazuma_tube.jpg";
+  static const String INAZUMA_1 = "$projectsDir/inazuma_2.jpg";
+  static const String INAZUMA_2 = "$projectsDir/inazuma_3.jpg";
+  static const String INAZUMA_3 = "$projectsDir/inazuma_4.jpg";
 
   static const String about = "$imageDir/about.png";
   static const String work = "$imageDir/work.png";

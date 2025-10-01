@@ -29,17 +29,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late NavigationArguments _arguments;
   late AnimationController _technologyController;
 
-  // Déclare ta liste d'images (par exemple en haut de _HomePageState) :
-  final List<String> recentProjectImages = [
-    ImagePath.MARVEL_COVER,
-    ImagePath.CHESS_3,
-    ImagePath.MOTION_COVER,
-    ImagePath.MUSEUM_COVER,
-    ImagePath.MOTION_3,
-    ImagePath.CHESS_5,
-    ImagePath.MARVEL_BKG,
-  ];
-
   // Ajoute ce champ dans _HomePageState pour gérer le hover groupé :
 
   @override

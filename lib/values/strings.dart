@@ -144,7 +144,7 @@ class StringConst {
   static const String FLUTTER = "Flutter";
   static const String JAVA = "Java";
   static const String ANDROID = "Android";
-  static const String PYTHON = "Python, Flutter, Dart";
+  static const String PYTHON = "Python, React native";
   static const String KOTLIN = "Kotlin";
   static const String JAVASCRIPT = "Javascript";
   static const String PHP = "PHP";
@@ -191,7 +191,7 @@ class StringConst {
   static const String MARVEL_DESIGNER = "William Ageneau.";
   static const String CLUB_SUBTITLE = "";
   static const String MARVEL_DETAIL =
-      "Flutter Android app to track the viewing order of Marvel films (MCU).\nClassify films by Saga & Phase, mark those you've already seen, and build your Tier List.\n✨ Features\n📅 MCU order by Saga (Infinity / Multiverse) & Phases (1 → 6)\n🎞️ 9:16 timeline with smooth auto-scroll + dynamic indicators\n✅ Tick off films you've seen → black & white thumbnail\n🏆 Interactive Tier List (S/A/B/C/D) with drag & drop\n🎧 Integrated music & YouTube trailers\n💾 Local backup with SharedPreferences.";
+      "Application Android Flutter pour suivre l’ordre de visionnage des films Marvel (MCU). Classe les films par Saga & Phase, marque ceux déjà vus, et construis ta Tier List.\n✨ Fonctionnalités\n📅 Ordre MCU par Saga (Infini / Multivers) & Phases (1 → 6)\n🎞️ Timeline 9:16 avec auto-scroll fluide + indicateurs dynamiques\n✅ Coche les films vus → vignette en noir & blanc\n🏆 Tier List interactive (S/A/B/C/D) avec drag & drop\n🎧 Musique & trailers YouTube intégrés\n💾 Sauvegarde locale avec SharedPreferences";
   static const String MARVEL_GITHUB_URL =
       "https://github.com/WilliamAGENEAU/marvel_cinematic_universe";
   static const String MARVEL_PLAYSTORE_URL = "";
@@ -207,40 +207,41 @@ class StringConst {
   static const String ELEVAGEY_ENTREPRISE = "Team Y";
   static const String ELEVAGEY_DOMAINE = "Industriel / Agricole";
 
-  static const String INAZUMA = "Inazuma Eleven";
-  static const String INAZUMA_PLATFORM = "Cross-platform.";
+  static const String INAZUMA = "Inazuma Eleven Team Builder";
+  static const String INAZUMA_PLATFORM = "Android.";
   static const String INAZUMA_CATEGORY = "FLUTTER.";
   static const String INAZUMA_DESIGNER = "Inazuma-eleven.fr & William Ageneau.";
   static const String INAZUMA_SUBTITLE = "";
   static const String INAZUMA_DETAIL = "";
 
   static const String MOTION_DESIGN = "Motion Design";
-  static const String MOTION_PLATFORM = "3D.";
-  static const String MOTION_CATEGORY = " VISUALS MOTION DESIGN.";
+  static const String MOTION_CATEGORY = "3D VISUALS .";
   static const String MOTION_SUBTITLE = "";
   static const String MOTION_DETAIL =
-      "During my studies in Germany, I created animated 3D visuals on the theme of “Ocean Paradise” for projection on screens in electro/techno clubs in Ravensburg during themed evenings. Under the tutelage of a German teacher and using Blender software, I designed and animated various creations such as jellyfish, seahorses, whales and bubbles, with the aim of creating an immersive, dreamlike atmosphere inspired by the ocean depths to accompany the music and enrich the visual experience of the evening audience.";
+      "Pendant mes études en Allemagne, j'ai créé des visuels animés en 3D sur le thème « Ocean Paradise » destinés à être projetés sur des écrans dans des clubs électro/techno à Ravensburg lors de soirées à thème. Sous la tutelle d'un professeur allemand et à l'aide du logiciel Blender, j'ai conçu et animé diverses créations telles que des méduses, des hippocampes, des baleines et des bulles, dans le but de créer une atmosphère immersive et onirique inspirée des profondeurs de l'océan pour accompagner la musique et enrichir l'expérience visuelle du public présent ce soir-là.";
   static const String MOTION_PLAYSTORE_URL = "";
   static const String MOTION_GITHUB_URL = "";
+  static const String MOTION_DOMAINE = "Audiovisuel / Événementiel ";
 
   static const String MUSEUM_OF_EDIBLE_EARTH = "Museum of Edible Earth";
   static const String MUSEUM_PLATFORM = "WEB.";
   static const String MUSEUM_PLUS_CATEGORY = "WEB.";
   static const String MUSEUM_SUBTITLE = "";
   static const String MUSEUM_DETAIL =
-      "As part of an international BTS Bac+2 placement at the Museum of Edible Earth, based in Amsterdam in the Netherlands, I completely redesigned the museum's showcase website and its exhibitions over a two-month period (covid period). The main objective was to create a complete catalogue of all the edible products on display, with a page dedicated to each product allowing descriptions and comments to be posted. The site also includes sorting functions and pages detailing the museum's philosophy and history.";
-  static const String MUSEUM_PLAYSTORE_URL = "";
-  static const String MUSEUM_GITHUB_URL = "";
+      "Conception du site web du musée Museum of Edible Earth basé à Amsterdam. L'objectif principal était de créer un catalogue complet de tous les produits comestibles exposés, avec une page dédiée à chaque produit permettant de publier des descriptions et des commentaires. Le site comprend également des fonctions de tri et des pages détaillant la philosophie et l'histoire du musée.";
+  static const String MUSEUM_DESIGNER = "Olga Ganzha, William Ageneau";
+  static const String MUSEUM_ENTREPRISE = "Masha Ru";
 
-  static const String CONNECTED_CHESSBOARD = "Connected Chessboard";
+  static const String CONNECTED_CHESSBOARD = "Échiquier connecté";
   static const String CHESS_PLATFORM = "Android / IOS / Web.";
   static const String CHESSBOARD_IOT_CATEGORY = "IOT / ANDROID / WEB.";
   static const String CHESS_SUBTITLE = "";
   static const String CHESS_DETAIL =
-      "Final-year IoT engineering student project carried out with three other students: creation of a connected chessboard enabling a game of chess to be followed in real time on a Flutter mobile application. The chessboard, handmade from a painted wooden board and fitted with 64 magnetic sensors, detects the movements of 32 3D-printed pieces fitted with magnets. The sensors are connected to an Arduino Mega 2560 board that continuously scans the state of the squares and transmits the information via the serial port to an application coded in Python, which feeds the Flutter application displaying the moves played live. The project included complete hardware design (assembly, wiring, painting, inlaying of sensors and magnets) and software development (Arduino code to detect movements, Python interface, mobile application), with the aim of an intuitive interface enabling users to easily view the progress of a game on their smartphone.";
-  static const String CHESS_PLAYSTORE_URL = "";
+      "Création d'un échiquier connecté permettant de suivre une partie d'échecs en temps réel sur une application React Native. L'échiquier, fabriqué à la main à partir d'un plateau en bois peint et équipé de 64 capteurs magnétiques, détecte les mouvements de 32 pièces imprimées en 3D et équipées d'aimants. Les capteurs sont connectés à une carte Arduino Mega 2560 qui scanne en continu l'état des cases et transmet les informations via le port série à une application codée en Python, qui alimente l'application React Native affichant les coups joués en direct. Le projet comprenait la conception complète du matériel (assemblage, câblage, peinture, incrustation des capteurs et des aimants) et le développement du logiciel (code Arduino pour détecter les mouvements, interface Python, application mobile/web), dans le but de créer une interface intuitive permettant aux utilisateurs de visualiser facilement le déroulement d'une partie sur online.";
   static const String CHESS_GITHUB_URL =
       "https://github.com/WilliamAGENEAU/echiquier-connecte";
+  static const String CHESS_DESIGNER =
+      "Joris Vinet, Basile Blasco, William Ageneau";
 
   // Font Family
   static const String VISUELT_PRO = "VisueltPro";

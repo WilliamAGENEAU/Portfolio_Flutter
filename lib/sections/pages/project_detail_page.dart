@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -271,35 +273,176 @@ class _ProjectDetailPageState extends State<ProjectDetailPage>
   }
 
   Widget _buildProjectAlbum(List<String> data) {
-    return AnimationLimiter(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: data.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 1.2,
-          ),
-          itemBuilder: (context, index) {
-            return AnimationConfiguration.staggeredGrid(
-              position: index,
-              duration: const Duration(milliseconds: 500),
-              columnCount: 2,
-              child: ScaleAnimation(
-                child: FadeInAnimation(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(data[index], fit: BoxFit.cover),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile = constraints.maxWidth < 600; // ✅ seuil mobile
+        int crossAxisCount = isMobile ? 1 : 2;
+
+        return AnimationLimiter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Column(
+              children: [
+                // ✅ Grille normale sauf la dernière si impair
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: data.length.isEven ? data.length : data.length - 1,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 8, // ✅ serré
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 1.2, // ✅ adaptable
                   ),
+                  itemBuilder: (context, index) {
+                    return AnimationConfiguration.staggeredGrid(
+                      position: index,
+                      duration: const Duration(milliseconds: 500),
+                      columnCount: crossAxisCount,
+                      child: ScaleAnimation(
+                        child: FadeInAnimation(
+                          child: _AlbumImage(
+                            imagePath: data[index],
+                            index: index,
+                            allImages: data,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+
+                // ✅ Si impair → dernière image en grand pleine largeur
+                if (data.isNotEmpty && data.length.isOdd)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: AnimationConfiguration.staggeredList(
+                      position: data.length - 1,
+                      duration: const Duration(milliseconds: 500),
+                      child: ScaleAnimation(
+                        child: FadeInAnimation(
+                          child: AspectRatio(
+                            aspectRatio: 16 / 9, // ✅ format large
+                            child: _AlbumImage(
+                              imagePath: data.last,
+                              index: data.length - 1,
+                              allImages: data,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _AlbumImage extends StatefulWidget {
+  final String imagePath;
+  final int index;
+  final List<String> allImages;
+
+  const _AlbumImage({
+    required this.imagePath,
+    required this.index,
+    required this.allImages,
+  });
+
+  @override
+  State<_AlbumImage> createState() => _AlbumImageState();
+}
+
+class _AlbumImageState extends State<_AlbumImage> {
+  bool _hovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // ✅ souris clickable
+      onEnter: (_) => setState(() => _hovering = true),
+      onExit: (_) => setState(() => _hovering = false),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => _GalleryViewer(
+                images: widget.allImages,
+                initialIndex: widget.index,
+              ),
+            ),
+          );
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              AnimatedScale(
+                duration: const Duration(milliseconds: 300),
+                scale: _hovering ? 1.05 : 1.0, // ✅ zoom léger
+                child: Image.asset(
+                  widget.imagePath,
+                  fit: BoxFit.cover, // ✅ couvre bien tout en restant net
                 ),
               ),
-            );
-          },
+              if (_hovering)
+                AnimatedOpacity(
+                  duration: const Duration(milliseconds: 300),
+                  opacity: 0.2,
+                  child: Container(color: Colors.black),
+                ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+/// ✅ Viewer fullscreen zoomable avec photo_view
+class _GalleryViewer extends StatelessWidget {
+  final List<String> images;
+  final int initialIndex;
+
+  const _GalleryViewer({required this.images, required this.initialIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    PageController controller = PageController(initialPage: initialIndex);
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          PhotoViewGallery.builder(
+            pageController: controller,
+            itemCount: images.length,
+            builder: (context, index) {
+              return PhotoViewGalleryPageOptions(
+                imageProvider: AssetImage(images[index]),
+                heroAttributes: PhotoViewHeroAttributes(tag: images[index]),
+                minScale: PhotoViewComputedScale.contained,
+                maxScale: PhotoViewComputedScale.covered * 3,
+              );
+            },
+            loadingBuilder: (context, event) =>
+                const Center(child: CircularProgressIndicator()),
+          ),
+          Positioned(
+            top: 40,
+            left: 20,
+            child: IconButton(
+              icon: const Icon(Icons.close, color: Colors.white, size: 32),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+        ],
       ),
     );
   }

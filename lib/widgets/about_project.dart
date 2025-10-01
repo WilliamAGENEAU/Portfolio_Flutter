@@ -86,9 +86,9 @@ class _AboutprojectState extends State<Aboutproject> {
       color: Colors.black,
       fontSize: responsiveSize(
         context,
-        Sizes.TEXT_SIZE_14,
-        Sizes.TEXT_SIZE_16,
-        sm: Sizes.TEXT_SIZE_15,
+        Sizes.TEXT_SIZE_8,
+        Sizes.TEXT_SIZE_10,
+        sm: Sizes.TEXT_SIZE_10,
       ),
       fontWeight: FontWeight.w500,
     );
@@ -125,12 +125,13 @@ class _AboutprojectState extends State<Aboutproject> {
             spacing: projectDataSpacing,
             runSpacing: responsiveSize(context, 30, 40),
             children: [
-              ProjectData(
-                controller: widget.projectDataController,
-                width: widthOfProjectItem,
-                title: "Plateforme",
-                subtitle: widget.projectData.platform,
-              ),
+              if (widget.projectData.platform != null)
+                ProjectData(
+                  controller: widget.projectDataController,
+                  width: widthOfProjectItem,
+                  title: "Plateforme",
+                  subtitle: widget.projectData.platform!,
+                ),
               ProjectData(
                 controller: widget.projectDataController,
                 width: widthOfProjectItem,
@@ -213,16 +214,7 @@ class _AboutprojectState extends State<Aboutproject> {
                     width: targetWidth,
                     height: initialWidth,
                     child: AnimatedBubbleButton(
-                      title: StringConst.SOURCE_CODE,
-                      color: Colors.white,
-                      imageColor: Colors.black,
-                      startBorderRadius: borderRadius,
-                      startWidth: initialWidth,
-                      height: initialWidth,
-                      targetWidth: targetWidth,
-                      titleStyle: buttonStyle,
-                      startOffset: const Offset(0, 0),
-                      targetOffset: const Offset(0.1, 0),
+                      title: StringConst.SOURCE_CODE.toUpperCase(),
                       onTap: () {
                         Functions.launchUrl(widget.projectData.gitHubUrl);
                       },

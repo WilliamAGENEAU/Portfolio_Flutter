@@ -211,8 +211,8 @@ class Projects {
     isPublic: false,
     isOnPlayStore: false,
     technologyUsed: StringConst.WORDPRESS,
-    gitHubUrl: StringConst.MUSEUM_GITHUB_URL,
-    playStoreUrl: StringConst.MUSEUM_PLAYSTORE_URL,
+    designer: StringConst.MUSEUM_DESIGNER,
+    entreprise: StringConst.MUSEUM_ENTREPRISE,
   );
   static ProjectItemData CONNECTED_CHESSBOARD = ProjectItemData(
     title: StringConst.CONNECTED_CHESSBOARD,
@@ -238,7 +238,7 @@ class Projects {
     isOnPlayStore: false,
     technologyUsed: StringConst.PYTHON,
     gitHubUrl: StringConst.CHESS_GITHUB_URL,
-    playStoreUrl: StringConst.CHESS_PLAYSTORE_URL,
+    designer: StringConst.CHESS_DESIGNER,
   );
 
   static ProjectItemData MARVEL = ProjectItemData(
@@ -248,14 +248,13 @@ class Projects {
     category: StringConst.MARVEL_CATEGORY,
     designer: StringConst.MARVEL_DESIGNER,
     platform: StringConst.MARVEL_PLATFORM,
-    image: ImagePath.MARVEL_COVER,
+    image: ImagePath.MARVEL_2,
     coverUrl: ImagePath.MARVEL_BKG,
     navTitleColor: AppColors.primaryColor,
     navSelectedTitleColor: AppColors.primaryColor,
     appLogoColor: AppColors.primaryColor,
     projectAssets: [
-      ImagePath.MARVEL_BKG,
-      ImagePath.MARVEL_COVER,
+      ImagePath.MARVEL_4,
       ImagePath.MARVEL_1,
       ImagePath.MARVEL_2,
       ImagePath.MARVEL_3,
@@ -280,9 +279,9 @@ class Projects {
     navSelectedTitleColor: AppColors.primaryColor,
     appLogoColor: AppColors.primaryColor,
     projectAssets: [
-      ImagePath.ELEVAGEY_COVER,
       ImagePath.ELEVAGEY_1,
       ImagePath.ELEVAGEY_2,
+      ImagePath.ELEVAGEY_COVER,
     ],
     portfolioDescription: StringConst.ELEVAGEY_DETAIL,
     technologyUsed: StringConst.FLUTTER,
@@ -294,7 +293,7 @@ class Projects {
     primaryColor: AppColors.motion_design,
     subtitle: StringConst.MOTION_DESIGN,
     category: StringConst.MOTION_CATEGORY,
-    platform: StringConst.MOTION_PLATFORM,
+
     image: ImagePath.MOTION_COVER,
     coverUrl: ImagePath.MOTION_COVER,
     portfolioDescription: StringConst.MOTION_DETAIL,
@@ -315,6 +314,7 @@ class Projects {
     technologyUsed: StringConst.BLENDER,
     gitHubUrl: StringConst.MOTION_GITHUB_URL,
     playStoreUrl: StringConst.MOTION_PLAYSTORE_URL,
+    domaine: StringConst.MOTION_DOMAINE,
   );
   static ProjectItemData INAZUMA = ProjectItemData(
     title: StringConst.INAZUMA,

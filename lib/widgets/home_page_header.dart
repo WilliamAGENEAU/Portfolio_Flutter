@@ -101,6 +101,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: AppColors.white.withOpacity(0.8),
                       letterSpacing: 1.2,
+                      fontSize: 20,
                     ),
                     textAlign: isMobile ? TextAlign.center : TextAlign.left,
                   ),
@@ -176,7 +177,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                       children: [
                         titleBlock,
                         const SizedBox(height: 24),
-                        _FramedProjectCard(imagePath: ImagePath.MARVEL_COVER),
+                        _FramedProjectCard(imagePath: ImagePath.MARVEL_BKG),
                         const SizedBox(height: 16),
                         _RecentProjectInfo(
                           onOpen: () {
