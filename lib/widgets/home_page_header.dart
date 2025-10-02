@@ -44,12 +44,14 @@ class _HomePageHeaderState extends State<HomePageHeader>
 
     _videoController = VideoPlayerController.asset("assets/videos/braise.mp4")
       ..initialize().then((_) {
-        setState(() => _isVideoInitialized = true);
-        _videoController
-          ..setLooping(true)
-          ..setVolume(0)
-          ..play();
-        _fadeController.forward();
+        if (mounted) {
+          setState(() => _isVideoInitialized = true);
+          _videoController
+            ..setLooping(true)
+            ..setVolume(0)
+            ..play();
+          _fadeController.forward();
+        }
       });
   }
 
@@ -112,7 +114,7 @@ class _HomePageHeaderState extends State<HomePageHeader>
               else
                 Container(color: Colors.black),
 
-              // Overlay léger uniquement en bas pour la transition
+              // Overlay dégradé bas
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -154,26 +156,27 @@ class _HomePageHeaderState extends State<HomePageHeader>
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Titre et sous-titre
-          _buildTitleBlock(context, isMobile: true),
-          const Spacer(),
-          // Carte projet et info
-          _FramedProjectCard(
-            imagePath: ImagePath.MARVEL_BKG,
-            width: screenWidth * 0.65,
-            height: screenWidth * 0.88,
-          ),
-          const SizedBox(height: 20),
-          _RecentProjectInfo(
-            isMobile: true,
-            onOpen: () => _navigateToProject(context),
-          ),
-          const SizedBox(height: 40),
-        ],
+      child: SingleChildScrollView(
+        // Ajoute ce widget ici
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _buildTitleBlock(context, isMobile: true),
+            const SizedBox(height: 32), // <-- Ajoute un espace fixe à la place
+            _FramedProjectCard(
+              imagePath: ImagePath.MARVEL_BKG,
+              width: screenWidth * 0.65,
+              height: screenWidth * 0.88,
+            ),
+            const SizedBox(height: 20),
+            _RecentProjectInfo(
+              isMobile: true,
+              onOpen: () => _navigateToProject(context),
+            ),
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
     );
   }
@@ -184,10 +187,9 @@ class _HomePageHeaderState extends State<HomePageHeader>
       child: Align(
         alignment: Alignment.centerLeft,
         child: SingleChildScrollView(
-          // ✅ Ajout scroll si contenu > hauteur
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min, // ✅ reste compact
+            mainAxisSize: MainAxisSize.min,
             children: [
               _buildTitleBlock(context, isMobile: false),
               const SizedBox(height: 40),
@@ -219,7 +221,7 @@ class _HomePageHeaderState extends State<HomePageHeader>
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0.0, end: 1.0),
       duration: const Duration(milliseconds: 1200),
-      curve: Curves.easeOut,
+      curve: Curves.easeOutCubic,
       builder: (context, value, child) {
         return Opacity(
           opacity: value,
@@ -244,15 +246,6 @@ class _HomePageHeaderState extends State<HomePageHeader>
                 letterSpacing: 1.2,
                 fontSize: isMobile ? 11 : 20,
                 fontWeight: FontWeight.w600,
-                shadows: isMobile
-                    ? [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.5),
-                          offset: const Offset(0, 2),
-                          blurRadius: 4,
-                        ),
-                      ]
-                    : null,
               ),
               textAlign: isMobile ? TextAlign.center : TextAlign.left,
             ),
@@ -265,15 +258,6 @@ class _HomePageHeaderState extends State<HomePageHeader>
                 fontWeight: FontWeight.w800,
                 height: 1.0,
                 letterSpacing: -1,
-                shadows: isMobile
-                    ? [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.6),
-                          offset: const Offset(0, 3),
-                          blurRadius: 6,
-                        ),
-                      ]
-                    : null,
               ),
               textAlign: isMobile ? TextAlign.center : TextAlign.left,
             ),
@@ -286,15 +270,6 @@ class _HomePageHeaderState extends State<HomePageHeader>
                 fontStyle: FontStyle.italic,
                 height: 1.0,
                 letterSpacing: -1,
-                shadows: isMobile
-                    ? [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.6),
-                          offset: const Offset(0, 3),
-                          blurRadius: 6,
-                        ),
-                      ]
-                    : null,
               ),
               textAlign: isMobile ? TextAlign.center : TextAlign.left,
             ),
@@ -307,15 +282,6 @@ class _HomePageHeaderState extends State<HomePageHeader>
                   color: AppColors.white.withOpacity(0.95),
                   fontSize: isMobile ? 15 : 18,
                   height: 1.5,
-                  shadows: isMobile
-                      ? [
-                          Shadow(
-                            color: Colors.black.withOpacity(0.5),
-                            offset: const Offset(0, 2),
-                            blurRadius: 4,
-                          ),
-                        ]
-                      : null,
                 ),
                 textAlign: isMobile ? TextAlign.center : TextAlign.left,
               ),
@@ -403,7 +369,7 @@ class _RecentProjectInfoState extends State<_RecentProjectInfo> {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0.0, end: 1.0),
       duration: const Duration(milliseconds: 1600),
-      curve: Curves.easeOut,
+      curve: Curves.easeOutCubic,
       builder: (context, value, child) {
         return Opacity(
           opacity: value,
@@ -427,15 +393,6 @@ class _RecentProjectInfoState extends State<_RecentProjectInfo> {
                 color: AppColors.white.withOpacity(0.95),
                 fontWeight: FontWeight.w700,
                 fontSize: widget.isMobile ? 14 : 16,
-                shadows: widget.isMobile
-                    ? [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.5),
-                          offset: const Offset(0, 2),
-                          blurRadius: 4,
-                        ),
-                      ]
-                    : null,
               ),
               textAlign: widget.isMobile ? TextAlign.center : TextAlign.left,
             ),
@@ -446,15 +403,6 @@ class _RecentProjectInfoState extends State<_RecentProjectInfo> {
                 color: AppColors.white,
                 fontWeight: FontWeight.w700,
                 fontSize: widget.isMobile ? 18 : 24,
-                shadows: widget.isMobile
-                    ? [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.5),
-                          offset: const Offset(0, 2),
-                          blurRadius: 4,
-                        ),
-                      ]
-                    : null,
               ),
               textAlign: widget.isMobile ? TextAlign.center : TextAlign.left,
             ),
@@ -464,15 +412,6 @@ class _RecentProjectInfoState extends State<_RecentProjectInfo> {
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.white.withOpacity(0.85),
                 fontSize: widget.isMobile ? 14 : 16,
-                shadows: widget.isMobile
-                    ? [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.5),
-                          offset: const Offset(0, 2),
-                          blurRadius: 4,
-                        ),
-                      ]
-                    : null,
               ),
               textAlign: widget.isMobile ? TextAlign.center : TextAlign.left,
             ),
@@ -493,15 +432,6 @@ class _RecentProjectInfoState extends State<_RecentProjectInfo> {
                         color: AppColors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: widget.isMobile ? 16 : 18,
-                        shadows: widget.isMobile
-                            ? [
-                                Shadow(
-                                  color: Colors.black.withOpacity(0.5),
-                                  offset: const Offset(0, 2),
-                                  blurRadius: 4,
-                                ),
-                              ]
-                            : null,
                       ),
                     ),
                     const SizedBox(width: 12),
