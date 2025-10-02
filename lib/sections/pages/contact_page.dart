@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:portfolio_flutter/core/extensions.dart';
@@ -9,7 +10,6 @@ import '../../core/adaptive.dart';
 import '../../values/values.dart';
 import '../../widgets/aerium_button.dart';
 import '../../widgets/animated_positioned_text.dart';
-import '../../widgets/animated_text_slide_box_transition.dart';
 import '../../widgets/content_area.dart';
 import '../../widgets/custom_spacer.dart';
 import '../../widgets/page_wrapper.dart';
@@ -140,7 +140,7 @@ class _ContactPageState extends State<ContactPage>
       ),
     );
     TextStyle? headingStyle = textTheme.bodyLarge?.copyWith(
-      color: AppColors.black,
+      color: AppColors.white,
       fontSize: responsiveSize(context, 40, 60),
     );
 
@@ -148,6 +148,7 @@ class _ContactPageState extends State<ContactPage>
       selectedRoute: ContactPage.contactPageRoute,
       selectedPageName: "",
       navBarAnimationController: _controller,
+      appLogoColor: AppColors.white,
       onLoadingAnimationDone: () {
         _controller.forward();
       },
@@ -178,15 +179,30 @@ class _ContactPageState extends State<ContactPage>
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               // Titre principal
-                              AnimatedTextSlideBoxTransition(
-                                controller: _controller,
-                                text: "ENTRONS EN CONTACT !",
-                                textStyle: headingStyle?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 1.2,
+                              FadeTransition(
+                                opacity: _controller,
+                                child: SlideTransition(
+                                  position:
+                                      Tween<Offset>(
+                                        begin: const Offset(
+                                          0,
+                                          0.3,
+                                        ), // décalage initial
+                                        end: Offset.zero,
+                                      ).animate(
+                                        CurvedAnimation(
+                                          parent: _controller,
+                                          curve: Curves.easeOut,
+                                        ),
+                                      ),
+                                  child: AutoSizeText(
+                                    "ENTRONS EN CONTACT !",
+                                    maxLines: 1,
+                                    style: headingStyle,
+
+                                    textAlign: TextAlign.start,
+                                  ),
                                 ),
-                                color: const Color(0xff171014),
                               ),
                               CustomSpacer(heightFactor: 0.03),
                               // Sous-titre
@@ -254,7 +270,9 @@ class _ContactPageState extends State<ContactPage>
                                     curve: Curves.fastOutSlowIn,
                                   ),
                                   width: contentAreaWidth,
-                                  height: assignHeight(context, 0.6),
+                                  height: MediaQuery.of(
+                                    context,
+                                  ).size.height, // ✅ taille écran
                                   child: Form(
                                     key: _formKey,
                                     child: LayoutBuilder(
@@ -263,139 +281,146 @@ class _ContactPageState extends State<ContactPage>
                                             constraints.maxWidth < 820;
                                         final double fieldWidth = isNarrow
                                             ? constraints.maxWidth
-                                            : (constraints.maxWidth - 40) /
-                                                  2; // 40 = gap
-                                        return Wrap(
-                                          spacing: 40,
-                                          runSpacing: isNarrow ? 22 : 28,
-                                          children: [
-                                            SizedBox(
-                                              width: fieldWidth,
-                                              child: TextFormField(
-                                                controller: firstNameController,
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                                decoration:
-                                                    const InputDecoration(
-                                                      labelText: "Prénom",
-                                                    ),
-                                                onChanged: isNameValid,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: fieldWidth,
-                                              child: TextFormField(
-                                                controller: lastNameController,
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                                decoration:
-                                                    const InputDecoration(
-                                                      labelText:
-                                                          "Nom de famille",
-                                                    ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: fieldWidth,
-                                              child: TextFormField(
-                                                controller: emailController,
-                                                keyboardType:
-                                                    TextInputType.emailAddress,
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                                decoration: InputDecoration(
-                                                  labelText: "E-mail *",
-                                                  errorText: _emailError,
-                                                ),
-                                                validator: (value) {
-                                                  if (value == null ||
-                                                      value.isEmpty) {
-                                                    return "Veuillez entrer votre e-mail";
-                                                  }
-                                                  if (!RegExp(
-                                                    r'^[^@]+@[^@]+\.[^@]+',
-                                                  ).hasMatch(value)) {
-                                                    return "Veuillez entrer un e-mail valide";
-                                                  }
-                                                  return null;
-                                                },
-                                                onChanged: isEmailValid,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: fieldWidth,
-                                              child: TextFormField(
-                                                controller: subjectController,
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                                decoration:
-                                                    const InputDecoration(
-                                                      labelText: "Objet",
-                                                    ),
-                                                onChanged: isSubjectValid,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: constraints.maxWidth,
-                                              child: TextFormField(
-                                                controller: messageController,
-                                                maxLines: 8,
-                                                decoration: InputDecoration(
-                                                  labelText:
-                                                      "Laissez-moi un message...",
-                                                  errorText: _messageError,
-                                                ),
-                                                validator: (value) {
-                                                  if (value == null ||
-                                                      value.isEmpty) {
-                                                    return "Veuillez entrer votre message";
-                                                  }
-                                                  return null;
-                                                },
-                                                onChanged: isMessageValid,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: constraints.maxWidth,
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: AeriumButton(
-                                                  title: "Envoyer",
-                                                  isLoading: _isSending,
-                                                  onPressed: _isSending
-                                                      ? null
-                                                      : () async {
-                                                          if (_formKey
-                                                              .currentState!
-                                                              .validate()) {
-                                                            await sendFormspree(
-                                                              emailController
-                                                                  .text,
-                                                              messageController
-                                                                  .text,
-                                                            );
-                                                          }
-                                                        },
+                                            : (constraints.maxWidth - 40) / 2;
+
+                                        return SingleChildScrollView(
+                                          // ✅ permet de scroller sur mobile
+                                          child: Wrap(
+                                            spacing: 40,
+                                            runSpacing: isNarrow ? 22 : 28,
+                                            children: [
+                                              SizedBox(
+                                                width: fieldWidth,
+                                                child: TextFormField(
+                                                  controller:
+                                                      firstNameController,
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                        labelText: "Prénom",
+                                                      ),
+                                                  onChanged: isNameValid,
                                                 ),
                                               ),
-                                            ),
-                                            if (_sent)
+                                              SizedBox(
+                                                width: fieldWidth,
+                                                child: TextFormField(
+                                                  controller:
+                                                      lastNameController,
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                        labelText:
+                                                            "Nom de famille",
+                                                      ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: fieldWidth,
+                                                child: TextFormField(
+                                                  controller: emailController,
+                                                  keyboardType: TextInputType
+                                                      .emailAddress,
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  decoration: InputDecoration(
+                                                    labelText: "E-mail *",
+                                                    errorText: _emailError,
+                                                  ),
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return "Veuillez entrer votre e-mail";
+                                                    }
+                                                    if (!RegExp(
+                                                      r'^[^@]+@[^@]+\.[^@]+',
+                                                    ).hasMatch(value)) {
+                                                      return "Veuillez entrer un e-mail valide";
+                                                    }
+                                                    return null;
+                                                  },
+                                                  onChanged: isEmailValid,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: fieldWidth,
+                                                child: TextFormField(
+                                                  controller: subjectController,
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                        labelText: "Objet",
+                                                      ),
+                                                  onChanged: isSubjectValid,
+                                                ),
+                                              ),
                                               SizedBox(
                                                 width: constraints.maxWidth,
-                                                child: const Padding(
-                                                  padding: EdgeInsets.only(
-                                                    top: 16.0,
+                                                child: TextFormField(
+                                                  controller: messageController,
+                                                  maxLines: 8,
+                                                  decoration: InputDecoration(
+                                                    labelText:
+                                                        "Laissez-moi un message...",
+                                                    errorText: _messageError,
                                                   ),
-                                                  child: Text(
-                                                    "Message envoyé ! Merci.",
-                                                    style: TextStyle(
-                                                      color: Colors.green,
-                                                    ),
-                                                    textAlign: TextAlign.center,
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return "Veuillez entrer votre message";
+                                                    }
+                                                    return null;
+                                                  },
+                                                  onChanged: isMessageValid,
+                                                ),
+                                              ),
+                                              // ✅ Bouton toujours visible
+                                              SizedBox(
+                                                width: constraints.maxWidth,
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: AeriumButton(
+                                                    title: "Envoyer",
+                                                    isLoading: _isSending,
+                                                    onPressed: _isSending
+                                                        ? null
+                                                        : () async {
+                                                            if (_formKey
+                                                                .currentState!
+                                                                .validate()) {
+                                                              await sendFormspree(
+                                                                emailController
+                                                                    .text,
+                                                                messageController
+                                                                    .text,
+                                                              );
+                                                            }
+                                                          },
                                                   ),
                                                 ),
                                               ),
-                                          ],
+                                              if (_sent)
+                                                SizedBox(
+                                                  width: constraints.maxWidth,
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.only(
+                                                      top: 16.0,
+                                                    ),
+                                                    child: Text(
+                                                      "Message envoyé ! Merci.",
+                                                      style: TextStyle(
+                                                        color: Colors.green,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
                                         );
                                       },
                                     ),

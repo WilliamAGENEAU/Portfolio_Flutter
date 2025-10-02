@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -17,7 +19,7 @@ class _AboutSectionState extends State<AboutSection>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1400),
     );
   }
 
@@ -36,85 +38,124 @@ class _AboutSectionState extends State<AboutSection>
     required BuildContext context,
   }) {
     final isMobile = MediaQuery.of(context).size.width < 800;
+    final screenWidth = MediaQuery.of(context).size.width;
 
-    final image = ClipRRect(
-      borderRadius: BorderRadius.circular(40), // forme organique
-      child: Image.asset(
-        imagePath,
-        width: isMobile ? 240 : 320,
-        height: isMobile ? 260 : 350,
-        fit: BoxFit.cover,
-      ),
-    );
-
-    final content = Flexible(
-      child: Column(
-        crossAxisAlignment: isMobile
-            ? CrossAxisAlignment.center
-            : CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Montserrat',
-              color: Colors.white,
-            ),
-            textAlign: isMobile ? TextAlign.center : TextAlign.start,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            text,
-            style: const TextStyle(
-              fontSize: 16,
-              fontFamily: 'Montserrat',
-              height: 1.6,
-              color: Colors.white,
-            ),
-            textAlign: TextAlign.justify, // ✅ texte justifié
-          ),
-        ],
-      ),
-    );
-
-    final child = isMobile
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [image, const SizedBox(height: 20), content],
-          )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: isImageLeft
-                ? [image, const SizedBox(width: 40), content]
-                : [content, const SizedBox(width: 40), image],
-          );
-
-    // ✅ Animation contrôlée par VisibilityDetector
-    return AnimatedBuilder(
+    final image = AnimatedBuilder(
       animation: _controller,
-      builder: (context, childWidget) {
-        final start = index * 0.2;
-        final end = start + 0.6;
+      builder: (context, child) {
+        final start = index * 0.15;
+        final end = start + 0.7;
+        final progress = ((_controller.value - start) / (end - start)).clamp(
+          0.0,
+          1.0,
+        );
+
+        return Transform.scale(
+          scale: 0.85 + (0.15 * progress),
+          child: Opacity(opacity: progress, child: child),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(isMobile ? 24 : 32),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              offset: const Offset(0, 15),
+              blurRadius: 35,
+              spreadRadius: -5,
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(isMobile ? 24 : 32),
+          child: Image.asset(
+            imagePath,
+            width: isMobile ? screenWidth * 0.85 : 340,
+            height: isMobile ? screenWidth * 0.95 : 380,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+
+    final content = AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        final start = index * 0.15 + 0.1;
+        final end = start + 0.7;
         final progress = ((_controller.value - start) / (end - start)).clamp(
           0.0,
           1.0,
         );
 
         return Opacity(
-          opacity: progress, // ✅ opacité animée
+          opacity: progress,
           child: Transform.translate(
-            offset: Offset(0, 50 * (1 - progress)),
-            child: childWidget,
+            offset: Offset(0, 30 * (1 - progress)),
+            child: child,
           ),
         );
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+      child: Column(
+        crossAxisAlignment: isMobile
+            ? CrossAxisAlignment.center
+            : (isImageLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end),
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: isMobile ? 28 : 32,
+              fontWeight: FontWeight.w800,
+              fontFamily: 'Montserrat',
+              color: Colors.white,
+              letterSpacing: -0.5,
+            ),
+            textAlign: isMobile ? TextAlign.center : TextAlign.start,
+          ),
+          SizedBox(height: isMobile ? 16 : 20),
+          Container(
+            constraints: BoxConstraints(
+              maxWidth: isMobile ? screenWidth * 0.85 : 480,
+            ),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: isMobile ? 15 : 17,
+                fontFamily: 'Montserrat',
+                height: 1.7,
+                color: Colors.white.withOpacity(0.9),
+                fontWeight: FontWeight.w400,
+              ),
+              textAlign: isMobile ? TextAlign.center : TextAlign.justify,
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (isMobile) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [image, const SizedBox(height: 28), content],
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
+      child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1000),
-          child: child,
+          constraints: const BoxConstraints(maxWidth: 1100),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: isImageLeft
+                ? [image, const SizedBox(width: 60), Expanded(child: content)]
+                : [Expanded(child: content), const SizedBox(width: 60), image],
+          ),
         ),
       ),
     );
@@ -122,18 +163,65 @@ class _AboutSectionState extends State<AboutSection>
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 800;
+
     return Container(
-      color: const Color(0xff171014), // ✅ fond sombre
+      color: const Color(0xff171014),
       width: double.infinity,
       child: VisibilityDetector(
         key: const Key("about-section"),
         onVisibilityChanged: (info) {
-          if (info.visibleFraction > 0.25) {
+          if (info.visibleFraction > 0.2 && !_controller.isAnimating) {
             _controller.forward();
           }
         },
         child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: isMobile ? 40 : 80),
+
+            // Titre de section avec animation
+            TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0.0, end: 1.0),
+              duration: const Duration(milliseconds: 1000),
+              curve: Curves.easeOut,
+              builder: (context, value, child) {
+                return Opacity(
+                  opacity: value,
+                  child: Transform.translate(
+                    offset: Offset(0, 20 * (1 - value)),
+                    child: child,
+                  ),
+                );
+              },
+              child: Column(
+                children: [
+                  Text(
+                    "À PROPOS",
+                    style: TextStyle(
+                      fontSize: isMobile ? 14 : 16,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Montserrat',
+                      color: Colors.white.withOpacity(0.6),
+                      letterSpacing: 3,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    width: 60,
+                    height: 3,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: isMobile ? 30 : 50),
+
             _buildAnimatedPoint(
               title: "Qui suis-je ?",
               text:
@@ -143,6 +231,7 @@ class _AboutSectionState extends State<AboutSection>
               index: 0,
               context: context,
             ),
+
             _buildAnimatedPoint(
               title: "La musique",
               text:
@@ -152,6 +241,7 @@ class _AboutSectionState extends State<AboutSection>
               index: 1,
               context: context,
             ),
+
             _buildAnimatedPoint(
               title: "UX / UI & Problèmes",
               text:
@@ -161,6 +251,8 @@ class _AboutSectionState extends State<AboutSection>
               index: 2,
               context: context,
             ),
+
+            SizedBox(height: isMobile ? 40 : 80),
           ],
         ),
       ),

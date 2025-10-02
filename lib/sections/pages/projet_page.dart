@@ -43,6 +43,7 @@ class _ProjetPageState extends State<ProjetPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return PageWrapper(
+      appLogoColor: AppColors.white,
       selectedRoute: ProjetPage.worksPageRoute,
       selectedPageName: StringConst.PROJETS,
       navBarAnimationController: _headingTextController,
@@ -59,9 +60,10 @@ class _ProjetPageState extends State<ProjetPage> with TickerProviderStateMixin {
           ResponsiveBuilder(
             builder: (context, sizingInformation) {
               double screenWidth = sizingInformation.screenSize.width;
-
               if (screenWidth <= RefinedBreakpoints().tabletSmall) {
+                // 👉 Cas mobile
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GalleryGuirlande(
                       images: [
@@ -84,6 +86,7 @@ class _ProjetPageState extends State<ProjetPage> with TickerProviderStateMixin {
                   ],
                 );
               } else {
+                // 👉 Cas desktop
                 return Column(
                   children: [
                     GalleryGuirlande(

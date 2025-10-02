@@ -1,7 +1,10 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/core/adaptive.dart';
 import 'package:portfolio_flutter/widgets/about_section.dart';
 import 'package:portfolio_flutter/widgets/technology_section.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../values/values.dart';
@@ -16,7 +19,6 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -29,14 +31,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late NavigationArguments _arguments;
   late AnimationController _technologyController;
 
-  // Ajoute ce champ dans _HomePageState pour gérer le hover groupé :
-
   @override
   void initState() {
     _arguments = NavigationArguments();
     _viewProjectsController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _slideTextController = AnimationController(
       vsync: this,
@@ -51,9 +51,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void getArguments() {
     final Object? args = ModalRoute.of(context)!.settings.arguments;
-    // if page is being loaded for the first time, args will be null.
-    // if args is null, I set boolean values to run the appropriate animation
-    // In this case, if null run loading animation, if not null run the unveil animation
     if (args == null) {
       _arguments.showUnVeilPageAnimation = false;
     } else {
@@ -66,24 +63,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _viewProjectsController.dispose();
     _slideTextController.dispose();
     _scrollController.dispose();
+    _technologyController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    double contentAreaWidth = responsiveSize(
-      context,
-      assignWidth(context, 0.75),
-      assignWidth(context, 0.75),
-      sm: assignWidth(context, 0.8),
-    );
+    getArguments();
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    getArguments();
     return PageWrapper(
       selectedRoute: HomePage.homePageRoute,
       selectedPageName: StringConst.HOME,
       navBarAnimationController: _slideTextController,
+      appLogoColor: AppColors.white,
       hasSideTitle: false,
       hasUnveilPageAnimation: _arguments.showUnVeilPageAnimation,
       onLoadingAnimationDone: () {
@@ -96,36 +89,52 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           _slideTextController.forward();
         },
       ),
-      child: ListView(
-        padding: EdgeInsets.zero,
-        controller: _scrollController,
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
-        ),
-        children: [
-          HomePageHeader(
-            controller: _slideTextController,
-            scrollToWorksKey: _galleryKey, // Passe le key ici
-          ),
-          AboutSection(),
-          VisibilityDetector(
-            key: const Key('technology-section'),
-            onVisibilityChanged: (visibilityInfo) {
-              double visiblePercentage = visibilityInfo.visibleFraction * 100;
-              if (visiblePercentage > 50) {
-                _technologyController.forward(); // ✅ joue l’animation
-              }
-            },
-            child: Container(
-              color: const Color(0xff171014),
-              child: TechnologySection(
-                controller: _technologyController, // ✅ passe ton controller
-                width: contentAreaWidth, // ✅ largeur responsive
-              ),
+      child: ResponsiveBuilder(
+        builder: (context, sizingInformation) {
+          bool isMobile =
+              sizingInformation.deviceScreenType == DeviceScreenType.mobile;
+          double contentAreaWidth = isMobile
+              ? assignWidth(context, 1.0)
+              : assignWidth(context, 0.75);
+
+          return ListView(
+            padding: EdgeInsets.zero,
+            controller: _scrollController,
+            physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
             ),
-          ),
-          AnimatedFooter(),
-        ],
+            children: [
+              HomePageHeader(
+                controller: _slideTextController,
+                scrollToWorksKey: _galleryKey,
+              ),
+              Container(
+                color: const Color(0xff171014),
+                width: double.infinity,
+                child: const AboutSection(),
+              ),
+              VisibilityDetector(
+                key: const Key('technology-section'),
+                onVisibilityChanged: (visibilityInfo) {
+                  double visiblePercentage =
+                      visibilityInfo.visibleFraction * 100;
+                  if (visiblePercentage > 50) {
+                    _technologyController.forward();
+                  }
+                },
+                child: Container(
+                  color: const Color(0xff171014),
+                  width: double.infinity,
+                  child: TechnologySection(
+                    controller: _technologyController,
+                    width: contentAreaWidth,
+                  ),
+                ),
+              ),
+              const AnimatedFooter(),
+            ],
+          );
+        },
       ),
     );
   }

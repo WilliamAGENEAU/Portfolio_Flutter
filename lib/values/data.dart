@@ -328,12 +328,16 @@ class Projects {
     navTitleColor: AppColors.primaryColor,
     navSelectedTitleColor: AppColors.primaryColor,
     appLogoColor: AppColors.primaryColor,
-    projectAssets: [ImagePath.INAZUMA_COVER],
-    portfolioDescription: StringConst.MARVEL_DETAIL,
+    projectAssets: [
+      ImagePath.INAZUMA_COVER,
+      ImagePath.INAZUMA_1,
+      ImagePath.INAZUMA_2,
+      ImagePath.INAZUMA_3,
+    ],
+    portfolioDescription: StringConst.INAZUMA_DETAIL,
     isPublic: true,
     isOnPlayStore: false,
     technologyUsed: StringConst.FLUTTER,
-    gitHubUrl: StringConst.MARVEL_GITHUB_URL,
-    playStoreUrl: StringConst.MARVEL_PLAYSTORE_URL,
+    gitHubUrl: StringConst.INAZUMA_GITHUB_URL,
   );
 }

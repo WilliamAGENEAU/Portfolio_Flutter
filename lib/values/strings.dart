@@ -212,7 +212,10 @@ class StringConst {
   static const String INAZUMA_CATEGORY = "FLUTTER.";
   static const String INAZUMA_DESIGNER = "Inazuma-eleven.fr & William Ageneau.";
   static const String INAZUMA_SUBTITLE = "";
-  static const String INAZUMA_DETAIL = "";
+  static const String INAZUMA_DETAIL =
+      "Construis ton équipe de rêve avec tes joueurs préférés d’Inazuma Eleven !\nCette application Flutter te permet de gérer tes compositions, sélectionner les techniques de chaque joueur et personnaliser ton équipe comme dans le jeu. Elle est développé en partenariat avec inazuma-eleven.fr\n✨ Fonctionnalités\n📝 Gestion des joueurs : ajoute, modifie et supprime facilement tes joueurs.\n🎯 Techniques personnalisées : choisis jusqu’à 6 techniques par joueur.\n🎨 Personnalisation : sélectionne ton coach, ton maillot et ton écusson. \n💾 Sauvegarde locale : toutes tes données sont enregistrées via shared_preferences.\n📱 Interface moderne avec un design inspiré de l’univers Inazuma Eleven.";
+  static const String INAZUMA_GITHUB_URL =
+      "https://github.com/WilliamAGENEAU/inazuma_eleven_team_builder";
 
   static const String MOTION_DESIGN = "Motion Design";
   static const String MOTION_CATEGORY = "3D VISUALS .";

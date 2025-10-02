@@ -30,6 +30,7 @@ class _NextProjectState extends State<NextProject>
   bool _isHovering = false;
   late AnimationController controller;
   late Animation<double> scaleAnimation;
+
   @override
   void initState() {
     controller = AnimationController(
@@ -75,11 +76,13 @@ class _NextProjectState extends State<NextProject>
       md: 40,
       sm: 36,
     );
-    BorderRadiusGeometry borderRadius = BorderRadius.all(
+
+    BorderRadiusGeometry borderRadius = const BorderRadius.all(
       Radius.circular(100.0),
     );
+
     TextStyle? buttonStyle = textTheme.bodyMedium?.copyWith(
-      color: AppColors.black,
+      color: AppColors.white,
       fontSize: responsiveSize(
         context,
         Sizes.TEXT_SIZE_14,
@@ -88,8 +91,9 @@ class _NextProjectState extends State<NextProject>
       ),
       fontWeight: FontWeight.w500,
     );
+
     TextStyle? projectTitleStyle = textTheme.bodySmall?.copyWith(
-      color: AppColors.primaryColor,
+      color: Colors.white, // ✅ toujours blanc
       fontSize: projectTitleFontSize,
     );
 
@@ -102,6 +106,7 @@ class _NextProjectState extends State<NextProject>
         double screenWidth = sizingInformation.screenSize.width;
 
         if (screenWidth <= RefinedBreakpoints().tabletSmall) {
+          // ✅ Version mobile
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -112,6 +117,7 @@ class _NextProjectState extends State<NextProject>
                   fontSize: responsiveSize(context, 11, Sizes.TEXT_SIZE_12),
                   letterSpacing: 2,
                   fontWeight: FontWeight.w300,
+                  color: Colors.white,
                 ),
               ),
               SpaceH20(),
@@ -133,12 +139,12 @@ class _NextProjectState extends State<NextProject>
               AnimatedBubbleButton(
                 startWidth: widget.width * 0.1,
                 title: StringConst.VIEW_PROJECT,
-                color: AppColors.grey100,
-                imageColor: AppColors.black,
+                imageColor: AppColors.white,
+                color: AppColors.black100,
                 startBorderRadius: borderRadius,
                 titleStyle: buttonStyle,
-                startOffset: Offset(0, 0),
-                targetOffset: Offset(0.1, 0),
+                startOffset: const Offset(0, 0),
+                targetOffset: const Offset(0.1, 0),
                 onTap: () {
                   if (widget.navigateToNextProject != null) {
                     widget.navigateToNextProject!();
@@ -148,6 +154,7 @@ class _NextProjectState extends State<NextProject>
             ],
           );
         } else {
+          // ✅ Version desktop
           return SizedBox(
             height: assignHeight(context, 0.3),
             child: Row(
@@ -165,8 +172,6 @@ class _NextProjectState extends State<NextProject>
                         margin: marginLeft,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               StringConst.NEXT_PROJECT,
@@ -178,56 +183,31 @@ class _NextProjectState extends State<NextProject>
                                 ),
                                 letterSpacing: 2,
                                 fontWeight: FontWeight.w300,
+                                color: Colors.white,
                               ),
                             ),
                             SpaceH20(),
-                            isDisplayMobileOrTablet(context)
-                                ? Text(
-                                    nextProjectTitle,
-                                    textAlign: TextAlign.center,
-                                    style: projectTitleStyle,
-                                  )
-                                : AnimatedSwitcher(
-                                    duration: Animations.switcherDuration,
-                                    child: _isHovering
-                                        ? Text(
-                                            nextProjectTitle,
-                                            textAlign: TextAlign.center,
-                                            style: projectTitleStyle,
-                                          )
-                                        : Stack(
-                                            children: [
-                                              Text(
-                                                nextProjectTitle,
-                                                textAlign: TextAlign.center,
-                                                style: projectTitleStyle,
-                                              ),
-                                              Text(
-                                                nextProjectTitle,
-                                                textAlign: TextAlign.center,
-                                                style: projectTitleStyle
-                                                    ?.copyWith(
-                                                      color: AppColors.black,
-                                                      fontSize:
-                                                          projectTitleFontSize -
-                                                          0.25,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                  ),
+                            AnimatedSwitcher(
+                              duration: Animations.switcherDuration,
+                              child: Text(
+                                nextProjectTitle,
+                                key: ValueKey(_isHovering),
+                                textAlign: TextAlign.center,
+                                style: projectTitleStyle,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                       SpaceH20(),
                       AnimatedBubbleButton(
                         title: StringConst.VIEW_PROJECT,
-                        color: AppColors.grey100,
-                        imageColor: AppColors.black,
+                        color: AppColors.black100,
+                        imageColor: AppColors.white,
                         startBorderRadius: borderRadius,
                         titleStyle: buttonStyle,
-                        startOffset: Offset(0, 0),
-                        targetOffset: Offset(0.1, 0),
+                        startOffset: const Offset(0, 0),
+                        targetOffset: const Offset(0.1, 0),
                         onTap: () {
                           if (widget.navigateToNextProject != null) {
                             widget.navigateToNextProject!();

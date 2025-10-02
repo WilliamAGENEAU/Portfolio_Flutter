@@ -9,11 +9,9 @@ import '../widgets/project_item.dart';
 import '../widgets/social.dart';
 
 part 'colors.dart';
-part 'borders.dart';
 part 'images.dart';
 part 'sizes.dart';
 part 'strings.dart';
-part 'gradients.dart';
 part 'data.dart';
 part 'docs.dart';
 part 'animations.dart';
