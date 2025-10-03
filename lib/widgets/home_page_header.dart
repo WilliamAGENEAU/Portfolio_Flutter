@@ -41,8 +41,14 @@ class _HomePageHeaderState extends State<HomePageHeader>
       parent: _fadeController,
       curve: Curves.easeInOut,
     );
+  }
 
-    _videoController = VideoPlayerController.asset("assets/videos/braise.mp4")
+  void _initializeVideo(bool isMobile) {
+    final String videoPath = isMobile
+        ? "assets/videos/mobile.mp4"
+        : "assets/videos/braise.mp4";
+
+    _videoController = VideoPlayerController.asset(videoPath)
       ..initialize().then((_) {
         if (mounted) {
           setState(() => _isVideoInitialized = true);
@@ -73,6 +79,11 @@ class _HomePageHeaderState extends State<HomePageHeader>
             sizingInformation.screenSize.width <
             RefinedBreakpoints().tabletNormal;
 
+        // Initialise la bonne vidéo selon la plateforme
+        if (!_isVideoInitialized) {
+          _initializeVideo(isMobile);
+        }
+
         return SizedBox(
           width: screenWidth,
           height: screenHeight,
@@ -83,33 +94,15 @@ class _HomePageHeaderState extends State<HomePageHeader>
               if (_isVideoInitialized)
                 FadeTransition(
                   opacity: _fadeAnimation,
-                  child: isMobile
-                      ? Positioned.fill(
-                          child: Transform.translate(
-                            offset: Offset(-screenWidth * 0.25, 0),
-                            child: Transform.scale(
-                              scale: 1.5,
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                clipBehavior: Clip.hardEdge,
-                                child: SizedBox(
-                                  width: _videoController.value.size.width,
-                                  height: _videoController.value.size.height,
-                                  child: VideoPlayer(_videoController),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : FittedBox(
-                          fit: BoxFit.cover,
-                          clipBehavior: Clip.hardEdge,
-                          child: SizedBox(
-                            width: _videoController.value.size.width,
-                            height: _videoController.value.size.height,
-                            child: VideoPlayer(_videoController),
-                          ),
-                        ),
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    clipBehavior: Clip.hardEdge,
+                    child: SizedBox(
+                      width: _videoController.value.size.width,
+                      height: _videoController.value.size.height,
+                      child: VideoPlayer(_videoController),
+                    ),
+                  ),
                 )
               else
                 Container(color: Colors.black),
@@ -157,13 +150,12 @@ class _HomePageHeaderState extends State<HomePageHeader>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       child: SingleChildScrollView(
-        // Ajoute ce widget ici
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             _buildTitleBlock(context, isMobile: true),
-            const SizedBox(height: 32), // <-- Ajoute un espace fixe à la place
+            const SizedBox(height: 32),
             _FramedProjectCard(
               imagePath: ImagePath.MARVEL_BKG,
               width: screenWidth * 0.65,
