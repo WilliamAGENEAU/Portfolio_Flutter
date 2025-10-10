@@ -10,11 +10,11 @@ Bienvenue dans mon portfolio développé avec **Flutter**, accessible à l’adr
 Une application web/mobile responsive, conçue avec Flutter, pour présenter mes projets, compétences et parcours professionnel de façon dynamique et esthétique.
 
 <p align="center">
-  <img width="2856" height="1448" alt="miniature portfolio" src="https://github.com/user-attachments/assets/d190d944-e9b7-4394-88f4-396e5bd7fecf" />
+  <img width="2856" height="1448" alt="miniature portfolio" src="assets/readme/portfolio.png" />
 </p>
 
 <p align="center">
-  <img width="2806" height="1274" alt="Banniere" src="https://github.com/user-attachments/assets/9098bda7-b37e-4e4c-8201-b5ad8c4ebdda" />
+  <img width="2806" height="1274" alt="Banniere" src="assets/readme/projet.png" />
 </p>
 
 ---
