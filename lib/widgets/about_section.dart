@@ -225,7 +225,7 @@ class _AboutSectionState extends State<AboutSection>
             _buildAnimatedPoint(
               title: "Qui suis-je ?",
               text:
-                  "Je suis ingénieur logiciel front-end passionné par la création d'applications de haute qualité. Je suis diplômé ingénieur informatique de l'école d'ingénieurs ESAIP d'Angers, avec une spécialisation en IoT (objets connectés). Je possède de solides compétences techniques ainsi que d'excellentes aptitudes relationnelles, qui m'ont permis de travailler et d'interagir avec des clients partout dans le monde.",
+                  "Je suis ingénieur logiciel front-end passionné par la création d'applications de haute qualité. Je suis diplômé ingénieur informatique de l'école d'ingénieurs ESAIP d'Angers, avec une spécialisation en IoT (objets connectés). Je possède de solides compétences techniques ainsi que d'excellentes aptitudes relationnelles, qui m'ont permis de travailler et d'interagir avec des clients partout dans le monde. Après mes études, je suis parti en voyage dans les Balkans en Van pour développer mes projets personnels et découvrir de nouvelles cultures.",
               imagePath: "assets/images/story6.jpg",
               isImageLeft: false,
               index: 0,
